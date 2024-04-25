@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "530790572196",
+    "project_id": "mykiddonest-b9e0e",
+    "storage_bucket": "mykiddonest-b9e0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:530790572196:android:b0ef166ffd6f3d9fdf8631",
+        "android_client_info": {
+          "package_name": "com.android.application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDygp4UtO-HgwP9-rJP7tNN0RBjFb1M_MA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
