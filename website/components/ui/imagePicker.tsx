@@ -6,6 +6,8 @@ type ImagePickerProps = {
   isProfilePic?: boolean;
   profilePic?: string;
   isGuardianPic?: boolean;
+  isContentPic?: boolean;
+  contentPicPath?: string;
   onImageSelected: (imgPath: string) => void; // Callback function to pass selected image path
 };
 
@@ -14,7 +16,9 @@ const ImagePicker = ({
   onImageSelected,
   isProfilePic,
   profilePic,
-  isGuardianPic
+  isGuardianPic,
+  isContentPic,
+  contentPicPath = '/defaultContentPic.jpg', // Provide a default value for contentPicPath
 }: ImagePickerProps) => {
   const [image, setImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -58,13 +62,23 @@ const ImagePicker = ({
         onClick={handleButtonClick}
         disabled={disabled}
       >
+        {!image && isContentPic && contentPicPath && (
+          <Image
+            src={contentPicPath}
+            alt='announcement'
+            width={150}
+            height={150}
+            className='rounded-md border   border-dashed border-blue-600 p-1'
+          />
+        )}
+
         {image && (
           <Image
             src={image}
             alt={isProfilePic ? "Profile" : "Selected"}
             width={110}
             height={110}
-            className={isProfilePic || isGuardianPic ? "rounded-full  border-2 border-gray-300 p-1" : ""}
+            className={isProfilePic || isGuardianPic ? "rounded-full  border-2 border-gray-300 p-1 " : " rounded-md border-2 border-gray-300 p-1"}
           />
         )}
         {!image && isProfilePic && profilePic && (
@@ -89,7 +103,7 @@ const ImagePicker = ({
           </div>
         </div>
         )}
-        {!image && !isProfilePic && !isGuardianPic &&  (
+        {!image && !isProfilePic && !isGuardianPic && !isContentPic && (
           <div>
             <div className="flex w-full justify-center items-center">
               <Image src="/dropImg.png" height={60} width={60} alt="upload pic" />

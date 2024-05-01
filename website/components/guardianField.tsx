@@ -30,7 +30,7 @@ const GuardianField = ({ label, initialValue, isDate = false, isPassword = false
                     type={isPassword && !showPassword ? 'password' : isDate ? 'date' :isEmail? 'email': 'text'} 
                     value={value} 
                     onChange={handleChange}
-                    className={`border border-gray-15 z-0 shadow-sm p-0.5 rounded-sm w-56 regular-14 px-4 py-1.5 ${isPassword?'flex justify-end':''} ${!disabled?'group focus-within:outline-none border border-dashed border-blue-700':''} `}
+                    className={`border border-gray-15 z-0 shadow-sm p-0.5 rounded-sm w-56 regular-14 px-4 py-1.5 ${isPassword?'flex justify-end':''} ${!disabled?'group focus-within:outline-none border border-dashed border-blue-800':''} `}
                     disabled={disabled}
                 />
                 {isPassword && (

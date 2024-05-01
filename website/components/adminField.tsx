@@ -3,13 +3,17 @@ import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 type Args = {
    label: string;
-   initialValue: string;
+   initialValue?: string;
+   initialDate?: Date;
    isDate?: boolean;
    isPassword?: boolean;
 };
 
-const AdminField = ({ label, initialValue, isDate = false, isPassword = false }: Args) => {
-    const [value, setValue] = useState(initialValue);
+const AdminField = ({ label, initialValue, isDate = false, isPassword = false, initialDate }: Args) => {
+    // Ensure initial date is in ISO string format
+    const initialDateValue = initialDate instanceof Date ? initialDate.toISOString().split('T')[0] : '';
+
+    const [value, setValue] = useState(initialValue !== undefined ? initialValue : (isDate ? initialDateValue : ''));
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {
@@ -31,13 +35,12 @@ const AdminField = ({ label, initialValue, isDate = false, isPassword = false }:
                     className='border border-gray-15 shadow-sm p-0.5 rounded-sm w-full regular-14 px-4'
                 />
                 {isPassword && (
-                   ( 
                     <button 
                         onClick={togglePasswordVisibility} 
-                        className=' relative bottom-6 left-[90%] pl- z-20 pt-0.5'
+                        className='relative bottom-6 left-[90%] pl- z-20 pt-0.5'
                     >
-                        {showPassword ? <MdVisibility/> :<MdVisibilityOff/>}
-                    </button>)
+                        {showPassword ? <MdVisibility /> : <MdVisibilityOff />}
+                    </button>
                 )}
             </div>
         </div>

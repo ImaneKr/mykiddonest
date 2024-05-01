@@ -28,7 +28,7 @@ const MyTimeTable = ({category , isEditPressed}:TimeTableProps) => {
           <div className='flex w-28 items-center  rounded-md bg-green-400 p-2 text-ms font-sans font-medium text-white'><p className='  items-center  justify-center flex w-28'>{day.day}</p> </div>
           {day.subjects.map((subject, subjectIndex) => (  
             <div key={subjectIndex}> 
-              <div><input type='text' value={subject.name} className={`flex w-36 pt-2 pb-2 border border-gray-300 bg-gray-10 rounded-md px-2 text-gray-90 font-sans group focus:outline-none ${isEditPressed?'border-dashed border-blue-600':''}`} disabled={!isEditPressed}  /></div>
+              <div><input type='text' value={subject.name} className={`flex w-36 pt-2 pb-2 border border-gray-300 bg-gray-10 rounded-md px-2 text-gray-90 font-sans group focus:outline-none ${isEditPressed?'border-2 border-dashed border-green-400':''}`} disabled={!isEditPressed}  /></div>
             </div>
           ))}
         </div>

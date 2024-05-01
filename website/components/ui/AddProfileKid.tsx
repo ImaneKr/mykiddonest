@@ -43,8 +43,8 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
          <div className=''>
            <ImagePicker onImageSelected={setSelectedImagePath} disabled={false} isProfilePic={true}/>
          </div>
-          <hr className='m-2.5' />
-          <div className='flex justify-between mb-3 px-8'>
+          <hr className='m-2.5 mb-5' />
+          <div className='flex justify-between lg:flex-row flex-col  mb-5 px-8 '>
           <p className='regular-18'>
             First Name
            </p>
@@ -52,13 +52,12 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            type='text'
            name='first name'
            placeholder='First Name'
-           autoFocus
            size='small'
            //value={accountInfo.name}
            className='border-2'
            />
           </div>
-         <div className='flex justify-between mb-3 px-8'>
+          <div className='flex justify-between  items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='regular-18'>
             Last Name
            </p>
@@ -66,40 +65,38 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            type='text'
            name='last name'
            placeholder='Last Name'
-           autoFocus
            size='small'
            //value={accountInfo.name}
-           className='border-2'
+            className=' lg:w-56 w-[99%]'
            />
           </div>
           
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='  regular-18 '>
             Date Of birth
            </p>
           <TextField 
            type='date'
            name=' date of birth'
-           autoFocus
            size='small'
+            className=' lg:w-56 w-[99%]'
            //value={accountInfo.date}
            />
           </div>
-          <div className='flex justify-between mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='regular-18'>
-            Relationship yo child
+            Relationship to child
            </p>
           <TextField 
            type='text'
            name='relation'
            placeholder='Relationship ..'
-           autoFocus
            size='small'
            //value={accountInfo.name}
-           className='border-2'
+            className=' lg:w-56 w-[99%]'
            />
           </div>
-        <div className='flex justify-between mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='regular-18'>
             Gender
            </p>
@@ -107,7 +104,7 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
     aria-labelledby="demo-radio-buttons-group-label"
     defaultValue="female"
     name="radio-buttons-group"
-   className=' flex flex-row justify-between gap-6'
+   className=' flex flex-row justify-between items-center '
           >
     <FormControlLabel value="female" control={<Radio />} label="Female" />
     <FormControlLabel value="male" control={<Radio />} label="Male" />
@@ -115,7 +112,7 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
   </RadioGroup>
           
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='  regular-18 '>
             Allergies
            </p>
@@ -124,12 +121,12 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            name='allergies'
            placeholder='Allergies'
            multiline
-           autoFocus
            size='small'
+            className=' lg:w-56 w-[99%]'
            //value={accountInfo.allergies}
            />
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='  regular-18 '>
             Syndromes
            </p>
@@ -137,13 +134,13 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            type='text'
            name='syndromes'
            placeholder='Syndromes'
-           autoFocus
           multiline
            size='small'
+            className=' lg:w-56 w-[99%]'
            //={accountInfo.syndromes}
            />
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='  regular-18 '>
             Hobbies
            </p>
@@ -152,12 +149,12 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            name='hobbies'
            placeholder='Hobbies'
            multiline
-           autoFocus
+            className=' lg:w-56 w-[99%]'
            size='small'
            //value={accountInfo.hobbies}
            />
           </div>
-          <div className='flex   justify-between gap-18 mb-3 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col  mb-5 px-8 '>
           <p className='  regular-18 '>
             Authorized pick-up persons
            </p>
@@ -166,15 +163,15 @@ const AddProfileKid : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            name='authorized persons'
            placeholder='mention'
            multiline
-           autoFocus
+            className=' lg:w-56 w-[99%]'
            size='small'
            //value={accountInfo.authorizedPerson}
            />
           </div>
         </DialogContent>
-        <DialogActions>
+        <DialogActions className='pr-7'>
           <Button onClick={() => setOpen(false)}>Cancel</Button>
-          <Button  type='submit' className='bg-black text-white inline-block px-2 rounded-lg'> Submit </Button>
+          <Button  type='submit' className='bg-blue-600 text-white inline-block px-2  rounded-lg'> Submit </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
