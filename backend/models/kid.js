@@ -2,6 +2,8 @@
 
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
+const Category = require('./category');
+const Event = require('./event');
 
 const Kid = sequelize.define('Kid', {
   kid_id: {
@@ -42,11 +44,15 @@ const Kid = sequelize.define('Kid', {
   },
   category_id: {
     type: DataTypes.INTEGER,
+    allowNull:false,
     references: {
       model: 'category',
       key: 'category_id'
     }
   }
 });
+
+Kid.belongsTo(Category);
+Kid.belongsToMany(Event,{through:'EventList'});// joint tablle shows that  is in event too
 
 module.exports = Kid;

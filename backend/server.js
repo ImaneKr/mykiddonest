@@ -1,16 +1,20 @@
 const express = require('express');
-const {Sequelize} =require('sequelize');
-
-const config = require('./config/config.json')[process.env.NODE_ENV || 'development'];
+const sequelize = require('./config/db'); // Import Sequelize instance from database.js
 
 const app = express();
 
-const sequelize = new Sequelize(config.databse, config.username ,config.password, {
-  host : config.host,
-  port: config.port,
-  dialect: config.dialect,
-  logging: config.logging
+// Define your routes and middleware here
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
+
+// Example: Define models and perform database operations
+//const { ModelName } = require('./models'); // Import your Sequelize models
+
+// Example: Sync the models with the database
 sequelize.sync({ force: false })
   .then(() => {
     console.log('Database synchronized');
@@ -19,15 +23,11 @@ sequelize.sync({ force: false })
     console.error('Error synchronizing database:', err);
   });
 
+// Example: Test the database connection
 sequelize.authenticate()
-  .then(()=>{
+  .then(() => {
     console.log('Database connection established successfully');
   })
-  .catch(err =>{
-    console.error('Unable to connect to the database: ',err);
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
   });
-
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT ,() =>{
-    console.log(`Server is running on port ${PORT}`);
-  })
