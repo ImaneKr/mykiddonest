@@ -4,6 +4,7 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import AdminField from '@/components/adminField';
 import ToggleComponent from '@/components/toggle';
 import LanguageSelect from '@/components/languageSelect';
+import { formatDate } from '@fullcalendar/core/index.js';
 
 const Page = () => {
   return (
@@ -30,7 +31,7 @@ const Page = () => {
           <div className='flex flex-col lg:w-2/6 w-4/5 '>
             <AdminField label='First name' initialValue='Ahlam' />
             <AdminField label='Phone number' initialValue='+21356427'  />
-            <AdminField label='Date of birth' initialValue='DD/MM/YYYY' isDate={true}/>
+            <AdminField label='Date of birth' initialDate={new Date(1990 , 5 , 17)} isDate={true}/>
           </div>
           <div className='flex flex-col lg:w-2/6 w-4/5 pt-5'>
             <AdminField label='Last name' initialValue='Kabbas' />

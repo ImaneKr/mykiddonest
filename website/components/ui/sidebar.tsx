@@ -2,7 +2,7 @@ import React, { useState , useEffect } from "react";
 import { Disclosure } from "@headlessui/react";
 import { HiDotsVertical } from "react-icons/hi";
 import { RiSettings3Line } from "react-icons/ri";
-import { BiDollar } from "react-icons/bi";
+import { BiDollar ,BiRestaurant } from "react-icons/bi";
 import { FaUsers } from "react-icons/fa";
 import { CgGirl } from "react-icons/cg";
 import { AiOutlineCalendar } from "react-icons/ai";
@@ -98,20 +98,26 @@ function Sidebar() {
                 </Link>
               </button>
               <button className=" w-full flex  gap-4 justify-start items-center  px-4   " onClick={()=>setIsPressed(8)}>
-                <Link href='/dashboard/settings'className={`flex flex-row w-full h-full gap-4  rounded-md  p-2  group  regular-14  text-gray-800  font-semibold ${isPressed==8? 'bg-blue-500 text-white':''}`}> 
+                <Link href='/dashboard/menu'className={`flex flex-row w-full h-full gap-4  rounded-md  p-2  group  regular-14  text-gray-800  font-semibold ${isPressed==8? 'bg-blue-500 text-white':''}`}> 
+                <BiRestaurant className="text-xl text-gray-icon  " />
+                   Lunch Menu
+                </Link>
+              </button>
+              <button className=" w-full flex  gap-4 justify-start items-center  px-4   " onClick={()=>setIsPressed(9)}>
+                <Link href='/dashboard/settings'className={`flex flex-row w-full h-full gap-4  rounded-md  p-2  group  regular-14  text-gray-800  font-semibold ${isPressed==9? 'bg-blue-500 text-white':''}`}> 
                 <RiSettings3Line className="text-xl text-gray-icon  " />
                    Settings
                 </Link>
               </button>
-              <button className=" w-full flex  gap-4 justify-start items-center  px-4   " onClick={()=>setIsPressed(9)}>
-                <Link href='/dashboard/payement'className={`flex flex-row w-full h-full gap-4  rounded-md  p-2  group  regular-14  text-gray-800  font-semibold ${isPressed==9? 'bg-blue-500 text-white':''}`}> 
+              <button className=" w-full flex  gap-4 justify-start items-center  px-4   " onClick={()=>setIsPressed(10)}>
+                <Link href='/dashboard/payement'className={`flex flex-row w-full h-full gap-4  rounded-md  p-2  group  regular-14  text-gray-800  font-semibold ${isPressed==10? 'bg-blue-500 text-white':''}`}> 
                 <GoSignOut className="text-xl text-gray-icon  " />
                    Log out
                 </Link>
               </button>
             </div></div>
               <div className="justify-center items-center ">
-                 <Image alt="logo" src="/cuteee_animals_3.png" width={70} height={52} className=" lg:w-56 pl-2  "/>  
+                 <Image alt="logo" src="/cuteee_animals_3.png" width={70} height={52} className=" lg:w-56 pl-2 w-[95%] "/>  
               </div>
             
         </div>

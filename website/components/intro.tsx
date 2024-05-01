@@ -4,8 +4,8 @@ import Button from './Button'
 
 const intro = () => {
   return (
-    <section className='max-container   padding-container flex flex-col 
-    gap-20 py-10  lg:flex-row '>
+    <section className='max-container   flex flex-col 
+    gap-10 py-10  lg:flex-row items-center justify-center'>
       <div className='  pl-12 w-[90%]'>
         <h1 className='bold-40 lg:bold-40 text-green-50'>
         A software platform to make  your Childs World, at Your Fingertips!
@@ -36,7 +36,7 @@ const intro = () => {
         </div>
       </div>
       <div className='hidden lg:flex h-[350px] mr-12'>
-           <Image src='/cuteee_animals_3.png' alt='' width={700} height={24}/>
+           <Image src='/cute.png' alt='' width={500 } height={350}/>
       </div>
     </section>
   )
