@@ -36,7 +36,6 @@ class _EditProfile extends State<EditProfile> {
     }
   }
 
-  @override
   TextEditingController _date = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
@@ -72,14 +71,27 @@ class _EditProfile extends State<EditProfile> {
           ),
         ),
         centerTitle: true,
-        actions: [
+          actions: [
           // Additional actions (if needed)
-          IconButton(
-            icon: Icon(Icons.done),
-            onPressed: () {
-              // Implement save logic here
-            },
-          ),
+ Row(
+children: [ 
+   TextButton.icon(
+                  onPressed: () {},
+                  icon: Icon(Icons.done),
+                  label: Text('Done'),
+                  style: ButtonStyle(
+                    foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                      (Set<MaterialState> states) {
+                        if (states.contains(MaterialState.pressed)) {
+                          return Color.fromARGB(253, 226, 225, 229);
+                        }
+                        return Colors.black;
+                      },
+                    ),
+                  ), 
+                ),
+],
+)
         ],
       ),
       body: ListView(
@@ -96,19 +108,19 @@ class _EditProfile extends State<EditProfile> {
                   backgroundImage: AssetImage('assets/images/aymen.jpg'),
                 ),
                 Positioned(
-                  bottom: 4,
+                  bottom: 2,
                   right: 0,
                   child: Container(
                       padding: EdgeInsets.zero,
                       decoration: BoxDecoration(
-                        color: null,
+                        color: Color.fromARGB(255, 255, 255, 255),
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
                           onPressed: _pickImageFromGallery,
                           icon: Icon(
                             Icons.add_a_photo_rounded,
-                            color: Color.fromARGB(255, 41, 41, 41),
+                              color: Color(0xFF00ADE9),
                           ))),
                 ),
               ],

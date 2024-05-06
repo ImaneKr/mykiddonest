@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, prefer_const_constructors
 import 'package:appmobile/view/components/profileTextField.dart';
+import 'package:appmobile/view/screens/guardianProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:appmobile/controller/kid_profile_controller.dart';
 import 'package:appmobile/view/screens/payment.dart';
@@ -34,7 +35,7 @@ class _KidProfileState extends State<KidProfile> {
               alignment: Alignment.center,
               height: 125,
               width: 340,
-              decoration: BoxDecoration(
+            decoration: BoxDecoration(
                 color: _kidProfileController.kidProfile.gender == 'Male'
                     ? Color(0xFFD6E6F7)
                     : Color(0xFFF9CAD2),
@@ -61,7 +62,7 @@ class _KidProfileState extends State<KidProfile> {
                       SizedBox(
                         height: 20,
                       ),
-                      Text(
+                     Text(
                         '${_kidProfileController.firstName} ${_kidProfileController.lastName}',
                         // textAlign: A,
                         style: TextStyle(
@@ -70,7 +71,7 @@ class _KidProfileState extends State<KidProfile> {
                           fontWeight: FontWeight.w700,
                         ),
                       ),
-                      Text(
+                        Text(
                         '${_kidProfileController.gender}',
                         style: TextStyle(
                           fontSize: 18,
@@ -79,7 +80,10 @@ class _KidProfileState extends State<KidProfile> {
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Align(
+                      SizedBox(
+                        height: 7,
+                      ),
+                  Align(
                         alignment: Alignment.centerLeft,
                         child: TextButton(
                           onPressed: () {
@@ -98,13 +102,17 @@ class _KidProfileState extends State<KidProfile> {
                               fontWeight: FontWeight.w400,
                             ),
                           ),
-                        ),
-                      ),
+                        ),),
                     ],
                   ),
+                  SizedBox(
+                    width: 30,
+                  ),
+        
                 ],
               ),
             ),
+
             SizedBox(
               height: 15.0,
             ),

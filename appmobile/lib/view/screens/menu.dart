@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:appmobile/models/menu.dart';
 import 'package:appmobile/controller/menu_controller.dart';
@@ -18,7 +19,6 @@ class WeekDates {
 
 class Calendar {
   List<List<DateTime>> monthDates(int year, int month) {
-    final cal = Calendar();
     final firstDay = DateTime(year, month, 1);
     final lastDay = DateTime(year, month + 1, 0);
 
@@ -66,12 +66,15 @@ class LunchMenuBottomSheet extends StatefulWidget {
   @override
   _LunchMenuBottomSheetState createState() => _LunchMenuBottomSheetState();
 }
+String _getMonth(int month) {
+  List<String> months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  return months[month - 1];
+}
 
 class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
-  late DateTime selectedDate;
+    late DateTime selectedDate;
   late MController _controller;
   late List<Menu> _menus;
-
   @override
   void initState() {
     selectedDate = widget.selectedDate;
@@ -120,38 +123,41 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
             height: 20,
           ),
           Center(
-            child: Text(
+              child: Text(
               'Lunch Menu Of The week',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-                fontFamily: 'Inter',
-                color: Colors.black,
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            getWeekRange(selectedDate),
-            style: TextStyle(
-              fontFamily: 'Inter',
+               style:GoogleFonts.lato(
+                textStyle :TextStyle(
               fontWeight: FontWeight.w700,
-              fontSize: 20,
+              fontSize: 23,
+               color: Colors.black,
+            ),
+             ),
             ),
           ),
           SizedBox(
             height: 15,
           ),
           Text(
-            _getDayOfWeek(selectedDate),
+            getWeekRange(selectedDate),
             style: TextStyle(
               fontFamily: 'Inter',
               fontWeight: FontWeight.w500,
-              fontSize: 19,
+              fontSize: 20,
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+
+         Text(
+          "Today : " + _getDayOfWeek(selectedDate) + ", ${selectedDate.day} ${_getMonth(selectedDate.month)}",
+        // "${_getDayOfWeek(selectedDate)} ${selectedDate.day} ${_getMonth(selectedDate.month)}",
+         style: TextStyle(
+         fontFamily: 'Inter',
+         fontWeight: FontWeight.w500,
+         fontSize: 16,
+        ),
+           ),
           SizedBox(
             height: 15,
           ),
