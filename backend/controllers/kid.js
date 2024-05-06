@@ -4,7 +4,7 @@ const { KidProfile, Guardian, Staff } = require('../models/initModels');
 // Create KidProfile only if Guardian exists
 async function createKidProfile(req, res) {
     try {
-        const { guardianId, firstname, lastname, age, allergies, hobbies, profilePic, syndromes } = req.body;
+        const { guardianId, firstname, lastname, dateOfbirth, allergies, hobbies, profilePic,authorizedpickups, syndromes } = req.body;
 
         // Check if Guardian exists
         const guardian = await Guardian.findByPk(guardianId);
@@ -15,13 +15,15 @@ async function createKidProfile(req, res) {
         // Create KidProfile
         const kidProfile = await Kid.create({
             guardian_id: guardianId,
-            firstname,
-            lastname,
-            age,
-            allergies,
-            hobbies,
+            firstname: firstname,
+            lastname: lastname,
+            dateOfbirth:dateOfbirth,
+            allergies:allergies,
+            hobbies:hobbies,
             profile_pic: profilePic,
-            syndromes
+            syndromes:syndromes,
+            authorizedpickups:authorizedpickups,
+            active:true,
         });
 
         return res.status(201).json(kidProfile);
@@ -35,7 +37,7 @@ async function createKidProfile(req, res) {
 async function editKidProfile(req, res) {
     try {
         const { id } = req.params;
-        const { firstname, lastname, age, allergies, hobbies, profilePic, syndromes } = req.body;
+        const { firstname, lastname, dateOfbirth, allergies, hobbies, authorizedpickups, syndromes } = req.body;
 
         // Find KidProfile by id
         let kidProfile = await Kid.findByPk(id);
@@ -45,13 +47,13 @@ async function editKidProfile(req, res) {
 
         // Update KidProfile
         kidProfile = await kidProfile.update({
-            firstname,
-            lastname,
-            age,
-            allergies,
-            hobbies,
-            profile_pic: profilePic,
-            syndromes
+            firstname:firstname,
+            lastname:lastname,
+            dateOfbirth:dateOfbirth,
+            allergies:allergies,
+            hobbies:hobbies,
+            authorizepickups: authorizedpickups ,
+            syndromes:syndromes,
         });
 
         return res.status(200).json(kidProfile);

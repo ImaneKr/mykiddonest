@@ -9,7 +9,14 @@ interface FormDialogProps {
 }
 const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
    
-    const [formValues, setFormValues] = useState({ name: '', email: '',phone:'+213', username:'', profileImage:'',password:''});
+    const [formValues, setFormValues] = useState({
+       firstname: '', 
+       lastname:'',
+       email: '',
+       phone:'+213',
+       username:'',
+       profileImage:'',
+       password:''});
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
@@ -54,7 +61,7 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
             placeholder='First Name'
             autoFocus
             size='small'
-            //value={accountInfo.name}
+            value={formValues.firstname}
             className=' lg:w-56 w-[99%]'
             />
             </div>

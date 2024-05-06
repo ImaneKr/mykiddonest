@@ -2,7 +2,7 @@ const { ENUM } = require("sequelize");
 
 var DataTypes = require("sequelize").DataTypes;
 
-function initModels(sequelize) {
+function Models(sequelize) {
 
   const Category = sequelize.define('Category', {
     category_id: {
@@ -26,6 +26,10 @@ function initModels(sequelize) {
     },
     firstname: {
       type: DataTypes.STRING(100),
+      allowNull: false
+    },
+    dateOfbirth: {
+      type: DataTypes.TIME,
       allowNull: false
     },
     lastname: {
@@ -105,6 +109,10 @@ function initModels(sequelize) {
     prof_pic: {
       type: DataTypes.STRING(250)
     },
+    authorizedpickups: {
+      type: DataTypes.JSON
+    },
+
     guardian_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -340,6 +348,17 @@ function initModels(sequelize) {
       default: true,
     }
   });
+  const Subject = sequelize.define('Subject', {
+    subject_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    subject_name: {
+      type: DataTypes.STRING(50),
+      allowNull: false
+    }
+  });
   return {
     Guardian,
     Kid,
@@ -352,9 +371,10 @@ function initModels(sequelize) {
     Evaluation,
     Category,
     AppSetting,
-    WebSetting
+    WebSetting,
+    Subject
   };
 }
-module.exports = initModels;
-module.exports.initModels = initModels;
-module.exports.default = initModels;
+module.exports = Models;
+module.exports.initModels = Models;
+module.exports.default = Models;
