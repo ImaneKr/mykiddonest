@@ -309,7 +309,7 @@ class _LoginPageState extends State<LoginPage> {
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
-                                      primary: Color(0xFFEBEBEB),
+                                      //primary: Color(0xFFEBEBEB),
                                     ),
                                     onPressed: () {
                                       _username.text == retrieved.username
@@ -453,7 +453,7 @@ class _LoginPageState extends State<LoginPage> {
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                         ),
-                                        primary: Color(0xFFEBEBEB),
+                                        //primary: Color(0xFFEBEBEB),
                                       ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
