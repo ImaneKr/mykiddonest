@@ -2,6 +2,7 @@ import 'package:appmobile/view/bodies/homepage.dart';
 import 'package:appmobile/view/bodies/sideBar.dart';
 import 'package:appmobile/view/bodies/kidProfile.dart';
 import 'package:appmobile/view/screens/guardianProfile.dart';
+import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:appmobile/view/screens/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:appmobile/controller/kid_profile_controller.dart';
@@ -55,7 +56,7 @@ class _SettingsState extends State<Settings> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => SideBar()),
+                            MaterialPageRoute(builder: (context) => MainPage()),
                           );
                         },
                         icon: Icon(Icons.close),
