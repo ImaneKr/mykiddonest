@@ -1,22 +1,17 @@
-// routes/kidProfileRoutes.js
 const express = require('express');
 const router = express.Router();
-const kidProfile = require('../controllers/kid');
-const authMiddleware = require('../middleware/authMiddleware');
+const { createKidProfile, editKidProfile, deleteKidProfile, getAllKidProfiles } = require('../controllers/kid');
 
-// Create KidProfile
-router.post('/kid', authMiddleware, kidProfile.createKidProfile);
+// Route for creating a kid profile
+router.post('/', createKidProfile);
 
-// Edit KidProfile
-router.put('/kid/:id', authMiddleware, kidProfile.editKidProfile);
+// Route for editing a kid profile
+router.put('/:id', editKidProfile);
 
-// Delete KidProfile
-router.delete('/kid/:id', authMiddleware, kidProfile.deleteKidProfile);
+// Route for deleting a kid profile
+router.delete('/:id', deleteKidProfile);
 
-// Activate KidProfile
-router.put('/kid/:id/activate', authMiddleware, kidProfile.activateKidProfile);
-
-// Deactivate KidProfile
-router.put('/kid/:id/deactivate', authMiddleware, kidProfile.deactivateKidProfile);
+// Route for getting all kid profiles
+router.get('/', getAllKidProfiles);
 
 module.exports = router;

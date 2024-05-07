@@ -1,11 +1,11 @@
 // kidProfileController.js
-const { KidProfile, Guardian, Category,Staff } = require('../models/models');
+const { Kid, Guardian, Category, Staff } = require('../models/models');
 
 // Create KidProfile only if Guardian exists
 async function createKidProfile(req, res) {
     try {
         // Extract necessary data from request body
-        const { guardianId, firstname, lastname, dateOfbirth, allergies, hobbies, profilePic, syndromes, authorizedpickups } = req.body;
+        const { guardianId, firstname, lastname, dateOfbirth, gender, allergies, hobbies, profilePic, syndromes, authorizedpickups } = req.body;
 
         // Calculate the age of the child
         const age = calculateAge(new Date(dateOfbirth));
@@ -38,6 +38,7 @@ async function createKidProfile(req, res) {
             firstname: firstname,
             lastname: lastname,
             dateOfbirth: dateOfbirth,
+            gender: gender,
             allergies: allergies,
             hobbies: hobbies,
             profile_pic: profilePic,
