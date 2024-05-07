@@ -1,48 +1,42 @@
-const Staff = require('../models/models');
+const { Guardian, Staff } = require('../models/models'); 
+const bcrypt = require("bcrypt");
 
 // Controller function to create a new staff account
-const createStaff = async (req, res) => {
+async function createStaff(req, res) {
   try {
-    // Check if the user making the request is authorized (admin)
-    if (req.user.role !== 'admin') {
-      return res.status(403).json({ error: 'Unauthorized access' });
-    }
+      // Check if the user creating the account is a secretary or admin
+      /*  const { role } = req.Staff; // Assuming user's role is stored in req.user.role
+        if (role !== 'secretary' && role !== 'admin') {
+            return res.status(403).json({ error: 'Unauthorized' });
+        }*/
 
-    const {
-      firstname,
-      lastname,
-      username,
-      role,
-      staff_pic,
-      phone_number,
-      email,
-      salary,
-      staff_pwd
-    } = req.body;
-
-    // Create staff account in the database
-    const staff = await Staff.create({
-      firstname,
-      lastname,
-      username,
-      role,
-      staff_pic,
-      phone_number,
-      email,
-      salary,
-      staff_pwd
-    });
-
-    // Respond with the created staff object
-    res.status(201).json(staff);
+      const { firstname, lastname, username, role, staff_pic, phone_number, email, salary, staff_pwd } = req.body;
+      const salt = bcrypt.genSaltSync(10);
+      const hashedPassword = bcrypt.hashSync(req.body.staff_pwd, salt);
+  
+      // Create the guardian account
+      const staff = await Staff.create({
+          firstname: firstname,
+          lastname: lastname,
+          username: username,
+          role:role,
+          staff_pic: staff_pic,
+          phone_number: phone_number,
+          email: email,
+          salary: salary,
+          staff_pwd: hashedPassword,
+      });
+        console.log(staff.staff_pwd);
+        console.log("----------");
+        console.log(hashedPassword);
+      return res.status(201).json(staff);
   } catch (error) {
-    console.error('Error creating staff:', error);
-    res.status(500).json({ error: 'Failed to create staff account' });
+     console.error('Error creating staff:', error);
+      return res.status(500).json({ error: 'Failed to create staff account' });
   }
-};
-
+}
 // Controller function to delete a staff account
-const deleteStaff = async (req, res) => {
+async function deleteStaff (req, res)  {
   try {
     // Check if the user making the request is authorized (admin or secretary)
     if (req.user.role !== 'admin' && req.user.role !== 'secretary') {
@@ -67,7 +61,7 @@ const deleteStaff = async (req, res) => {
 };
 
 // Controller function to edit a staff account
-const editStaff = async (req, res) => {
+async function editStaff(req, res) {
   try {
     // Check if the user making the request is authorized (admin or secretary)
     if (req.user.role !== 'admin' && req.user.role !== 'secretary') {

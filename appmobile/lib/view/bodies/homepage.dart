@@ -6,6 +6,8 @@ import 'package:appmobile/view/screens/menu.dart';
 import 'package:appmobile/controller/menu_controller.dart';
 import 'dart:math';
 
+import 'package:intl/intl.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
 
@@ -15,50 +17,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePage extends State<MyHomePage> {
   String userFirstName = 'Meriem'; // late means will be intialized later
-  String currentDate = 'june 8';
+  String currentDate = DateFormat('d MMMM').format(DateTime.now());
   final ActivityController _controller = ActivityController();
   //---------------------------
   late int currentMonth;
   int selectedDay = DateTime.now().day;
   int selectedMonth = 0;
 
-  static const Map<int, String> months = {
-    1: 'January',
-    2: 'February',
-    3: 'March',
-    4: 'April',
-    5: 'May',
-    6: 'June',
-    7: 'July',
-    8: 'August',
-    9: 'September',
-    10: 'October',
-    11: 'November',
-    12: 'December',
-  };
-  static const Map<int, int> monthsDays = {
-    1: 31,
-    2: 28,
-    3: 31,
-    4: 30,
-    5: 31,
-    6: 30,
-    7: 31,
-    8: 31,
-    9: 30,
-    10: 31,
-    11: 30,
-    12: 31,
-  };
-  static const List<String> dayName = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-  ];
   final List<DateTime> days = [];
   late MController ddaySubjects;
 
@@ -69,7 +34,6 @@ class _MyHomePage extends State<MyHomePage> {
   }
 
   DateTime selectedDate = DateTime.now();
-  @override
   final Menu menu = Menu(
     picture: '',
     title: ' ',
