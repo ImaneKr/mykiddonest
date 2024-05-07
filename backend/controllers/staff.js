@@ -1,4 +1,4 @@
-const Staff = require('../models/initModels');
+const Staff = require('../models/models');
 
 // Controller function to create a new staff account
 const createStaff = async (req, res) => {

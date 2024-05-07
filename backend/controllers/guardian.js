@@ -1,110 +1,81 @@
-const Guardian = require('../models/initModels');
+const { Guardian, Staff } = require('../models/models'); // Import the Guardian model
 
-// Controller function to create a new guardian account
-const createGuardian = async (req, res) => {
+// Controller for creating a guardian account
+async function createGuardian(req, res) {
     try {
-        // Check if the user making the request is authorized (admin or secretary)
-        if (req.staff.role !== 'admin' && req.staff.role !== 'secretary') {
-            return res.status(403).json({ error: 'Unauthorized access' });
-        }
+        // Check if the user creating the account is a secretary or admin
+        /*  const { role } = req.Staff; // Assuming user's role is stored in req.user.role
+          if (role !== 'secretary' && role !== 'admin') {
+              return res.status(403).json({ error: 'Unauthorized' });
+          }*/
 
-        // Extract guardian data from request body
-        const { firstname, dateOfbirth, lastname, gender, username, guardian_pwd, civilState, email, phone_number, address, acc_pic } = req.body;
+        const { firstname, lastname, gender, username, guardian_pwd, civilState, email, phone_number, address, acc_pic } = req.body;
 
-        // Create guardian account in the database
+        // Create the guardian account
         const guardian = await Guardian.create({
-            firstname,
-            dateOfbirth,
-            lastname,
-            gender,
-            username,
-            guardian_pwd,
-            civilState,
-            email,
-            phone_number,
-            address,
-            acc_pic
+            firstname: firstname,
+            lastname: lastname,
+            gender: gender,
+            username: username,
+            guardian_pwd: guardian_pwd,
+            civilState: civilState,
+            email: email,
+            phone_number: phone_number,
+            address: address,
+            acc_pic: acc_pic
         });
 
-        // Respond with the created guardian object
-        res.status(201).json(guardian);
+        return res.status(201).json(guardian);
     } catch (error) {
         console.error('Error creating guardian:', error);
-        res.status(500).json({ error: 'Failed to create guardian account' });
+        return res.status(500).json({ error: 'Internal server error' });
     }
-};
+}
 
-// Controller function to delete a guardian account
-const deleteGuardian = async (req, res) => {
+// Controller for editing a guardian account
+async function editGuardian(req, res) {
     try {
-        // Check if the user making the request is authorized (admin or secretary)
-        if (req.user.role !== 'admin' && req.user.role !== 'secretary') {
-            return res.status(403).json({ error: 'Unauthorized access' });
-        }
-
-        // Extract guardian ID from request parameters
-        const { id } = req.params;
-
-        // Find the guardian by ID and delete it
-        const deletedGuardian = await Guardian.destroy({ where: { guardian_id: id } });
-
-        if (deletedGuardian === 0) {
-            return res.status(404).json({ error: 'Guardian not found' });
-        }
-
-        // Respond with success message
-        res.status(200).json({ message: 'Guardian deleted successfully' });
-    } catch (error) {
-        console.error('Error deleting guardian:', error);
-        res.status(500).json({ error: 'Failed to delete guardian account' });
-    }
-};
-
-// Controller function to edit a guardian account
-const editGuardian = async (req, res) => {
-    try {
-        // Check if the user making the request is authorized (admin or secretary)
-        if (req.user.role !== 'admin' && req.user.role !== 'secretary') {
-            return res.status(403).json({ error: 'Unauthorized access' });
-        }
-
-        // Extract guardian ID from request parameters
-        const { id } = req.params;
-
-        // Extract updated guardian data from request body
+        const { guardian_id } = req.params;
         const { firstname, dateOfbirth, lastname, gender, username, guardian_pwd, civilState, email, phone_number, address, acc_pic } = req.body;
 
-        // Find the guardian by ID and update its data
-        const [updated] = await Guardian.update({
-            firstname,
-            dateOfbirth,
-            lastname,
-            gender,
-            username,
-            guardian_pwd,
-            civilState,
-            email,
-            phone_number,
-            address,
-            acc_pic
-        }, {
-            where: { guardian_id: id }
-        });
-
-        if (updated === 0) {
+        // Find the guardian account by guardian_id
+        let guardian = await Guardian.findByPk(guardian_id);
+        if (!guardian) {
             return res.status(404).json({ error: 'Guardian not found' });
         }
 
-        // Respond with success message
-        res.status(200).json({ message: 'Guardian updated successfully' });
-    } catch (error) {
-        console.error('Error updating guardian:', error);
-        res.status(500).json({ error: 'Failed to update guardian account' });
-    }
-};
+        // Update the guardian account
+        guardian = await guardian.update({
+            firstname: firstname,
+            lastname: lastname,
+            gender: gender,
+            username: username,
+            guardian_pwd: guardian_pwd,
+            civilState: civilState,
+            email: email,
+            phone_number: phone_number,
+            address: address,
+            acc_pic: acc_pic
+        });
 
-module.exports = {
-    createGuardian,
-    deleteGuardian,
-    editGuardian
-};
+        return res.status(200).json(guardian);
+    } catch (error) {
+        console.error('Error editing guardian:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+// Controller for fetching all guardian data
+async function getAllGuardians(req, res) {
+    try {
+        // Fetch all guardians
+        const guardians = await Guardian.findAll();
+
+        return res.status(200).json(guardians);
+    } catch (error) {
+        console.error('Error fetching all guardians:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+module.exports = { createGuardian, editGuardian, getAllGuardians };

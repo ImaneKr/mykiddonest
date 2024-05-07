@@ -1,4 +1,4 @@
-const Timetable = require('../models/initModels');
+const Timetable = require('../models/models');
 
 // Controller function to create a new timetable entry
 const createTimetableEntry = async (req, res) => {
@@ -12,7 +12,7 @@ const createTimetableEntry = async (req, res) => {
 
     // Create timetable entry in the database
     const timetableEntry = await Timetable.create({
-      category_id:'',
+      category_id: '',
       subject_name,
       day_of_week,
       start_time,

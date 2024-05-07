@@ -1,15 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const guardianController = require('../controllers/guardian');
-const authMiddleware = require('../middleware/authMiddleware');
+const { createGuardian, editGuardian, getAllGuardians } = require('../controllers/guardian');
 
-// Create a new guardian account
-router.post('/', authMiddleware, guardianController.createGuardian);
+// Route for creating a guardian account
+router.post('/', createGuardian);
 
-// Delete a guardian account
-router.delete('/:id', authMiddleware, guardianController.deleteGuardian);
+// Route for editing a guardian account
+router.put('/:guardian_id', editGuardian);
 
-// Edit a guardian account
-router.put('/:id', authMiddleware, guardianController.editGuardian);
+// Route for fetching all guardian data
+router.get('/', getAllGuardians);
 
 module.exports = router;

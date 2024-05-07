@@ -1,4 +1,4 @@
-const Announcement = require('../models/initModels');
+const Announcement = require('../models/models');
 
 // Controller function to create a new announcement
 const createAnnouncement = async (req, res) => {

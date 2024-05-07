@@ -1,5 +1,5 @@
-const Event = require('../models/initModels');
-const EventList = require('../models/initModels');
+const {Event,EventList} = require('../models/models');
+
 
 // Controller function to create a new event
 const createEvent = async (req, res) => {

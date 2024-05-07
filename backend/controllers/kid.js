@@ -1,29 +1,50 @@
 // kidProfileController.js
-const { KidProfile, Guardian, Staff } = require('../models/initModels');
+const { KidProfile, Guardian, Category,Staff } = require('../models/models');
 
 // Create KidProfile only if Guardian exists
 async function createKidProfile(req, res) {
     try {
-        const { guardianId, firstname, lastname, dateOfbirth, allergies, hobbies, profilePic,authorizedpickups, syndromes } = req.body;
+        // Extract necessary data from request body
+        const { guardianId, firstname, lastname, dateOfbirth, allergies, hobbies, profilePic, syndromes, authorizedpickups } = req.body;
 
-        // Check if Guardian exists
-        const guardian = await Guardian.findByPk(guardianId);
-        if (!guardian) {
-            return res.status(404).json({ error: 'Guardian not found' });
+        // Calculate the age of the child
+        const age = calculateAge(new Date(dateOfbirth));
+
+        // Determine the category based on age
+        let category_id;
+        if (age < 3) {
+            // Fetch the category_id for category_name 'B'
+            const categoryB = await Category.findOne({ where: { category_name: 'B' } });
+            if (categoryB) {
+                category_id = categoryB.category_id;
+            } else {
+                // Handle if category 'B' doesn't exist
+                return res.status(500).json({ error: 'Category B not found' });
+            }
+        } else {
+            // Fetch the category_id for category_name 'A'
+            const categoryA = await Category.findOne({ where: { category_name: 'A' } });
+            if (categoryA) {
+                category_id = categoryA.category_id;
+            } else {
+                // Handle if category 'A' doesn't exist
+                return res.status(500).json({ error: 'Category A not found' });
+            }
         }
 
         // Create KidProfile
         const kidProfile = await Kid.create({
-            guardian_id: guardianId,
+            guardian_id: guardianId, // Associate with the guardian_id from the request
             firstname: firstname,
             lastname: lastname,
-            dateOfbirth:dateOfbirth,
-            allergies:allergies,
-            hobbies:hobbies,
+            dateOfbirth: dateOfbirth,
+            allergies: allergies,
+            hobbies: hobbies,
             profile_pic: profilePic,
-            syndromes:syndromes,
-            authorizedpickups:authorizedpickups,
-            active:true,
+            syndromes: syndromes,
+            authorizedpickups: authorizedpickups,
+            category_id: category_id, // Assign the calculated category_id
+            active: true,
         });
 
         return res.status(201).json(kidProfile);
@@ -31,6 +52,18 @@ async function createKidProfile(req, res) {
         console.error('Error creating KidProfile:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
+}
+
+// Utility function to calculate age
+function calculateAge(birthDate) {
+    const today = new Date();
+    const dob = new Date(birthDate);
+    let age = today.getFullYear() - dob.getFullYear();
+    const monthDiff = today.getMonth() - dob.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) {
+        age--;
+    }
+    return age;
 }
 
 // Edit KidProfile
@@ -47,13 +80,13 @@ async function editKidProfile(req, res) {
 
         // Update KidProfile
         kidProfile = await kidProfile.update({
-            firstname:firstname,
-            lastname:lastname,
-            dateOfbirth:dateOfbirth,
-            allergies:allergies,
-            hobbies:hobbies,
-            authorizepickups: authorizedpickups ,
-            syndromes:syndromes,
+            firstname: firstname,
+            lastname: lastname,
+            dateOfbirth: dateOfbirth,
+            allergies: allergies,
+            hobbies: hobbies,
+            authorizepickups: authorizedpickups,
+            syndromes: syndromes,
         });
 
         return res.status(200).json(kidProfile);
@@ -85,55 +118,19 @@ async function deleteKidProfile(req, res) {
 }
 
 // Activate KidProfile (only accessible by secretary or admin)
-async function activateKidProfile(req, res) {
+async function getAllKidProfiles(req, res) {
     try {
-        const { id } = req.params;
+        // Fetch all kid profiles along with their associated guardians
+        const allKidProfiles = await Kid.findAll({
+            include: [{
+                model: Guardian,
+                attributes: ['guardian_id', 'firstname', 'lastname', 'email'] // Include only necessary guardian attributes
+            }]
+        });
 
-        // Check if user is secretary or admin
-        const staff = await Staff.findByPk(req.user.id);
-        if (!staff || (staff.role !== 'secretary' && staff.role !== 'admin')) {
-            return res.status(403).json({ error: 'Unauthorized' });
-        }
-
-        // Find KidProfile by id
-        const kidProfile = await Kid.findByPk(id);
-        if (!kidProfile) {
-            return res.status(404).json({ error: 'KidProfile not found' });
-        }
-
-        // Activate KidProfile
-        await kidProfile.update({ active: true });
-
-        return res.status(200).json(kidProfile);
+        return res.status(200).json(allKidProfiles);
     } catch (error) {
-        console.error('Error activating KidProfile:', error);
-        return res.status(500).json({ error: 'Internal server error' });
-    }
-}
-
-// Deactivate KidProfile (only accessible by secretary or admin)
-async function deactivateKidProfile(req, res) {
-    try {
-        const { id } = req.params;
-
-        // Check if user is secretary or admin
-        const staff = await Staff.findByPk(req.user.id);
-        if (!staff || (staff.role !== 'secretary' && staff.role !== 'admin')) {
-            return res.status(403).json({ error: 'Unauthorized' });
-        }
-
-        // Find KidProfile by id
-        const kidProfile = await KidProfile.findByPk(id);
-        if (!kidProfile) {
-            return res.status(404).json({ error: 'KidProfile not found' });
-        }
-
-        // Deactivate KidProfile
-        await kidProfile.update({ active: false });
-
-        return res.status(200).json(kidProfile);
-    } catch (error) {
-        console.error('Error deactivating KidProfile:', error);
+        console.error('Error fetching all kid profiles:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
@@ -142,6 +139,5 @@ module.exports = {
     createKidProfile,
     editKidProfile,
     deleteKidProfile,
-    activateKidProfile,
-    deactivateKidProfile
+    getAllKidProfiles
 };
