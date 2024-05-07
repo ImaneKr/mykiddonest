@@ -2,7 +2,7 @@ const express = require('express');
 
 const sequelize = require('./config/db'); // Import db.js
 const guardianRouter = require('./routes/guardian');
-const staffnRouter = require('./routes/staffRoute');
+const staffRouter = require('./routes/staffRoute');
 const authRoute = require('./routes/authentication');
 const dummyRoute = require('./routes/dummyRoutes');
 const cookieParser = require('cookie-parser');
@@ -20,8 +20,8 @@ app.use(express.json()); // Parse JSON request bodies
 app.use(cookieParser());
 // Define routes
 app.use('/guardian', guardianRouter);
-app.use('/staff', staffnRouter );
-app.use('/login', authRoute);
+app.use('/staff', staffRouter );
+app.use('/auth', authRoute);
 app.use('/create', dummyRoute);
 // Define a function to start the server
 

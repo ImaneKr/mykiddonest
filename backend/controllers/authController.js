@@ -2,7 +2,7 @@ const createError = require('../utils/error');
 const { Guardian, Staff } = require('../models/models');
 const bcrypt = require("bcrypt");
 const { generateToken } = require('../middlewares/generateToken'); 
-
+const { verifyToken } = require('../middlewares/verifyToken');
 // login Render page
 const login_get = (req, res) => {
   // res.render('page');
@@ -12,7 +12,7 @@ const login_get = (req, res) => {
 // LOGIN GUARDIAN APP
 const guardianLogin = async (req, res, next) => {
 
-  const { username, guardian_pwd } = req.body;
+  const { username, guardian_pwd } =   req.body;
 
   try {
       const guardian = await Guardian.findOne({ where: { username: username } });
@@ -26,7 +26,7 @@ const guardianLogin = async (req, res, next) => {
       if (!passwordMatch) {
         return next(createError(401, "Username or password incorrect!"));
      }
-
+    
        // Generate and return a token
     const token = await generateToken(guardian);
     res.cookie('token', token, { httpOnly: true, maxAge: 3600000 });
@@ -66,13 +66,30 @@ const staffLogin = async (req, res, next) => {
   }
 };
 
-const logout_get = (req, res) => {
-  res.send("Logged out successfully!");
+
+
+const logout = async (req, res, next) => {
+  try {
+    // Get the token from the cookie or headers
+    const decoded = await verifyToken(req, res, next);
+
+    // Clear token cookie
+    res.clearCookie('token', {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+
+    res.status(200).json({ message: 'Logout successful' });
+  } catch (error) {
+    console.error('Error logging out:', error);
+    return next(createError(500, 'Error logging out!'));
+  }
 };
 
 module.exports = {
   login_get,
   guardianLogin,
   staffLogin,
-  logout_get,
+  logout,
 };

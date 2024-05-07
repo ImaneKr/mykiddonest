@@ -1,15 +1,26 @@
 const jwt = require("jsonwebtoken");
 const createError = require("../utils/error");
 
-function verifyToken(token) {
+const verifyToken = (req, res, next) => {
   const secret = process.env.JWT_SECRET_KEY;
+  let token;
+
+  // Extract token from different sources
+  if (req.cookies && req.cookies.token) {
+    token = req.cookies.token;
+  } else if (req.headers.authorization && req.headers.authorization.startsWith('Bearer ')) {
+    token = req.headers.authorization.split(' ')[1];
+  } else {
+    return next(createError(401, "No token provided"));
+  }
 
   try {
-    return jwt.verify(token, secret);
+    const payload = jwt.verify(token, secret);
+    return payload;
   } catch (e) {
-    throw createError(401, "Invalid token");
+    return next(createError(401, "Invalid token"));
   }
-}
+};
 
 const verifyRole = (role) => (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -18,7 +29,7 @@ const verifyRole = (role) => (req, res, next) => {
   }
 
   const token = authHeader.split(" ")[1];
-  const payload = verifyToken(token);
+  const payload = verifyToken(req, res, next);
 
   if (payload.role !== role) {
     return next(createError(403, "Forbidden"));
