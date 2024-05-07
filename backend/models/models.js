@@ -40,10 +40,10 @@ const Guardian = sequelize.define('Guardian', {
   },
   username: {
     type: DataTypes.STRING(100),
-    allowNull: false
+    allowNull: false,
   },
   guardian_pwd: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING(100),
     allowNull: false
   },
   civilState: {
@@ -177,11 +177,13 @@ const Staff = sequelize.define('Staff', {
     allowNull: false
   },
   staff_pwd: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.STRING(100),
     allowNull: false
   }
 }, {
-  tableName: 'Staff'
+  tableName: 'Staff',
+  timestamps: false
+  
 });
 
 const Event = sequelize.define('Event', {
