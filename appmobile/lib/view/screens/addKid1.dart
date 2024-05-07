@@ -81,7 +81,7 @@ class _AddKid1State extends State<AddKid1> {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: Text(
-                'Add my kid',
+                'Add my kiddo',
                 style: TextStyle(
                   fontFamily: 'roboto mono',
                   fontSize: 28,
