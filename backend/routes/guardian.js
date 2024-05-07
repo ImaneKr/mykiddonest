@@ -1,12 +1,14 @@
 const express = require('express');
-//const guardianModel = require('../models/guardian_model');
-
 const router = express.Router();
+const { createGuardian, editGuardian, getAllGuardians } = require('../controllers/guardian');
 
-router.get("/", (request, response) => {
-   console.log(request.body);
-    
-    response.send(`Guardian info: ${request.body.id} , ${request.body.fname} , ${request.body.lname}`);
-});
+// Route for creating a guardian account
+router.post('/', createGuardian);
+
+// Route for editing a guardian account
+router.put('/:guardian_id', editGuardian);
+
+// Route for fetching all guardian data
+router.get('/', getAllGuardians);
 
 module.exports = router;
