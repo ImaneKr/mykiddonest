@@ -17,7 +17,8 @@ const Category = sequelize.define('Category', {
     type: DataTypes.STRING(255)
   }
 }, {
-  tableName: 'Category'
+  tableName: 'Category',
+  timestamps: false
 },);
 //Guardian model
 const Guardian = sequelize.define('Guardian', {
@@ -94,6 +95,10 @@ const Kid = sequelize.define('Kid', {
     type: DataTypes.ENUM('Male', 'Female'),
     allowNull: false
   },
+  dateOfbirth: {
+    type: DataTypes.DATE,
+    allowNull: false
+  },
   allergies: {
     type: DataTypes.JSON
   },
@@ -131,9 +136,11 @@ const Kid = sequelize.define('Kid', {
     }
   }
 }, {
-  tableName: 'Kid'
-});
-
+  tableName: 'Kid',
+  timestamps: false
+}
+);
+Kid.belongsTo(Guardian, { foreignKey: 'guardian_id' })
 const Staff = sequelize.define('Staff', {
   staff_id: {
     type: DataTypes.INTEGER,
@@ -181,7 +188,8 @@ const Staff = sequelize.define('Staff', {
     allowNull: false
   }
 }, {
-  tableName: 'Staff'
+  tableName: 'Staff',
+  timestamps: false
 });
 
 const Event = sequelize.define('Event', {
@@ -203,7 +211,8 @@ const Event = sequelize.define('Event', {
     defaultValue: DataTypes.NOW
   }
 }, {
-  tableName: 'Event'
+  tableName: 'Event',
+  timestamps: false
 });
 
 const EventList = sequelize.define('EventList', {
@@ -237,7 +246,8 @@ const EventList = sequelize.define('EventList', {
     defaultValue: false
   }
 }, {
-  tableName: 'EventList'
+  tableName: 'EventList',
+  timestamps: false
 });
 
 
@@ -260,6 +270,7 @@ const Announcement = sequelize.define('Announcement', {
     defaultValue: DataTypes.NOW
   }
 }, {
+  timestamps: false,
   tableName: 'Announcement'
 });
 
@@ -318,7 +329,8 @@ const Timetable = sequelize.define('Timetable', {
     allowNull: false // Duration in minutes
   }
 }, {
-  tableName: 'Timetables'
+  tableName: 'Timetables',
+  timestamps: false
 });
 const Evaluation = sequelize.define('Evaluation', {
   evaluation_id: {
@@ -339,7 +351,8 @@ const Evaluation = sequelize.define('Evaluation', {
     allowNull: false
   }
 }, {
-  tableName: 'Evaluations'
+  tableName: 'Evaluations',
+  timestamps: false
 });
 
 Evaluation.associate = (models) => {
@@ -363,7 +376,8 @@ const AppSetting = sequelize.define('AppSetting', {
     allowNull: false
   }
 }, {
-  tableName: 'AppSettings'
+  tableName: 'AppSettings',
+  timestamps: false
 });
 const WebSetting = sequelize.define('WebSetting', {
   setting_id: {
@@ -384,7 +398,8 @@ const WebSetting = sequelize.define('WebSetting', {
     default: true,
   }
 }, {
-  tableName: 'WebSettings'
+  tableName: 'WebSettings',
+  timestamps: false
 });
 const Subject = sequelize.define('Subject', {
   subject_id: {
@@ -397,7 +412,8 @@ const Subject = sequelize.define('Subject', {
     allowNull: false
   }
 }, {
-  tableName: 'Subject'
+  tableName: 'Subject',
+  timestamps: false
 });
 const LunchMenu = sequelize.define('LunchMenu', {
   menu_id: {
