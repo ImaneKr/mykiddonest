@@ -95,7 +95,7 @@ children: [
         ],
       ),
       body: ListView(
-        padding: EdgeInsets.all(15),
+        padding: EdgeInsets.all(20),
         children: <Widget>[
           SizedBox(
             height: 5.0,

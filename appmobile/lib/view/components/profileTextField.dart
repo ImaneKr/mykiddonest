@@ -34,8 +34,8 @@ class ProfileTextField extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(
-        left: 20,
-        right: 20,
+        left: 10,
+        right: 10,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

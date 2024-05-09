@@ -43,11 +43,8 @@ class _MyNotificationState extends State<MyNotification> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(
-                  width: 10,
-                ),
                 Text(
                   'Today',
                   style: TextStyle(
@@ -56,9 +53,6 @@ class _MyNotificationState extends State<MyNotification> {
                     fontSize: 19,
                     color: Color(0xFF323842),
                   ),
-                ),
-                SizedBox(
-                  width: 195.0,
                 ),
                 TextButton(
                   onPressed: () {},

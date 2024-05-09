@@ -1,6 +1,7 @@
 import 'package:appmobile/models/guardian.dart';
 import 'package:appmobile/models/kid.dart';
 import 'package:appmobile/view/components/kidSelection.dart';
+import 'package:appmobile/view/screens/addKid1.dart';
 import 'package:appmobile/view/screens/guardianProfile.dart';
 import 'package:appmobile/view/screens/loginPage.dart';
 import 'package:flutter/material.dart';
@@ -132,6 +133,16 @@ class _SideBarState extends State<SideBar> {
                               });
                             },
                           ),
+                        KidSelection(
+                            label: 'add Kid',
+                            isSelected: false,
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => AddKid1()),
+                              );
+                            })
                       ],
                       childrenPadding: EdgeInsets.only(left: 30),
                       shape: Border(),
@@ -224,9 +235,10 @@ class _SideBarState extends State<SideBar> {
                         setState(() {
                           selectedMenuItem = 'Log out';
                           selectedKid = null;
-                          Navigator.push(
+                          Navigator.replace(
                             context,
-                            MaterialPageRoute(
+                            oldRoute: ModalRoute.of(context)!,
+                            newRoute: MaterialPageRoute(
                                 builder: (context) => LoginPage()),
                           );
                         });

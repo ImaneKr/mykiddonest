@@ -177,31 +177,10 @@ class _AddKid1State extends State<AddKid1> {
               ],
             ),
             Container(
-              padding: EdgeInsets.only(top: 40, left: 10, right: 10),
+              padding: EdgeInsets.only(top: 20, left: 10, right: 15),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  TextButton.icon(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return Color(0xFF8BC62A); // color when pressed
-                          }
-                          // color when idle
-                          return Colors.black;
-                        },
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
-                    },
-                    icon: Icon(Icons.arrow_back_ios_new_rounded),
-                    label: Text('Back'),
-                  ),
-                  SizedBox(width: 160),
                   ElevatedButton(
                     onPressed: () {
                       Navigator.push(

@@ -7,26 +7,6 @@ class MController {
     print('Selected Day: $day');
     List<Menu> menus = [];
     switch (day) {
-      case 'Saturday':
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/orange.png",
-            title: 'Orange',
-          ),
-        ];
-        break;
       case 'Sunday':
         menus = [
           Menu(

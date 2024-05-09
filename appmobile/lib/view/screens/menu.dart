@@ -1,8 +1,5 @@
 //import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:appmobile/models/menu.dart';
@@ -43,7 +40,7 @@ void showLunchMenuBottomSheet(
     BuildContext context, DateTime selectedDate, Menu menu) {
   showModalBottomSheet(
     barrierColor: Colors.black54,
-    backgroundColor: Colors.white,
+    backgroundColor: Color.fromARGB(255, 255, 255, 255),
     isScrollControlled: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadiusDirectional.vertical(top: Radius.circular(35)),
@@ -66,13 +63,27 @@ class LunchMenuBottomSheet extends StatefulWidget {
   @override
   _LunchMenuBottomSheetState createState() => _LunchMenuBottomSheetState();
 }
+
 String _getMonth(int month) {
-  List<String> months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
   return months[month - 1];
 }
 
 class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
-    late DateTime selectedDate;
+  late DateTime selectedDate;
   late MController _controller;
   late List<Menu> _menus;
   @override
@@ -123,15 +134,15 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
             height: 20,
           ),
           Center(
-              child: Text(
+            child: Text(
               'Lunch Menu Of The week',
-               style:GoogleFonts.lato(
-                textStyle :TextStyle(
-              fontWeight: FontWeight.w700,
-              fontSize: 23,
-               color: Colors.black,
-            ),
-             ),
+              style: GoogleFonts.lato(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 23,
+                  color: Colors.black,
+                ),
+              ),
             ),
           ),
           SizedBox(
@@ -148,16 +159,6 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
           SizedBox(
             height: 10,
           ),
-
-         Text(
-          "Today : " + _getDayOfWeek(selectedDate) + ", ${selectedDate.day} ${_getMonth(selectedDate.month)}",
-        // "${_getDayOfWeek(selectedDate)} ${selectedDate.day} ${_getMonth(selectedDate.month)}",
-         style: TextStyle(
-         fontFamily: 'Inter',
-         fontWeight: FontWeight.w500,
-         fontSize: 16,
-        ),
-           ),
           SizedBox(
             height: 15,
           ),
@@ -165,10 +166,11 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(7, (index) {
+              children: List.generate(5, (index) {
                 final weekDay = selectedDate
                     .subtract(Duration(days: selectedDate.weekday - index));
-                return Expanded(
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
                   child: GestureDetector(
                     onTap: () => setState(() => selectedDate = weekDay),
                     child: Container(
@@ -214,12 +216,12 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
                 return Container(
                   padding: EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 239, 239, 239),
+                    color: Color.fromARGB(255, 255, 255, 255),
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                         color: Color.fromARGB(255, 215, 215, 215),
-                        blurRadius: 8,
+                        blurRadius: 5,
                         offset: Offset(4, 4),
                       )
                     ],

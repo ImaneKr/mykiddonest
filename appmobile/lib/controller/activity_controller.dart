@@ -5,6 +5,7 @@ class ActivityController {
     Activity(
         imageUrl: 'assets/images/alibirth.jpg',
         title: 'Ali’s Birthday party!',
+        date: DateTime(2024, 11, 10),
         isEvent: true),
     Activity(
       imageUrl: 'assets/images/free.jpg',

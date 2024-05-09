@@ -1,14 +1,8 @@
 import 'package:appmobile/view/bodies/homepage.dart';
-import 'package:appmobile/view/bodies/sideBar.dart';
-import 'package:appmobile/view/bodies/kidProfile.dart';
 import 'package:appmobile/view/screens/guardianProfile.dart';
-import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:appmobile/view/screens/notification.dart';
 import 'package:flutter/material.dart';
-import 'package:appmobile/controller/kid_profile_controller.dart';
 import 'package:appmobile/view/screens/payment.dart';
-import 'package:appmobile/view/screens/edit_profile.dart';
-import 'package:flutter/widgets.dart';
 import 'package:appmobile/controller/guardian_controller.dart';
 import 'package:appmobile/controller/user_controller.dart';
 
@@ -56,7 +50,7 @@ class _SettingsState extends State<Settings> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => MainPage()),
+                            MaterialPageRoute(builder: (context) => MyHomePage()),
                           );
                         },
                         icon: Icon(Icons.close),
@@ -88,7 +82,7 @@ class _SettingsState extends State<Settings> {
               width: 340,
               decoration: BoxDecoration(
                 color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
               ),
               child: Row(
                 children: [

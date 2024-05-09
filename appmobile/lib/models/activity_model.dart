@@ -3,10 +3,13 @@ class Activity {
   String title;
   String description; // This will be null for event announcements
   bool isEvent;
+  DateTime? date; // Optional date attribute
 
-  Activity(
-      {required this.imageUrl,
-      required this.title,
-      this.description = '',
-      required this.isEvent});
+  Activity({
+    required this.imageUrl,
+    required this.title,
+    this.description = '',
+    required this.isEvent,
+    this.date, // Optional parameter for date
+  });
 }

@@ -39,6 +39,7 @@ dependencies:
   flutter_emoji: ^2.5.1
   firebase_core: ^2.27.0
   firebase_messaging: ^14.7.19
+  web_socket_channel: ^2.4.0
 
 dev_dependencies:
   flutter_test:

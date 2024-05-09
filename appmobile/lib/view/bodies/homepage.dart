@@ -4,8 +4,6 @@ import 'package:appmobile/controller/activity_controller.dart';
 import 'package:appmobile/models/menu.dart';
 import 'package:appmobile/view/screens/menu.dart';
 import 'package:appmobile/controller/menu_controller.dart';
-import 'dart:math';
-
 import 'package:intl/intl.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -41,16 +39,19 @@ class _MyHomePage extends State<MyHomePage> {
   //------------------
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: ListView(
+          padding: EdgeInsets.only(left: 15, right: 15),
+          children: <Widget>[
+            SizedBox(
+              height: 8,
+            ),
             Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.fromLTRB(
-                  20.0, 12.0, 0, 0), // Adjust padding for precise positioning
+              padding: EdgeInsets.only(left: 15),
+              // Adjust padding for precise positioning
               child: Text(
                 'Welcome $userFirstName!',
                 style: TextStyle(
@@ -58,36 +59,34 @@ class _MyHomePage extends State<MyHomePage> {
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                     color: Colors.black),
-
-                /* style: GoogleFonts.poppins(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black),*/
               ),
             ),
-            /* SizedBox(
-            height: 2,
-          ),*/
+            SizedBox(
+              height: 3,
+            ),
             Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.fromLTRB(
-                  20.0, 0, 0, 0), // Adjust padding for precise positioning
+              padding: EdgeInsets.only(left: 15),
+              // Adjust padding for precise positioning
               child: Text(
                 'Today, $currentDate',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Inter',
-                  color: Color.fromARGB(255, 143, 177, 88),
+                  color: Color.fromARGB(255, 140, 215, 100),
+                  //Color.fromARGB(255, 143, 177, 88),
                   // Color.fromRGBO(75, 119, 5, 0.612),
                 ),
               ),
             ),
-            SizedBox(height: 10), // Add more spacing if needed
+            SizedBox(
+              height: 10,
+            ),
             Container(
               //Container Home image
               width: 350,
-              height: 150,
+              height: 170,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -98,13 +97,13 @@ class _MyHomePage extends State<MyHomePage> {
                   fit: BoxFit.cover,
                 ),
               ),
-            ), // container Home image Finished
+            ),
             SizedBox(
               height: 10,
             ),
             Container(
               alignment: Alignment.topLeft,
-              padding: EdgeInsets.fromLTRB(20.0, 0, 0, 0),
+              padding: EdgeInsets.only(left: 15),
               child: Text(
                 'View Lunch Menu',
                 style: TextStyle(
@@ -119,8 +118,6 @@ class _MyHomePage extends State<MyHomePage> {
               height: 7,
             ),
             Container(
-              //   alignment: Alignment.center,
-              //  padding: EdgeInsets.fromLTRB(2.0, 0, 0, 0),
               height: 100,
               width: 350,
               decoration: BoxDecoration(
@@ -156,11 +153,6 @@ class _MyHomePage extends State<MyHomePage> {
                                   MaterialStateProperty.all(Size(90, 36)),
                             ),
                             onPressed: () {
-                              /*   setState(() {
-                                // Update selectedDate here
-                                // selectedDate = DateTime.now(); // Example: Update to current date
-                              });*/
-                              // Pass updated selectedDate to showModalBottomSheet
                               showLunchMenuBottomSheet(
                                   context, selectedDate, menu);
                             },
@@ -178,24 +170,26 @@ class _MyHomePage extends State<MyHomePage> {
                       ],
                     ),
                   ),
-                  /*   SizedBox(
-                  width: 40,
-                  height: 100,
-                ),*/
                   Container(
                     //alignment: Alignment.topRight,
                     padding: EdgeInsets.only(top: 5.0),
                     height: 95,
                     width: 95,
-                    child: ClipRRect(
-                      child: Image.asset(
-                        'assets/images/dish.png',
+                    child: Container(
+                      child: ClipRRect(
+                        child: Image.asset(
+                          'assets/images/dish.png',
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
             ),
+            SizedBox(
+              height: 7,
+            ),
+
             SizedBox(
               height: 8,
               width: 325,
@@ -270,6 +264,14 @@ class _MyHomePage extends State<MyHomePage> {
                               fontWeight: FontWeight.w500),
                         ),
                         SizedBox(height: 6.0),
+                        activity.isEvent
+                            ? Text(activity.date != null
+                                ? DateFormat('d MMMM yyyy')
+                                    .format(activity.date!)
+                                : '')
+                            : Container(),
+
+                        SizedBox(height: 6.0),
                         Expanded(
                           child: activity.isEvent
                               ? Row(
@@ -320,8 +322,10 @@ class _MyHomePage extends State<MyHomePage> {
 
                               Text(
                                   activity.description,
+                                  style: TextStyle(fontSize: 10),
                                 ),
-                        )
+                        ),
+
                         // if it is not event, it will display a description
                       ],
                     ),
@@ -329,7 +333,9 @@ class _MyHomePage extends State<MyHomePage> {
                 },
               ),
             ),
-            // activity part finish
+            SizedBox(
+              height: 10,
+            ), // activity part finish
           ],
         ),
       ),
