@@ -3,10 +3,11 @@ import { MdVisibility, MdVisibilityOff } from 'react-icons/md';
 
 type Args = {
    initialValue: string;
-   
+   disabled:boolean;
+   forCreation?:boolean;
 };
 
-const MealField = ({  initialValue}: Args) => {
+const MealField = ({  initialValue , disabled , forCreation}: Args) => {
     const [value, setValue] = useState(initialValue);
 
 
@@ -15,13 +16,14 @@ const MealField = ({  initialValue}: Args) => {
     };
 
     return (
-        <div className='flex lg:flex-row lg:items-center flex-col justify-between w-full pt-3 relative'>
+        <div className={`flex lg:flex-row lg:items-center flex-col justify-between w-full ${forCreation?'':'pl-6'}  relative`}>
             <div className='relative'>
                 <input 
+                    disabled={disabled}
                     type= 'text' 
                     value={value} 
                     onChange={handleChange}
-                    className={`border border-gray-15 z-0 shadow-sm p-0.5 rounded-sm w-32 regular-14 px-4 py-1.5  group focus:outline-none focus:border-blue-600`}
+                    className={`border ${disabled?'border-gray-15' : 'border-dashed border-blue-600'} z-0 shadow-sm p-0.5 rounded-sm ${forCreation?'w-48':'w-28'}  regular-14 px-4 py-1.5  group focus:outline-none`}
                 />
             </div>
         </div>

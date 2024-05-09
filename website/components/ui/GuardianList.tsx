@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, IconButton, TextField } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, IconButton, TextField  , Radio, RadioGroup , FormControlLabel} from '@mui/material';
 import { DataGrid, GridActionsCellItem, GridCellParams, GridColDef } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import { FiEdit3 } from 'react-icons/fi';
@@ -15,6 +15,11 @@ interface Row {
   phone: string;
   kids: string;
   rdate: string;
+  email:string;  
+  civilState:string;
+  address:string; 
+  userName:string; 
+
 }
 
 // Define the props for EditUserActionItem
@@ -37,7 +42,7 @@ const EditUserActionItem: React.FC<EditUserActionItemProps> = ({ row, deleteUser
   };
 const [selectedImagePath,setSelectedImagePath] =useState<string>('');
 
-  const [accountInfo, setAccountInfo] = useState({ profilepic:row.profile ,name: row.name, dateOfBirth:'', phone:row.phone, password:'', email:''});
+  const [accountInfo, setAccountInfo] = useState({ profilepic:row.profile ,name: row.name, dateOfBirth:'', phone:'', password:'', email:'' ,civilState:'', address:''  , userName:''});
   const [isChangingAllowed, setIsChangingAllowed] = useState(false);
   const allowChanges = () => {
     setIsChangingAllowed(!isChangingAllowed);
@@ -66,17 +71,42 @@ const [selectedImagePath,setSelectedImagePath] =useState<string>('');
           
           <GuardianField initialValue={accountInfo.name} label='Full name' disabled={!isChangingAllowed}/>
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex   justify-between items-center gap-20 mb-3 px-8'>
           <GuardianField initialValue={accountInfo.dateOfBirth} label='Date of birth' isDate={true} disabled={!isChangingAllowed}/>
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex   justify-between items-center gap-20 mb-3 px-8'>
           <GuardianField initialValue={accountInfo.phone} label='Phone number ' disabled={!isChangingAllowed}/>
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex   justify-between  items-center gap-20 mb-3 px-8'>
           <GuardianField initialValue={accountInfo.email} label='Email address' disabled={!isChangingAllowed}/>
           </div>
-          <div className='flex   justify-between gap-20 mb-3 px-8'>
+          <div className='flex   justify-between  items-center gap-20 mb-3 px-8'>
+          <GuardianField initialValue={accountInfo.userName} label='Username' disabled={!isChangingAllowed}/>
+          </div>
+          <div className='flex   justify-between items-center gap-20 mb-3 px-8'>
           <GuardianField initialValue={accountInfo.password} label='Password' isPassword={true} disabled={!isChangingAllowed}/>
+          </div>
+          <div className='flex   justify-between items-center gap-20 mb-3 px-8'>
+          <label className='regular-14 pl-2  pb-1'>Gender</label>
+          <RadioGroup
+            aria-labelledby="demo-radio-buttons-group-label"
+            defaultValue="female"
+            name="radio-buttons-group"
+            className=' flex flex-row justify-start'
+            >
+           <FormControlLabel value="female" control={<Radio />} label="Female" />
+           <FormControlLabel value="male" control={<Radio />} label="Male" />
+      
+           </RadioGroup>
+          </div>
+          <div className='flex   justify-between items-center gap-20 mb-3 px-8'>
+          <GuardianField initialValue={accountInfo.dateOfBirth} label='Date of birth' isDate={true} disabled={!isChangingAllowed}/>
+          </div>
+          <div className='flex   justify-between  items-center gap-20 mb-3 px-8'>
+          <GuardianField initialValue={accountInfo.civilState} label='Civil state' disabled={!isChangingAllowed}/>
+          </div>
+          <div className='flex   justify-between  items-center gap-20 mb-3 px-8'>
+          <GuardianField initialValue={accountInfo.address} label='Address' disabled={!isChangingAllowed}/>
           </div>
           
         </DialogContent>
@@ -100,7 +130,7 @@ const GuardianList = () => {
   const today = new Date();
   const formattedDate = today.toLocaleDateString('en-GB');
   const InitialRows: Row[] = [
-    { id: 1, profile: '/person-3.png', name: 'Mariem', phone: '34', kids: 'Ahmed , Sarah', rdate: formattedDate }
+    { id: 1, profile: '/person-3.png', name: 'Mariem', phone: '34', kids: 'Ahmed , Sarah' , email:'meriem@gmail.com', rdate: formattedDate  , civilState:'married', address:'Maghnia , Tlemcen' , userName:'mr23'}
   ];
 
   const [rows, setRows] = React.useState<Row[]>(InitialRows);
@@ -141,8 +171,8 @@ const GuardianList = () => {
         flex:1,
     },
     {
-        field:'kids',
-        headerName:'Kids',
+        field:'email',
+        headerName:'email',
         headerClassName:' justify-center bold-20',
         
         flex:1,

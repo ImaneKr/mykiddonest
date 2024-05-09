@@ -58,7 +58,7 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
             className=' lg:w-56 w-[99%]'
             />
             </div>
-          <div className='flex justify-between lg:flex-row flex-col mb-5 px-8'>
+          <div className='flex justify-between items-center lg:flex-row flex-col mb-5 px-8'>
             <p className='lg:regular-18 regular-16'>
               Last Name
             </p>
@@ -73,7 +73,7 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
             />
             </div>
             
-            <div className='flex lg:flex-row flex-col  justify-between lg:gap-20 mb-5 px-8'>
+            <div className='flex lg:flex-row flex-col  justify-between items-center lg:gap-20 mb-5 px-8'>
             <p className='lg:regular-18 regular-16'>
               Date Of birth
             </p>
@@ -87,7 +87,7 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
             //value={accountInfo.date}
             />
             </div>
-            <div className='flex lg:flex-row flex-col justify-between mb-5 px-8'>
+            <div className='flex lg:flex-row flex-col justify-between items-center lg:gap-20 mb-5 px-8'>
             <p className='lg:regular-18 regular-16'>
               Relationship to child
             </p>
@@ -117,7 +117,7 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
     </RadioGroup>
             
             </div>
-            <div className='flex lg:flex-row flex-col  justify-between lg:gap-20 mb-5 px-8'>
+            <div className='flex lg:flex-row flex-col  justify-between items-center lg:gap-20 mb-5 px-8'>
             <p className='lg:regular-18 regular-16'>
               Username
             </p>
@@ -131,7 +131,7 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
 
             />
             </div>
-            <div className='flex  lg:flex-row flex-col justify-between lg:gap-20 mb-5 px-8'>
+            <div className='flex  lg:flex-row flex-col justify-between items-center lg:gap-20 mb-5 px-8'>
             <p className='lg:regular-18 regular-16'>
               Email Address
             </p>
@@ -145,7 +145,50 @@ const CreateGuardianAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) =
 
             />
             </div>
-            <div className='flex lg:flex-row flex-col  justify-between lg:gap-20 mb-5  px-8'>
+            <div className='flex  lg:flex-row flex-col justify-between items-center lg:gap-20 mb-5 px-8'>
+            <p className='lg:regular-18 regular-16'>
+              Phone Number
+            </p>
+            <TextField 
+            type='text'
+            name='phoneNumber' 
+            placeholder='phone number'
+            autoFocus
+            size='small'
+            className=' lg:w-56 w-[99%]'
+
+            />
+            </div>
+            <div className='flex  lg:flex-row flex-col justify-between items-center lg:gap-20 mb-5 px-8'>
+            <p className='lg:regular-18 regular-16'>
+              Civil state
+            </p>
+            <TextField 
+            type='text'
+            name='civilState' 
+            placeholder='civil state '
+            autoFocus
+            size='small'
+            className=' lg:w-56 w-[99%]'
+
+            />
+            </div>
+            <div className='flex  lg:flex-row flex-col justify-between items-center lg:gap-20 mb-5 px-8'>
+            <p className='lg:regular-18 regular-16'>
+              Address
+            </p>
+            <TextField 
+            type='text'
+            name='address' 
+            placeholder='address'
+            autoFocus
+            size='small'
+            className=' lg:w-56 w-[99%]'
+
+            />
+            </div>
+            
+            <div className='flex lg:flex-row flex-col  justify-between items-center lg:gap-20 mb-5  px-8'>
             <p className='lg:regular-18 regular-16'>
               Password
             </p>
