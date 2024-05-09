@@ -10,7 +10,7 @@ const Activities = () => {
                 Create Staff account
             </p>
             <button className='bg-yellow-40 text-white inline-block p-1 px-2 ml-3 rounded-lg '> 
-                 <Link href='#'>+ New Account</Link>
+                 <Link href='/dashboard/teams'>+ New Account</Link>
             </button>
          </div>
          <div className='w-auto h-auto px-3 py-2 flex rounded-lg bg-orange-90 mb-2'>
@@ -18,7 +18,7 @@ const Activities = () => {
                 Create Guardian account
             </p>
             <button className='bg-yellow-40 text-white inline-block p-1 px-2 ml-3 rounded-lg '> 
-                 <Link href='#'>+ New Account</Link>
+                 <Link href='/dashboard/Guardians '>+ New Account</Link>
             </button>
          </div>
          <div className='w-auto h-auto px-3 py-2 flex gap-12 rounded-lg bg-orange-90 mb-2'>
@@ -26,23 +26,15 @@ const Activities = () => {
                 Modify Child profile
             </p>
             <button className='bg-yellow-40 text-white inline-block p-1 px-2 ml-3 rounded-lg '> 
-                 <Link href='#'>+ edit Profile</Link>
+                 <Link href='/dashboard/children'>+ edit Profile</Link>
             </button>
          </div>
-         <div className='w-auto h-auto px-3 py-2 flex rounded-lg gap-4 bg-orange-90 mb-2'>
+         <div className='w-auto h-auto px-3 py-2 flex justify-between rounded-lg gap-4 bg-orange-90 mb-2'>
             <p>
-                Publish Announecment
+                Publish Content
             </p>
             <button className='bg-yellow-40 text-white inline-block p-1 px-2 ml-3 rounded-lg '> 
-                 <Link href='#'>+ New Account</Link>
-            </button>
-         </div>
-         <div className='w-auto h-auto px-3 py-2 flex rounded-lg gap-[26%] bg-orange-90 mb-2'>
-            <p>
-               Delete Profile
-            </p>
-            <button className='bg-yellow-40 text-white inline-block p-1 px-2 ml-3 rounded-lg '> 
-                 <Link href='#'>+ New Account</Link>
+                 <Link href='/dashboard/content'>+ New Account</Link>
             </button>
          </div>
         

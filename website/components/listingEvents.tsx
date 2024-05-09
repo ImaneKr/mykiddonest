@@ -92,9 +92,7 @@ const ListingEvents: React.FC = () => {
           </DialogActions>
         </Dialog>
       </div>
-      <div className='absolute  flex bottom-40 right-0 z-50'><PopUp trigger={false}>
-        <p>You can put any content you want in here.</p>
-      </PopUp></div>
+      
     </div>
   );
 };

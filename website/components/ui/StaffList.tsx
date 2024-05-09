@@ -39,7 +39,7 @@ const EditUserActionItem: React.FC<EditUserActionItemProps> = ({ row, deleteUser
   };
 const [selectedImagePath,setSelectedImagePath] =useState<string>('');
 
-  const [accountInfo, setAccountInfo] = useState({ profilepic:row.profile ,name: row.name, dateOfBirth:'', phone:row.phone, password:'', email:''});
+  const [accountInfo, setAccountInfo] = useState({ profilepic:row.profile ,name: row.name, phone:row.phone, password:'', email:''});
 
   return (
     <>
@@ -90,50 +90,22 @@ const [selectedImagePath,setSelectedImagePath] =useState<string>('');
            />
           </div>
           
-          <div className='flex lg:flex-row flex-col  justify-between lg:gap-20 mb-5 px-8'>
-          <p className='lg:regular-18 regular-16'>
-            Date Of birth
-           </p>
-          <TextField 
-           type='date'
-           name=' date of birth'
-           autoFocus
-           size='small'
-           className=' lg:w-56 w-[99%]'
-
-           //value={accountInfo.date}
-           />
-          </div>
-          <div className='flex lg:flex-row flex-col justify-between mb-5 px-8'>
-          <p className='lg:regular-18 regular-16'>
-            Relationship to child
-           </p>
-          <TextField 
-           type='text'
-           name='relation'
-           placeholder='Relationship ..'
-           
-           size='small'
-           //value={accountInfo.name}
-           className='border-2'
-           />
-          </div>
-        <div className='flex justify-between items-center mb-3 px-8'>
-          <p className='lg:regular-18 regular-16 pr-4'>
-            Gender:
-           </p>
+            <div className='flex justify-between  lg:flex-row flex-col mb-3 px-8'>
+            <p className='lg:regular-18 regular-16'>
+            Role
+         </p>
            <RadioGroup
-    aria-labelledby="demo-radio-buttons-group-label"
-    defaultValue="female"
-    name="radio-buttons-group"
-   className=' flex flex-row '
+           aria-labelledby="demo-radio-buttons-group-label"
+           defaultValue="Teacher"
+           name="radio-buttons-group"
+           className=' flex flex-row justify-between'
           >
-    <FormControlLabel value="female" control={<Radio />} label="Female" />
-    <FormControlLabel value="male" control={<Radio />} label="Male" />
-    
-  </RadioGroup>
+            <FormControlLabel value="Secretry" control={<Radio />} label="Sacretary" />
+            <FormControlLabel value="Teacher" control={<Radio />} label="Teacher" />
+         </RadioGroup>
           
           </div>
+        
           <div className='flex lg:flex-row flex-col  justify-between lg:gap-20 mb-5 px-8'>
           <p className='lg:regular-18 regular-16'>
             Username
@@ -156,6 +128,20 @@ const [selectedImagePath,setSelectedImagePath] =useState<string>('');
            type='email'
            name='email' 
            placeholder='email'
+           autoFocus
+           size='small'
+           className=' lg:w-56 w-[99%]'
+
+           />
+          </div>
+          <div className='flex  lg:flex-row flex-col justify-between lg:gap-20 mb-5 px-8'>
+          <p className='lg:regular-18 regular-16'>
+            Phone Number
+           </p>
+          <TextField 
+           type='text '
+           name='phoneNumber' 
+           placeholder='Phone Number'
            autoFocus
            size='small'
            className=' lg:w-56 w-[99%]'

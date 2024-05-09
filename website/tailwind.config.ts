@@ -60,6 +60,7 @@ module.exports = {
         'pattern-2': "url('/pattern-bg.png')",
         'orange-cloud': "url('/cloud-yellow.jpg')",
         'gradient-to-br':'linear-gradient(to bottom right,#F8EDC7,#F1E4B6,#FCE7A0,#F4D877,#F4D877)',
+        'bgbg':"url('/bgbg.png')",
       },
       screens: {
         xs: '400px',
@@ -72,6 +73,7 @@ module.exports = {
       borderRadius: {
         '5xl': '40px',
       },
+      
     },
   },
   plugins: [],

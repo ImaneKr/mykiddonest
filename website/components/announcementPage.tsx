@@ -34,7 +34,7 @@ const AnnouncementPage = () => {
           <input type='text' className={`w-full border  rounded-md px-2 py-1 ${!isAnnouncementPressed ? 'border-gray-15' : 'border-blue-90'} group focus:border-2 focus:border-blue-90 focus:outline-none`} placeholder='Title' disabled={!isAnnouncementPressed} />
           <input type='text' className={`w-full border  rounded-md px-2 py-1 placeholder-gray-15 ${!isAnnouncementPressed ? 'border-gray-15' : 'border-blue-90'} group focus:border-2 focus:border-blue-90 focus:outline-none `} placeholder='Description' disabled={!isAnnouncementPressed} />
           <div id="newAnnouncement" className={`flex flex-col w-full border-2 border-dashed  rounded-md  ${!isAnnouncementPressed ? 'border-gray-15 ' : 'border-blue-400'}`}>
-           <ImagePicker  disabled={!isAnnouncementPressed} />
+           <ImagePicker  disabled={!isAnnouncementPressed}/>
           </div>
           <div className='flex flex-row justify-between w-full mt-4'>
              <div className='flex border border-gray-15 rounded-md '><button className={`w-full h-full p-2 pl-3 pr-3 regular-12 ${!isAnnouncementPressed ? 'opacity-50 bg-gray-15' : ''}`} disabled={!isAnnouncementPressed} onClick={handleAnnouncementButtonClick}>Cancel</button></div>

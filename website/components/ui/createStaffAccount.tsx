@@ -9,7 +9,7 @@ interface FormDialogProps {
 }
 const CreateStaffAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
    
-    const [formValues, setFormValues] = useState({ name: '', email: '',phone:'+213', username:'', profileImage:'',password:'sd'});
+    const [formValues, setFormValues] = useState({ name: '', email: '',phone:'', username:'', profileImage:'',password:''});
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
@@ -36,6 +36,7 @@ const CreateStaffAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
         onClose={() => setOpen(false)}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+
         maxWidth='sm'
         fullWidth={true}
       >
@@ -73,35 +74,7 @@ const CreateStaffAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
            />
           </div>
           
-          <div className='flex   justify-between lg:flex-row flex-col gap-20 mb-3 px-8'>
-            <p className='lg:regular-18 regular-16'>
-            Date Of birth
-           </p>
-          <TextField 
-           type='date'
-           name=' date of birth'
-           autoFocus
-           size='small'
-            className=' lg:w-56 w-[99%]'
-           //value={accountInfo.date}
-           />
-          </div>
           
-        <div className='flex justify-between  lg:flex-row flex-col mb-3 px-8'>
-            <p className='lg:regular-18 regular-16'>
-            Gender
-           </p>
-           <RadioGroup
-           aria-labelledby="demo-radio-buttons-group-label"
-           defaultValue="female"
-           name="radio-buttons-group"
-           className=' flex flex-row justify-between pr-5 gap-4'
-          >
-    <FormControlLabel value="female" control={<Radio />} label="Female"/>
-    <FormControlLabel value="male" control={<Radio />} label="Male"  />
-   </RadioGroup>
-          
-          </div>
           <div className='flex justify-between  lg:flex-row flex-col mb-3 px-8'>
             <p className='lg:regular-18 regular-16'>
             Role
@@ -139,6 +112,20 @@ const CreateStaffAccount : React.FC<FormDialogProps> =  ({ open, setOpen }) => {
           <TextField 
            type='email'
            name='email'
+           helperText
+           autoFocus
+           size='small'
+            className=' lg:w-56 w-[99%]'
+           //={accountInfo.syndromes}
+           />
+          </div>
+          <div className='flex   justify-between lg:flex-row flex-col mb-3 px-8'>
+            <p className='lg:regular-18 regular-16'>
+            Phone Number
+           </p>
+          <TextField 
+           type='text'
+           name='phoneNumber'
            helperText
            autoFocus
            size='small'
