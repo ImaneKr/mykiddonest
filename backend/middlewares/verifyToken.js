@@ -16,31 +16,35 @@ const verifyToken = (req, res, next) => {
 
   try {
     const payload = jwt.verify(token, secret);
-    return payload;
+
+    
+    return payload && console.log(`the  payload is ${payload}`);
   } catch (e) {
     return next(createError(401, "Invalid token"));
   }
 };
 
-const verifyRole = (role) => (req, res, next) => {
+const verifyRole = (requiredRole) => (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return next(createError(401, "No token provided"));
   }
 
   const token = authHeader.split(" ")[1];
-  const payload = verifyToken(req, res, next);
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    if (payload.role !== requiredRole) {
+      return next(createError(403, "Forbidden"));
+    }
+    req.user = payload;
 
-  if (payload.role !== role) {
-    return next(createError(403, "Forbidden"));
+    next();
+  } catch (error) {
+    return next(createError(401, "Invalid token"));
   }
-
-  req.user = payload;
-  next();
 };
-
+//Define separate middleware functions for each role
 const verifyAdmin = verifyRole("admin");
 const verifySecretary = verifyRole("secretary");
 const verifyTeacher = verifyRole("teacher");
-
 module.exports = { verifyToken, verifyAdmin, verifySecretary, verifyTeacher };
