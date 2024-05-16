@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 class KidInfoField extends StatefulWidget {
   final String textHintf;
   final String labelf;
+  final Function(String) onChanged; // Callback function to notify parent widget
 
   KidInfoField({
     Key? key,
     required this.textHintf,
     required this.labelf,
-    double? bottom = 10,
+    required this.onChanged, // Receive callback function from parent
   }) : super(key: key);
 
   @override
@@ -36,17 +37,20 @@ class _KidInfoFieldState extends State<KidInfoField> {
             height: 5,
           ),
           TextField(
+            onChanged: (value) {
+              // Notify parent widget about the change
+              widget.onChanged(value);
+            },
             textAlign: TextAlign.start,
-            maxLines: null, // Allows multiple lines
-            keyboardType:
-                TextInputType.multiline, // Specifies the keyboard type
-            textInputAction:
-                TextInputAction.newline, // Action button to start a new line
+            maxLines: null,
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide:
-                    BorderSide(color: const Color.fromARGB(255, 55, 55, 55)),
+                borderSide: BorderSide(
+                  color: const Color.fromARGB(255, 55, 55, 55),
+                ),
               ),
               contentPadding: EdgeInsets.all(10),
               hintText: widget.textHintf,

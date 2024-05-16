@@ -1,14 +1,18 @@
+import 'dart:io';
+
 class Kid {
   String firstName;
   String familyName;
-  DateTime dateOfBirth;
+  DateTime? dateOfBirth; // Make dateOfBirth nullable
   String gender;
-  String imageUrl;
+  File? imageUrl; // Change type to File
   String allergies;
   String syndromes;
   String hobbies;
   String authorizedPickupper;
-  String additionalInfo;
+  String relationshipToChild;
+  bool isSet;
+  int kidId;
 
   // Constructor
   Kid({
@@ -19,15 +23,10 @@ class Kid {
     this.syndromes = '',
     this.hobbies = '',
     this.authorizedPickupper = '',
-    this.additionalInfo = '',
-    DateTime? dateOfBirth, // Make dateOfBirth nullable
-  })  : dateOfBirth = dateOfBirth ?? DateTime(2000, 1, 1),
-        imageUrl = _getDefaultImageUrl(gender) {
-    // Providing default value directly
-  }
-
-  // Function to get default image URL based on gender
-  static String _getDefaultImageUrl(String gender) {
-    return gender == 'Male' ? 'assets/kid.jpg' : 'assets/girl.jpg';
-  }
+    this.relationshipToChild = '',
+    this.isSet = false, // Initialization of isSet
+    this.dateOfBirth, // Make dateOfBirth nullable
+    this.imageUrl,
+    this.kidId = 0, // Change type to File
+  });
 }

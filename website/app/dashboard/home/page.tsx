@@ -10,7 +10,7 @@ const page = () => {
     <div className='flex flex-col w-full justify-center items-center'>
        <div className='bg-white mt-1 ml-1 p-3 flex flex-col w-[99%] rounded-md'>
        <h1 className=' bold-24 w-auto '>Good Afternoon, <span className=' text-blue-90'>{userName}!</span> </h1>
-       <div className='flex gap-12 mt-2'>
+       <div className='flex lg:flex-row w-full flex-col ml-5 lg:pr-7   gap-12 mt-2'>
        <StatCards 
        title='Enrolled children'
        statnum='83'
@@ -45,7 +45,7 @@ const page = () => {
             className='size-7' 
             color='#ffffff'
          />}
-         link='/dashboard/payments'
+         link='/dashboard/Payment'
        txtcol='text-green-40'
        boderColor='border-green-40' />
        </div>

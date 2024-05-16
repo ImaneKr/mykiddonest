@@ -45,10 +45,10 @@ class KidSelection extends StatelessWidget {
     if (kid != null) {
       return Image(
         image: isSelected
-            ? (kid!.gender == 'Boy'
+            ? (kid!.gender == 'Male'
                 ? AssetImage('assets/icons/boySelected.png')
                 : AssetImage('assets/icons/girlSelected.png'))
-            : (kid!.gender == 'Boy'
+            : (kid!.gender == 'Male'
                 ? AssetImage('assets/icons/boy.png')
                 : AssetImage('assets/icons/girl.png')),
       );

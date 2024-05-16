@@ -1,9 +1,11 @@
 // ignore_for_file: file_names, prefer_const_constructors
+import 'package:appmobile/models/kid.dart';
 import 'package:appmobile/view/components/profileTextField.dart';
+import 'package:appmobile/view/screens/editKid.dart';
 import 'package:flutter/material.dart';
-import 'package:appmobile/controller/kid_profile_controller.dart';
 import 'package:appmobile/view/screens/payment.dart';
-import 'package:appmobile/view/screens/edit_profile.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 
 class KidProfile extends StatefulWidget {
   KidProfile({super.key});
@@ -13,10 +15,34 @@ class KidProfile extends StatefulWidget {
 }
 
 class _KidProfileState extends State<KidProfile> {
-  //input controller
-  //  final TextEditingController _fieldController = TextEditingController();
-  // create instance of the controller kid
-  final KidProfileController _kidProfileController = KidProfileController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _selectedKidBox = Hive.box('selectedKid');
+  Kid selectedKid = Kid();
+  String formatDate(DateTime dateTime) {
+    // Using intl package to format the date
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dateTime);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedKid = Kid(
+      firstName:
+          _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
+      familyName:
+          _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
+      gender: _selectedKidBox.get('selectedKid')['gender'].toString() ?? '',
+      allergies: _selectedKidBox.get('selectedKid')['allergies'] ?? '',
+      syndromes: _selectedKidBox.get('selectedKid')['syndroms'] ?? '',
+      hobbies: _selectedKidBox.get('selectedKid')['hobbies'] ?? '',
+      dateOfBirth: _selectedKidBox
+          .get('selectedKid')['dateOfbirth'], // year , month , day
+      authorizedPickupper:
+          _selectedKidBox.get('selectedKid')['authorizedpickups'],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,83 +57,86 @@ class _KidProfileState extends State<KidProfile> {
               height: 20,
             ),
             Container(
-              alignment: Alignment.center,
-              height: 125,
-              width: 340,
-              decoration: BoxDecoration(
-                color: _kidProfileController.kidProfile.gender == 'Male'
-                    ? Color(0xFFD6E6F7)
-                    : Color(0xFFF9CAD2),
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage('assets/images/aymen.jpg'),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                alignment: Alignment.center,
+                height: 125,
+                width: 340,
+                decoration: BoxDecoration(
+                  color: selectedKid.gender == 'Male'
+                      ? Color(0xFFD6E6F7)
+                      : Color.fromARGB(188, 247, 184, 219),
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
                     children: [
                       SizedBox(
-                        height: 20,
+                        width: 20,
                       ),
-                      Text(
-                        '${_kidProfileController.firstName} ${_kidProfileController.lastName}',
-                        // textAlign: A,
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Text(
-                        '${_kidProfileController.gender}',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'Inter',
-                          color: Colors.black,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Align(
+                      Container(
                         alignment: Alignment.centerLeft,
-                        child: TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EditProfile()),
-                            );
-                          },
-                          child: Text(
-                            'Edit profile',
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              AssetImage('assets/images/aymen.jpg'),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            '${selectedKid.firstName} ${selectedKid.familyName}',
+                            // textAlign: A,
                             style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Poppins',
-                              color: Colors.black,
-                              fontWeight: FontWeight.w400,
+                              fontSize: 22,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w700,
                             ),
                           ),
-                        ),
+                          Text(
+                            '${selectedKid.gender}',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontFamily: 'Inter',
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditProfile()),
+                                );
+                              },
+                              child: Text(
+                                'Edit profile',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Poppins',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 30,
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                ],
-              ),
-            ),
+                )),
             SizedBox(
               height: 15.0,
             ),
@@ -116,7 +145,7 @@ class _KidProfileState extends State<KidProfile> {
               children: [
                 ProfileTextField(
                   textLabelTop: 'Date of Birth',
-                  textHint: _kidProfileController.dateOfBirth,
+                  textHint: selectedKid.dateOfBirth,
                   //directly pass
                 ),
                 SizedBox(
@@ -124,28 +153,28 @@ class _KidProfileState extends State<KidProfile> {
                 ),
                 ProfileTextField(
                   textLabelTop: 'Allergies',
-                  textHint: _kidProfileController.allergies,
+                  textHint: selectedKid.allergies,
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 ProfileTextField(
                   textLabelTop: 'Syndromes',
-                  textHint: _kidProfileController.syndromes,
+                  textHint: selectedKid.syndromes,
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 ProfileTextField(
                   textLabelTop: 'Hobbies',
-                  textHint: _kidProfileController.hobbies,
+                  textHint: selectedKid.hobbies,
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 ProfileTextField(
                   textLabelTop: 'Authorized pick-up persons',
-                  textHint: _kidProfileController.authorizedPickUpPersons,
+                  textHint: selectedKid.authorizedPickupper,
                   // must affected without ${}, because using this we are turning the variable to string first, it not correct
                 ),
                 SizedBox(
@@ -161,9 +190,10 @@ class _KidProfileState extends State<KidProfile> {
               padding: EdgeInsets.only(bottom: 20.0),
               child: ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: _kidProfileController.gender == 'Male'
+                  backgroundColor: selectedKid.gender == 'Male'
                       ? MaterialStateProperty.all<Color>(Color(0xFF00ADE9))
-                      : MaterialStateProperty.all<Color>(Color(0xFFF7ABB8)),
+                      : MaterialStateProperty.all<Color>(
+                          Color.fromARGB(188, 247, 184, 219)),
                   shape: MaterialStateProperty.all<OutlinedBorder>(
                     RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),

@@ -2,13 +2,20 @@ import 'package:appmobile/models/kid.dart';
 import 'package:appmobile/models/subject.dart';
 import 'package:appmobile/view/components/subjectEvaluation.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 class Evaluation extends StatelessWidget {
   const Evaluation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Kid kid = Kid(firstName: 'Mohammed', familyName: 'Benaissa');
+    final _selectedKidBox = Hive.box('selectedKid');
+
+    Kid kid = Kid(
+        firstName:
+            _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
+        familyName:
+            _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '');
     List<Subject> subjects = [
       Subject(label: 'Physics', pourcentage: 20),
       Subject(label: 'Maths', pourcentage: 20),

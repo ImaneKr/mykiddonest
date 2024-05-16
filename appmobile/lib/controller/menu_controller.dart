@@ -1,135 +1,61 @@
 import 'package:appmobile/models/menu.dart';
 
 class MController {
-  final String day;
-  MController({required this.day});
-  List<Menu> generateMenuForDay() {
-    print('Selected Day: $day');
-    List<Menu> menus = [];
+    static List<Menu> getMenuForDay(String day) {
     switch (day) {
-      case 'Sunday':
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/orange.png",
-            title: 'Orange',
-          ),
-        ];
-        break;
-      case 'Monday':
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/orange.png",
-            title: 'Orange',
-          ),
-        ];
-        break;
-      case 'Tuesday':
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/orange.png",
-            title: 'Orange',
-          ),
-        ];
-        break;
-      case 'Wednesday':
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/orange.png",
-            title: 'Orange',
-          ),
-        ];
-        break;
-      case 'Tursday':
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/harira.jpg",
-            title: 'Harira',
-          ),
-        ];
-        break;
+      case "Sun":
+        return sundayMenu;
+      case "Mon":
+        return mondayMenu;
+      case "Tue":
+        return tuesdayMenu;
+      case "Wed":
+        return wednesdayMenu;
+      case "Thu":
+        return thursdayMenu;
       default:
-        menus = [
-          Menu(
-            picture: "assets/images/dish.png",
-            title: 'Dish',
-          ),
-          Menu(
-            picture: "assets/images/pommes.jpg",
-            title: 'Pommes',
-          ),
-          Menu(
-            picture: "assets/images/maaqouda.jpg",
-            title: 'Mekouda',
-          ),
-          Menu(
-            picture: "assets/images/orange.png ",
-            title: 'Orange',
-          ),
-        ];
-        break;
-    }
-    return menus;
-  }
+        return [];
+    }}
+    static List<Menu> sundayMenu = [
+      Menu(picture: "assets/images/dish.png", title: 'Dish'),
+    Menu(picture: 'assets/images/pommes.jpg', title: 'Apple'),
+    
+  ];
+
+  static List<Menu> mondayMenu = [
+    Menu(picture: "assets/images/dish.png", title: 'Dish'),
+    Menu(picture: "assets/images/pommes.jpg", title: 'Apple'),
+    Menu(picture: "assets/images/maaqouda.jpg",  title: 'Maekouda'),
+    Menu(picture: "assets/images/orange.png",  title: 'Orange'),
+  ];
+
+  static List<Menu> tuesdayMenu = [
+      Menu(picture: "assets/images/dish.png", title: 'Dish'),
+    Menu(picture: "assets/images/pommes.jpg", title: 'Apple'),
+    Menu(picture: "assets/images/maaqouda.jpg",  title: 'Maekouda'),
+    
+  ];
+
+  static List<Menu> wednesdayMenu = [
+      Menu(picture: "assets/images/dish.png", title: 'Dish'),
+    Menu(picture: "assets/images/pommes.jpg", title: 'Apple'),
+    Menu(picture: "assets/images/maaqouda.jpg",  title: 'Maekouda'),
+    Menu(picture: "assets/images/orange.png",  title: 'Orange'),
+      Menu(picture: "assets/images/dish.png", title: 'Dish'),
+    Menu(picture: "assets/images/pommes.jpg", title: 'Apple'),
+    Menu(picture: "assets/images/maaqouda.jpg",  title: 'Maekouda'),
+    Menu(picture: "assets/images/orange.png",  title: 'Orange'),
+    
+  ];
+
+  static List<Menu> thursdayMenu = [
+    Menu(picture: "assets/images/dish.png", title: 'Dish'),
+    Menu(picture: "assets/images/pommes.jpg", title: 'Apple'),
+    Menu(picture: "assets/images/maaqouda.jpg",  title: 'Maekouda'),
+    Menu(picture: "assets/images/orange.png",  title: 'Orange'),
+
+
+  ];
 }
 
- // generateMenuForDay() {}
+ 

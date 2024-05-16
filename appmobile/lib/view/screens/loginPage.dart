@@ -1,10 +1,13 @@
 // ignore_for_file: use_key_in_widget_constructors, file_names, prefer_const_constructors, library_private_types_in_public_api, prefer_const_literals_to_create_immutables, curly_braces_in_flow_control_structures
-
-import 'package:appmobile/models/user.dart';
+import 'dart:convert'; // for encoding/decoding JSON
+import 'package:appmobile/models/guardian.dart';
+import 'package:hive/hive.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/addKid1.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,10 +18,15 @@ class _LoginPageState extends State<LoginPage> {
   bool _isObscured = true;
   TextEditingController _username = TextEditingController();
   TextEditingController _password = TextEditingController();
-  User retrieved = User(
-    username: 'admin',
-    password: 'admin',
-  ); ///////////////////////////////this oone we gonna set it later and retrieve it from the database
+  final _myBox = Hive.box('guardianData');
+  final connectionBox = Hive.box('connection');
+  final _selectedKidBox = Hive.box('selectedKid');
+
+  final _kidsBox = Hive.box('kidsData');
+
+  late Guardian retrieved = new Guardian(username: '', password: '');
+  late dynamic kidsList;
+/////////////////////////////////////////
 
   void _toggleVisibility() {
     setState(() {
@@ -26,14 +34,84 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  bool _hasKid() {
-    return false; // For simplicity.... later we'll set it using the database or firebase
+///// hadi is a method to retrieve the kids by guardian id
+  Future<bool> _hasKid() async {
+    final myBox = Hive.box('kidsData');
+    int? nb = await myBox.get('nbKids');
+    return (nb == null || nb == 0) ? false : true;
   }
 
-  bool _infoValid() {
-    if (_password.text == retrieved.password &&
-        _username.text == retrieved.username) return true;
-    return false;
+  Future<bool> _infoValid() async {
+    final String username = _username.text;
+    final String password = _password.text;
+
+    final url = Uri.parse('https://backend-1-dg5f.onrender.com/login/guardian');
+
+    try {
+      var response = await http.post(
+        url,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          "username": username,
+          "guardian_pwd": password,
+        }),
+      );
+
+      if (response.statusCode == 201) {
+        var data = jsonDecode(response.body);
+        await _myBox.put('guardian_id', data['guardian_id']);
+        await _myBox.put('firstname', data['firstname']);
+        await _myBox.put('lastname', data['lastname']);
+        await _myBox.put('phonenumber', data['phone_number']);
+        await _myBox.put('username', data['username']);
+        await _myBox.put('password', data['guardian_pwd']);
+        await _myBox.put('adressMail', data['email']);
+        await _myBox.put('gender', data['gender']);
+        await _myBox.put('civilstate', data['civilState']);
+        await _myBox.put('address', data['address']);
+        await _myBox.put('guardianPic', data['acc_pic']);
+
+        print('guardian log in successfully:$data');
+        await _myBox.put('isConnected', true);
+
+        List<Map<String, dynamic>> guardianKids =
+            await getKidsByGuardianId(_myBox.get("guardian_id"));
+        print('got kids successfully');
+        if (guardianKids == null || guardianKids == [] || guardianKids.isEmpty)
+          await _kidsBox.put('nbKids', 0);
+        else
+          await _kidsBox.put('nbKids', guardianKids.length);
+        ;
+        if (guardianKids != null)
+          for (int i = 0; i < guardianKids.length; i++) {
+            await _kidsBox.put('kiddo$i', {
+              'kid_id': guardianKids[i]['kid_id'],
+              'firstname': guardianKids[i]['firstname'],
+              'lastname': guardianKids[i]['lastname'],
+              'gender': guardianKids[i]['gender'],
+              'dateOfbirth': DateTime.parse(guardianKids[i]['dateOfbirth']),
+              'allergies': guardianKids[i]['allergies'],
+              'hobbies': guardianKids[i]['hobbies'],
+              'syndroms': guardianKids[i]['syndroms'],
+              'authorizedpickups': guardianKids[i]['authorizedpickups'],
+              'guardian_id': guardianKids[i]['guardian_id'],
+              'category_id': guardianKids[i]['category_id'],
+              'kidId': guardianKids[i]['kid_id']
+            });
+          }
+        connectionBox.put('isConnected', true);
+        return true;
+      } else {
+        // Login failed
+        print('Log in failed:${response.statusCode}');
+        return false;
+      }
+    } catch (error) {
+      print('Error during login: $error');
+      return false;
+    }
   }
 
   void launchGmail() async {
@@ -60,6 +138,40 @@ class _LoginPageState extends State<LoginPage> {
 //request to the backend to call the finction that send an email from mykiddonest@gmail.com to the useremail
   }
 
+  Future<List<Map<String, dynamic>>> getKidsByGuardianId(int guardianId) async {
+    final response = await http.get(
+      Uri.parse('https://backend-1-dg5f.onrender.com/kid/$guardianId/kids'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final List<dynamic> responseBody = jsonDecode(response.body);
+      final List<Map<String, dynamic>> kids = responseBody
+          .map((dynamic item) => item as Map<String, dynamic>)
+          .toList();
+      print('kidsretrieved :$kids');
+      return kids;
+    } else {
+      throw Exception('Failed to fetch kids by guardian ID: ${response.body}');
+    }
+  }
+
+  void storeKids(int guardian_id) async {
+    try {
+      List<Map<String, dynamic>> kids = await getKidsByGuardianId(
+          guardian_id); // Replace 123 with the actual guardian ID
+
+      setState(() {
+        kidsList = kids;
+      });
+    } catch (e) {
+      // Handle errors
+      print('Error fetching and storing kids: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +180,7 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Text(retrieved.username),
             Container(
               margin: EdgeInsets.only(top: 126),
               alignment: Alignment.center,
@@ -311,12 +424,13 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       //primary: Color(0xFFEBEBEB),
                                     ),
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      bool hasKids = await _hasKid();
                                       _username.text == retrieved.username
                                           ? (_password.text !=
                                                   retrieved.password
                                               ? launchGmail()
-                                              : (_hasKid()
+                                              : (hasKids
                                                   ? Navigator.push(
                                                       context,
                                                       MaterialPageRoute(
@@ -327,11 +441,10 @@ class _LoginPageState extends State<LoginPage> {
                                                       context,
                                                       oldRoute: ModalRoute.of(
                                                           context)!,
-                                                      newRoute:
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      AddKid1()),
+                                                      newRoute: MaterialPageRoute(
+                                                          builder:
+                                                              (newcontext) =>
+                                                                  AddKid1()),
                                                     )))
                                           : Navigator.of(context).pop();
                                     },
@@ -382,22 +495,40 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                     ),
-                    onPressed: () {
-                      if (_infoValid() && _hasKid())
-                        Navigator.replace(
-                          context,
-                          oldRoute: ModalRoute.of(context)!,
-                          newRoute: MaterialPageRoute(
-                              builder: (context) => MainPage()),
-                        );
-                      else if (_infoValid() && !_hasKid())
+                    onPressed: () async {
+                      bool isValid = await _infoValid();
+                      bool hasKids = await _hasKid();
+                      if (isValid && hasKids) {
+                        await _selectedKidBox.put('selectedKid', {
+                          'kid_id': _kidsBox.get('kiddo0')['kid_id'],
+                          'firstname':
+                              _kidsBox.get('kiddo0')['firstname'].toString(),
+                          'lastname':
+                              _kidsBox.get('kiddo0')['lastname'].toString(),
+                          'gender': _kidsBox.get('kiddo0')['gender'].toString(),
+                          'allergies': _kidsBox.get('kiddo0')['allergies'][0],
+                          'syndroms': _kidsBox.get('kiddo0')['syndroms'][0],
+                          'hobbies': _kidsBox.get('kiddo0')['hobbies'][0],
+                          'authorizedpickups':
+                              _kidsBox.get('kiddo0')['authorizedpickups'][0],
+                          'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth']
+                        });
+                        await _selectedKidBox.put('index', 0);
+                        await _myBox.put('isConnected', true);
+
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainPage()));
+                      } else if (isValid && !hasKids) {
+                        await _myBox.put('isConnected', true);
                         Navigator.replace(
                           context,
                           oldRoute: ModalRoute.of(context)!,
                           newRoute: MaterialPageRoute(
                               builder: (context) => AddKid1()),
                         );
-                      else if (!_infoValid())
+                      } else if (!isValid)
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {

@@ -5,6 +5,7 @@ import 'package:appmobile/models/menu.dart';
 import 'package:appmobile/view/screens/menu.dart';
 import 'package:appmobile/controller/menu_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -14,7 +15,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePage extends State<MyHomePage> {
-  String userFirstName = 'Meriem'; // late means will be intialized later
+  String userFirstName = Hive.box('guardianData')
+      .get('firstname'); // late means will be intialized later
   String currentDate = DateFormat('d MMMM').format(DateTime.now());
   final ActivityController _controller = ActivityController();
   //---------------------------
@@ -215,7 +217,7 @@ class _MyHomePage extends State<MyHomePage> {
             // activity part
 
             Container(
-              height: 250,
+              height: 260,
               // height: getDynamicHeight(activity.title),
               padding: EdgeInsets.fromLTRB(8.0, 0, 5.0, 0),
               child: ListView.builder(
@@ -273,58 +275,66 @@ class _MyHomePage extends State<MyHomePage> {
 
                         SizedBox(height: 6.0),
                         Expanded(
-                          child: activity.isEvent
-                              ? Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () =>
-                                          _controller.acceptEvent(index),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.black), // Text color
-                                        padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                          EdgeInsets.symmetric(
-                                              horizontal: 14.0,
-                                              vertical: 8.0), // Padding
+                            child: activity.isEvent
+                                ? Padding(
+                                    padding: EdgeInsets.only(bottom: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () =>
+                                              _controller.acceptEvent(index),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.white),
+                                            foregroundColor:
+                                                MaterialStateProperty.all<
+                                                        Color>(
+                                                    Colors.black), // Text color
+                                            padding: MaterialStateProperty.all<
+                                                EdgeInsetsGeometry>(
+                                              EdgeInsets.symmetric(
+                                                  horizontal: 14.0,
+                                                  vertical: 8.0), // Padding
+                                            ),
+                                          ),
+                                          child: Text('Accept'),
                                         ),
-                                      ),
-                                      child: Text('Accept'),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () =>
-                                          _controller.declineEvent(index),
-                                      style: ButtonStyle(
-                                        backgroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.white),
-                                        foregroundColor:
-                                            MaterialStateProperty.all<Color>(
-                                                Colors.black), // Text color
-                                        padding: MaterialStateProperty.all<
-                                            EdgeInsetsGeometry>(
-                                          EdgeInsets.symmetric(
-                                              horizontal: 14.0,
-                                              vertical: 8.0), // Padding
+                                        ElevatedButton(
+                                          onPressed: () =>
+                                              _controller.declineEvent(index),
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all<
+                                                    Color>(Colors.white),
+                                            foregroundColor:
+                                                MaterialStateProperty.all<
+                                                        Color>(
+                                                    Colors.black), // Text color
+                                            padding: MaterialStateProperty.all<
+                                                EdgeInsetsGeometry>(
+                                              EdgeInsets.symmetric(
+                                                  horizontal: 14.0,
+                                                  vertical: 8.0), // Padding
+                                            ),
+                                          ),
+                                          child: Text('Decline'),
                                         ),
-                                      ),
-                                      child: Text('Decline'),
+                                      ],
                                     ),
-                                  ],
-                                )
-                              : // : of the condition
+                                  )
+                                : // : of the condition
 
-                              Text(
-                                  activity.description,
-                                  style: TextStyle(fontSize: 10),
-                                ),
-                        ),
+                                Padding(
+                                    padding: EdgeInsets.only(
+                                        bottom: 5, right: 5, left: 5),
+                                    child: Text(
+                                      activity.description,
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                  )),
 
                         // if it is not event, it will display a description
                       ],

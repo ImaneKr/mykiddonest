@@ -1,5 +1,5 @@
-//import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:appmobile/models/menu.dart';
@@ -40,7 +40,7 @@ void showLunchMenuBottomSheet(
     BuildContext context, DateTime selectedDate, Menu menu) {
   showModalBottomSheet(
     barrierColor: Colors.black54,
-    backgroundColor: Color.fromARGB(255, 255, 255, 255),
+    backgroundColor: Colors.white,
     isScrollControlled: true,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadiusDirectional.vertical(top: Radius.circular(35)),
@@ -86,11 +86,13 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
   late DateTime selectedDate;
   late MController _controller;
   late List<Menu> _menus;
+  int selectedIndex = 0;
   @override
   void initState() {
     selectedDate = widget.selectedDate;
-    _controller = MController(day: _getDayOfWeek(selectedDate));
-    _menus = _controller.generateMenuForDay();
+    _controller = MController();
+    _menus =
+        MController.getMenuForDay(_getDayOfWeek(selectedDate).substring(0, 3));
     super.initState();
   }
 
@@ -113,7 +115,7 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
 
   Widget _buildMenuWidget(List<Menu> menus) {
     return Container(
-      height: 650,
+      height: 600,
       width: double.infinity,
       padding: EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
@@ -121,7 +123,7 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Color.fromARGB(255, 214, 214, 214),
+            Color.fromARGB(255, 255, 255, 255),
             Colors.white,
           ],
         ),
@@ -135,7 +137,7 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
           ),
           Center(
             child: Text(
-              'Lunch Menu Of The week',
+              'Lunch Menu Of The Week',
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w700,
@@ -166,69 +168,65 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
             padding: EdgeInsets.all(10),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: List.generate(5, (index) {
-                final weekDay = selectedDate
-                    .subtract(Duration(days: selectedDate.weekday - index));
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: GestureDetector(
-                    onTap: () => setState(() => selectedDate = weekDay),
-                    child: Container(
-                      padding: EdgeInsets.all(7),
-                      margin: EdgeInsets.all(3),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        color: weekDay.day == selectedDate.day
-                            ? Color.fromARGB(255, 249, 209, 147)
-                            : Color.fromARGB(255, 205, 204, 204),
-                      ),
-                      child: Center(
+              children: List.generate(
+                5,
+                (index) {
+                  final day = ["Sun", "Mon", "Tue", "Wed", "Thu"][index];
+                  return Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                          _menus = MController.getMenuForDay(day);
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.only(
+                            top: 8, left: 12, right: 12, bottom: 12),
+                        margin: EdgeInsets.all(6),
+                        decoration: BoxDecoration(
+                          color: index == selectedIndex
+                              ? Colors.orange
+                              : Colors.grey.shade100,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: Text(
-                          DateFormat('EEE').format(weekDay),
+                          day,
                           style: TextStyle(
-                            fontFamily: 'sans_serif',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
+                            color: index == selectedIndex
+                                ? Colors.white
+                                : Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                       ),
                     ),
-                  ),
-                );
-              }),
+                  );
+                },
+              ),
             ),
           ),
           SizedBox(
             height: 10,
           ),
-          Flexible(
+          Expanded(
+            flex: 2,
             child: GridView.builder(
+              padding: EdgeInsets.only(left: 15, right: 15),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 20,
-                mainAxisExtent: 155,
                 mainAxisSpacing: 20,
               ),
-              itemCount: menus.length,
-              padding: EdgeInsets.all(20),
-              itemBuilder: (BuildContext context, int index) {
-                final menu = menus[index];
-                return Container(
-                  padding: EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 255, 255, 255),
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Color.fromARGB(255, 215, 215, 215),
-                        blurRadius: 5,
-                        offset: Offset(4, 4),
-                      )
-                    ],
-                  ),
+              itemCount: _menus.length,
+              itemBuilder: (context, index) {
+                var menu = _menus[index];
+                return Card(
+                  elevation: 5,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
+                    children: [
+                      //  Padding(padding:EdgeInsets.all(3)),
                       Text(
                         menu.title,
                         style: TextStyle(
@@ -237,15 +235,14 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
                             fontWeight: FontWeight.w400,
                             color: Color.fromARGB(255, 19, 19, 18)),
                       ),
-                      SizedBox(
-                        height: 15,
-                      ),
+                      SizedBox(height: 15),
                       Image.asset(
                         menu.picture,
                         width: 100,
-                        height: 90,
+                        height: 100,
                         fit: BoxFit.cover,
                       ),
+                      SizedBox(height: 6),
                     ],
                   ),
                 );

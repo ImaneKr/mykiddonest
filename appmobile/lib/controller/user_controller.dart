@@ -1,7 +1,7 @@
-import 'package:appmobile/models/user.dart';
+import 'package:appmobile/models/guardian.dart';
 
 class UserController {
-  User user = User(
+  Guardian user = Guardian(
     username: 'admin',
     password: 'admin',
   );

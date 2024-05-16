@@ -2,13 +2,11 @@
 import React from 'react'
 import { useState } from 'react'
 import { GoTriangleUp } from "react-icons/go";
-import AddProfileKid from '@/components/ui/AddProfileKid';
 import KidList from '@/components/ui/NChildrenList'
 const Page = () => {
    const userNum = ['83'] // later this will be from the data base
    const MaleNum =['20']
    const FemaleNum = ['63']
-   const [open, setOpen] = useState(false);
 
   return (
     <div className='flex flex-col w-full h-full  items-center'>
@@ -37,7 +35,6 @@ const Page = () => {
             <h2 className='inline-block bold-24'>
               List Of Children
             </h2>
-            <AddProfileKid  open={open} setOpen={setOpen} />
        </div>
        <div>
         <KidList/>

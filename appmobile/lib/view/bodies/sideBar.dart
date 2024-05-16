@@ -6,6 +6,7 @@ import 'package:appmobile/view/screens/guardianProfile.dart';
 import 'package:appmobile/view/screens/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/settings.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({Key? key}) : super(key: key);
@@ -15,25 +16,43 @@ class SideBar extends StatefulWidget {
 }
 
 class _SideBarState extends State<SideBar> {
-  List<Kid> kids = [
-    Kid(firstName: 'Mohammed', gender: 'Boy'),
-    Kid(firstName: 'Ilhem', gender: 'Girl')
-  ];
   Kid? selectedKid;
-  Guardian guardian = Guardian(
-      firstName: 'Meriem',
-      familyName: 'Kadri',
-      phoneNumber: '0773738392',
-      username: '_meriemKdr',
-      password: 'meriem2024',
-      birthday: DateTime(1980, 05, 07));
+  List<Kid> kids = [];
+  final _myBox = Hive.box('guardianData');
+  final _kidsBox = Hive.box('kidsData');
+  final _selectedKidBox = Hive.box('selectedKid');
+
+  late Guardian guardian;
   String? selectedMenuItem;
   bool isExpanded = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    selectedKid = kids[0];
+
+    guardian = Guardian(
+        username: _myBox.get('username'),
+        password: _myBox.get('password'),
+        firstName: _myBox.get('firstname'),
+        lastName: _myBox.get('lastname'));
+    for (int i = 0; i < _kidsBox.get('nbKids'); i++) {
+      String iTostring = i.toString();
+      kids.add(Kid(
+        kidId: _kidsBox.get('kiddo$iTostring')['kid_id'],
+        firstName: _kidsBox.get('kiddo$iTostring')['firstname'].toString(),
+        familyName: _kidsBox.get('kiddo$iTostring')['lastname'].toString(),
+        dateOfBirth: _kidsBox.get('kiddo$iTostring')['dateOfbirth'],
+        gender: _kidsBox.get('kiddo$iTostring')['gender'],
+        allergies: _kidsBox.get('kiddo$iTostring')['allergies'][0],
+        syndromes: _kidsBox.get('kiddo$iTostring')['syndroms'][0],
+        hobbies: _kidsBox.get('kiddo$iTostring')['hobbies'][0],
+        authorizedPickupper:
+            _kidsBox.get('kiddo$iTostring')['authorizedpickups'][0],
+        relationshipToChild:
+            _kidsBox.get('kiddo$iTostring')['firstname'].toString(),
+      ));
+    }
+    selectedKid = kids[_selectedKidBox.get('index')];
   }
 
   @override
@@ -123,16 +142,32 @@ class _SideBarState extends State<SideBar> {
                             : Image.asset('assets/icons/kids.png'),
                       ),
                       children: [
-                        for (int i = 0; i < kids.length; i++)
-                          KidSelection(
-                            kid: kids[i],
-                            isSelected: selectedKid == kids[i],
-                            onTap: () {
-                              setState(() {
-                                selectedKid = kids[i];
-                              });
-                            },
-                          ),
+                        if (kids.isNotEmpty)
+                          for (int i = 0; i < kids.length; i++)
+                            KidSelection(
+                              kid: kids[i],
+                              isSelected: selectedKid == kids[i],
+                              onTap: () async {
+                                await _selectedKidBox.put('index', i);
+                                await _selectedKidBox.put('selectedKid', {
+                                  'kid_id': kids[i].kidId,
+                                  'firstname': kids[i].firstName,
+                                  'lastname': kids[i].familyName,
+                                  'gender': kids[i].gender,
+                                  'allergies': kids[i].allergies,
+                                  'syndroms': kids[i].syndromes,
+                                  'hobbies': kids[i].hobbies,
+                                  'authorizedpickups':
+                                      kids[i].authorizedPickupper,
+                                  'dateOfbirth': kids[i].dateOfBirth,
+                                });
+                                setState(() {
+                                  selectedKid = kids[i];
+                                });
+                              },
+                            )
+                        else
+                          Text('nokids'),
                         KidSelection(
                             label: 'add Kid',
                             isSelected: false,
@@ -273,11 +308,12 @@ class _SideBarState extends State<SideBar> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        guardian.familyName + '\r' + guardian.firstName,
+                        '${guardian.lastName}\r${guardian.firstName}',
                         style: TextStyle(
-                            fontFamily: 'open sans',
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15),
+                          fontFamily: 'open sans',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
                       ),
                       SizedBox(
                         height: 8,

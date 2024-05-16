@@ -8,6 +8,7 @@ import 'package:appmobile/view/bodies/kidProfile.dart';
 import 'package:appmobile/view/bodies/timeTable.dart';
 import 'package:appmobile/view/bodies/sideBar.dart';
 import 'package:appmobile/view/screens/notification.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key});
@@ -18,6 +19,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _kidsBox = Hive.box('kidsData');
+  final _selectedKidBox = Hive.box('selectedKid');
 
   final List<Widget> _body = [
     MyHomePage(),

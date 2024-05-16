@@ -1,17 +1,28 @@
+import 'dart:io';
+
 class Guardian {
-  String firstName;
-  String familyName;
-  String phoneNumber;
+  int? id;
+  String? firstName;
+  String? lastName;
+  String? phoneNumber;
   String username;
   String password;
-  DateTime birthday;
-
+  String? adresseMail;
+  String? gender;
+  String? civilState;
+  String? address;
+  File? guardianPic;
   Guardian({
-    required this.firstName,
-    required this.familyName,
-    required this.phoneNumber,
+    this.id,
+    this.firstName,
+    this.lastName,
+    this.phoneNumber,
     required this.username,
     required this.password,
-    required this.birthday,
+    this.adresseMail,
+    this.gender,
+    this.civilState,
+    this.address,
+    this.guardianPic,
   });
 }
