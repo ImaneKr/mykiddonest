@@ -1,4 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:async'; // Import the dart:async library
 
 import 'package:appmobile/Uint8ListAdapter.dart';
 import 'package:appmobile/view/bodies/homePage.dart';
@@ -9,13 +14,9 @@ import 'package:appmobile/view/screens/guardianProfile.dart';
 import 'package:appmobile/view/screens/notification.dart';
 import 'package:appmobile/view/screens/payment.dart';
 import 'package:appmobile/view/screens/settings.dart';
-import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/addKid1.dart';
 import 'package:appmobile/view/screens/loginPage.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:path_provider/path_provider.dart';
 
 void main() async {
   await initializeDateFormatting('fr_FR', null);
@@ -51,9 +52,7 @@ class MyApp extends StatelessWidget {
         '/guardianAccount': (context) => GuardianProfile(),
         '/addKid2': (context) => AddKid2(),
       },
-      home: isAuthenticated()
-          ? (_hasKid() ? MainPage() : AddKid1())
-          : LoginPage(),
+      home: SplashScreen(), // Update to use the new SplashScreen
       theme: ThemeData(
         datePickerTheme: DatePickerThemeData(
           dayBackgroundColor: MaterialStateProperty.resolveWith<Color?>(
@@ -63,6 +62,89 @@ class MyApp extends StatelessWidget {
               }
               return null; // Use the default value for other states
             },
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Start the timer for the splash screen
+    Timer(Duration(seconds: 3), () {
+      bool authenticated = isAuthenticated();
+      bool hasKid = _hasKid();
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
+          builder: (context) =>
+              authenticated ? (hasKid ? MainPage() : AddKid1()) : LoginPage(),
+        ),
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        color: Colors.white,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/icons/icon.ico',
+                height: 150,
+                width: 150,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                'MyKiddoNest',
+                style: TextStyle(
+                    fontFamily: 'inter',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 37,
+                    color: Colors.black87),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Your Child's World At Your Fingertips",
+                style: TextStyle(
+                    fontFamily: 'inter',
+                    fontWeight: FontWeight.w300,
+                    fontSize: 15,
+                    color: Colors.black87),
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              SpinKitRing(
+                color: Colors.grey.shade800,
+                size: 70.0,
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Text(
+                'loading ...',
+                style: TextStyle(color: Colors.grey.shade800),
+              ),
+            ],
           ),
         ),
       ),
