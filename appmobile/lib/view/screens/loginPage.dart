@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/addKid1.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:intl/intl.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -98,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               'authorizedpickups': guardianKids[i]['authorizedpickups'],
               'guardian_id': guardianKids[i]['guardian_id'],
               'category_id': guardianKids[i]['category_id'],
-              'kidId': guardianKids[i]['kid_id']
+              'relationTochild': guardianKids[i]['relationTochild']
             });
           }
         connectionBox.put('isConnected', true);
@@ -511,7 +510,10 @@ class _LoginPageState extends State<LoginPage> {
                           'hobbies': _kidsBox.get('kiddo0')['hobbies'][0],
                           'authorizedpickups':
                               _kidsBox.get('kiddo0')['authorizedpickups'][0],
-                          'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth']
+                          'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth'],
+                          'relationTochild': _kidsBox
+                              .get('kiddo0')['relationTochild']
+                              .toString()
                         });
                         await _selectedKidBox.put('index', 0);
                         await _myBox.put('isConnected', true);

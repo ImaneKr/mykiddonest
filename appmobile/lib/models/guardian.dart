@@ -12,6 +12,7 @@ class Guardian {
   String? civilState;
   String? address;
   File? guardianPic;
+  bool? isSet;
   Guardian({
     this.id,
     this.firstName,
@@ -24,5 +25,6 @@ class Guardian {
     this.civilState,
     this.address,
     this.guardianPic,
+    this.isSet = false,
   });
 }

@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:appmobile/Uint8ListAdapter.dart';
 import 'package:appmobile/view/bodies/homePage.dart';
 import 'package:appmobile/view/bodies/kidProfile.dart';
 import 'package:appmobile/view/screens/addKid2.dart';
@@ -22,6 +23,8 @@ void main() async {
   final appDocumentDir = await getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   await Hive.initFlutter();
+  Hive.registerAdapter(Uint8ListAdapter());
+
   await Hive.openBox('guardianData');
   await Hive.openBox('kidsData');
   await Hive.openBox('connection');

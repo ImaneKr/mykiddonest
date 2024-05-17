@@ -29,19 +29,20 @@ class _KidProfileState extends State<KidProfile> {
     // TODO: implement initState
     super.initState();
     selectedKid = Kid(
-      firstName:
-          _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
-      familyName:
-          _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
-      gender: _selectedKidBox.get('selectedKid')['gender'].toString() ?? '',
-      allergies: _selectedKidBox.get('selectedKid')['allergies'] ?? '',
-      syndromes: _selectedKidBox.get('selectedKid')['syndroms'] ?? '',
-      hobbies: _selectedKidBox.get('selectedKid')['hobbies'] ?? '',
-      dateOfBirth: _selectedKidBox
-          .get('selectedKid')['dateOfbirth'], // year , month , day
-      authorizedPickupper:
-          _selectedKidBox.get('selectedKid')['authorizedpickups'],
-    );
+        firstName:
+            _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
+        familyName:
+            _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
+        gender: _selectedKidBox.get('selectedKid')['gender'].toString() ?? '',
+        allergies: _selectedKidBox.get('selectedKid')['allergies'] ?? '',
+        syndromes: _selectedKidBox.get('selectedKid')['syndroms'] ?? '',
+        hobbies: _selectedKidBox.get('selectedKid')['hobbies'] ?? '',
+        dateOfBirth: _selectedKidBox
+            .get('selectedKid')['dateOfbirth'], // year , month , day
+        authorizedPickupper:
+            _selectedKidBox.get('selectedKid')['authorizedpickups'],
+        relationshipToChild:
+            _selectedKidBox.get('selectedKid')['relationTochild']);
   }
 
   @override
@@ -175,7 +176,13 @@ class _KidProfileState extends State<KidProfile> {
                 ProfileTextField(
                   textLabelTop: 'Authorized pick-up persons',
                   textHint: selectedKid.authorizedPickupper,
-                  // must affected without ${}, because using this we are turning the variable to string first, it not correct
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                ProfileTextField(
+                  textLabelTop: 'Relationship to child',
+                  textHint: selectedKid.relationshipToChild,
                 ),
                 SizedBox(
                   height: 5,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:appmobile/models/kid.dart';
 import 'package:flutter/material.dart';
 import 'package:appmobile/view/components/kifInfoField.dart';

@@ -4,15 +4,20 @@ class GuardianInfoField extends StatefulWidget {
   final String _initialValue;
   final String _label;
   final bool _isPassword;
+  final bool _isDate;
+  final ValueChanged<String> onChange;
 
   GuardianInfoField({
     Key? key,
     required String initialValue,
     required String label,
+    required this.onChange,
     bool isPassword = false,
+    bool isDate = false,
   })  : _initialValue = initialValue,
         _label = label,
         _isPassword = isPassword,
+        _isDate = isDate,
         super(key: key);
 
   @override
@@ -58,35 +63,56 @@ class _GuardianInfoFieldState extends State<GuardianInfoField> {
             borderRadius: BorderRadius.circular(10),
             color: Color(0xFFF3F4F6),
           ),
-          child: TextField(
-            obscureText: widget._isPassword ? _isObscured : false,
-            controller: _controller,
-            textAlign: TextAlign.start,
-            maxLines: 1, // Allows multiple lines
-            keyboardType:
-                TextInputType.multiline, // Specifies the keyboard type
-            textInputAction:
-                TextInputAction.newline, // Action button to start a new line
-            decoration: InputDecoration(
-              suffixIcon: widget._isPassword
-                  ? IconButton(
-                      icon: _isObscured
-                          ? Icon(Icons.visibility_off)
-                          : Icon(Icons.visibility),
-                      onPressed: _toggleVisibility,
-                    )
-                  : null, // Conditionally show icon only for password field
-              contentPadding: EdgeInsets.only(
-                  left: 15,
-                  right: widget._isPassword ? 48.0 : 15.0,
-                  top: widget._isPassword ? 10 : 5,
-                  bottom: 5),
-              border: InputBorder.none, // Remove border
-              focusedBorder: InputBorder.none, // Remove focused border
-            ),
-            onChanged: (value) {
-              setState(() {}); // Trigger rebuild to update UI
-            },
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  obscureText: widget._isPassword ? _isObscured : false,
+                  controller: _controller,
+                  textAlign: TextAlign.start,
+                  maxLines: 1,
+                  keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                  decoration: InputDecoration(
+                    suffixIcon: widget._isPassword
+                        ? IconButton(
+                            icon: _isObscured
+                                ? Icon(Icons.visibility_off)
+                                : Icon(Icons.visibility),
+                            onPressed: _toggleVisibility,
+                          )
+                        : (widget._isDate
+                            ? GestureDetector(
+                                onTap: () {
+                                  // Add functionality to show date picker
+                                  showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1900),
+                                    lastDate: DateTime(2100),
+                                  ).then((selectedDate) {
+                                    if (selectedDate != null) {
+                                      // Handle the selected date
+                                      widget.onChange(selectedDate.toString());
+                                    }
+                                  });
+                                },
+                                child: Icon(Icons.calendar_today),
+                              )
+                            : null),
+                    contentPadding: EdgeInsets.only(
+                      left: 15,
+                      right: widget._isPassword ? 48.0 : 15.0,
+                      top: widget._isPassword ? 10 : 5,
+                      bottom: 5,
+                    ),
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                  ),
+                  onChanged: widget.onChange,
+                ),
+              ),
+            ],
           ),
         )
       ],

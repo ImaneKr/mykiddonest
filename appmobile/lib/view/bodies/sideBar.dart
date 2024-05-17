@@ -7,6 +7,7 @@ import 'package:appmobile/view/screens/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/settings.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({Key? key}) : super(key: key);
@@ -18,6 +19,11 @@ class SideBar extends StatefulWidget {
 class _SideBarState extends State<SideBar> {
   Kid? selectedKid;
   List<Kid> kids = [];
+  void launchUrlFct() async {
+    await launchUrl(Uri(scheme: 'https', host: 'mykiddonest-web.vercel.app'),
+        mode: LaunchMode.inAppWebView);
+  }
+
   final _myBox = Hive.box('guardianData');
   final _kidsBox = Hive.box('kidsData');
   final _selectedKidBox = Hive.box('selectedKid');
@@ -49,7 +55,7 @@ class _SideBarState extends State<SideBar> {
         authorizedPickupper:
             _kidsBox.get('kiddo$iTostring')['authorizedpickups'][0],
         relationshipToChild:
-            _kidsBox.get('kiddo$iTostring')['firstname'].toString(),
+            _kidsBox.get('kiddo$iTostring')['relationTochild'].toString(),
       ));
     }
     selectedKid = kids[_selectedKidBox.get('index')];
@@ -160,6 +166,7 @@ class _SideBarState extends State<SideBar> {
                                   'authorizedpickups':
                                       kids[i].authorizedPickupper,
                                   'dateOfbirth': kids[i].dateOfBirth,
+                                  'relationTochild': kids[i].relationshipToChild
                                 });
                                 setState(() {
                                   selectedKid = kids[i];
@@ -241,6 +248,7 @@ class _SideBarState extends State<SideBar> {
                       onTap: () {
                         setState(() {
                           selectedMenuItem = 'About us';
+                          launchUrlFct();
                         });
                       },
                     ),
@@ -266,24 +274,29 @@ class _SideBarState extends State<SideBar> {
                               : Colors.black,
                         ),
                       ),
-                      onTap: () {
+                      onTap: () async {
                         setState(() {
                           selectedMenuItem = 'Log out';
                           selectedKid = null;
-                          Navigator.replace(
-                            context,
-                            oldRoute: ModalRoute.of(context)!,
-                            newRoute: MaterialPageRoute(
-                                builder: (context) => LoginPage()),
-                          );
                         });
+                        await Hive.box('guardianData').clear();
+                        await Hive.box('kidsData').clear();
+                        await Hive.box('connection').clear();
+                        await Hive.box('selectedKid').clear();
+                        Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                          (Route<dynamic> route) =>
+                              false, // This removes all the previous routes
+                        );
                       },
                     )
                   ],
                 ),
               ),
             ),
-            Container(
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               padding: EdgeInsets.only(left: 15, right: 15, bottom: 10),
               child: Row(
                 children: [

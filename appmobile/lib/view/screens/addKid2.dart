@@ -29,7 +29,6 @@ class _AddKid2State extends State<AddKid2> {
   final _kidsBox = Hive.box('kidsData');
   final _selectedKidBox = Hive.box('selectedKid');
 
-  final List<String> allergy = ['try'];
   late Kid kiddo;
   Future<void> createKidProfile(Kid kid) async {
     String url =
@@ -47,8 +46,9 @@ class _AddKid2State extends State<AddKid2> {
       "profilePic":
           "http://example.com/profile.jpg", // Example profile picture URL
       "syndromes": stringToList(kid.syndromes), // Example syndromes array
-      "authorizedpickups": stringToList(
-          kid.authorizedPickupper) // Example authorized pickups array
+      "authorizedpickups": stringToList(kid.authorizedPickupper),
+      "relationTochild":
+          kid.relationshipToChild // Example authorized pickups array
     };
 
     try {
@@ -73,7 +73,8 @@ class _AddKid2State extends State<AddKid2> {
           'authorizedpickups': data['authorizedpickups'],
           'guardian_id': data['guardian_id'],
           'category_id': data['category_id'],
-          'kidId': data['kid_id']
+          'kidId': data['kid_id'],
+          'relationTochild': data['relationTochild']
         });
         await _kidsBox.put('nbKids', nbKids + 1);
         nbKids = await _kidsBox.get('nbKids');
@@ -87,7 +88,9 @@ class _AddKid2State extends State<AddKid2> {
             'syndroms': _kidsBox.get('kiddo0')['syndroms'][0],
             'hobbies': _kidsBox.get('kiddo0')['hobbies'][0],
             'authorizedpickups': _kidsBox.get('kiddo0')['authorizedpickups'][0],
-            'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth']
+            'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth'],
+            'relationTochild':
+                _kidsBox.get('kiddo0')['relationTochild'].toString()
           });
           await _selectedKidBox.put('index', 0);
         }
@@ -115,6 +118,7 @@ class _AddKid2State extends State<AddKid2> {
                   SizedBox(
                     height: 100,
                   ),
+                  Text(kiddo.relationshipToChild.toString()),
                   KidInfoField(
                       textHintf: 'Allergies',
                       labelf: 'Allergies',
