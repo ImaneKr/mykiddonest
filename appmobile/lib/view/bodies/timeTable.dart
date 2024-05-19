@@ -65,7 +65,7 @@ class _TimeTableState extends State<TimeTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Container(color: Colors.white,
       height: MediaQuery.of(context).size.height, // Adjust the height as needed
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

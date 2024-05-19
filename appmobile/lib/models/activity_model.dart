@@ -1,6 +1,6 @@
 class Activity {
   int id;
-  Map<String, dynamic> imageUrl;
+  String imageUrl;
   String title;
   String description; // This will be null for event announcements
   bool isEvent;

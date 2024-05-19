@@ -59,6 +59,7 @@ class _KidProfileState extends State<KidProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child: SingleChildScrollView(
@@ -88,8 +89,9 @@ class _KidProfileState extends State<KidProfile> {
                           alignment: Alignment.centerLeft,
                           child: CircleAvatar(
                             radius: 50,
-                            backgroundImage:
-                                AssetImage('assets/images/aymen.jpg'),
+                            backgroundImage: selectedKid.gender == 'Male'
+                                ? AssetImage('assets/images/kid.jpg')
+                                : AssetImage('assets/images/girl.jpg'),
                           ),
                         ),
                         SizedBox(width: 20),

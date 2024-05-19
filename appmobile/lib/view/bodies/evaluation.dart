@@ -28,12 +28,12 @@ class _EvaluationState extends State<Evaluation> {
   Future<void> fetchData() async {
     final _selectedKidBox = Hive.box('selectedKid');
     kid = Kid(
-      kidId: _selectedKidBox.get('selectedKid')['kid_id'] ?? 0,
-      firstName:
-          _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
-      familyName:
-          _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
-    );
+        kidId: _selectedKidBox.get('selectedKid')['kid_id'] ?? 0,
+        firstName:
+            _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
+        familyName:
+            _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
+        gender: _selectedKidBox.get('selectedKid')['gender'].toString());
 
     List<Map<String, dynamic>> evaluations = await fetchEvaluations(kid.kidId);
 
@@ -74,6 +74,7 @@ class _EvaluationState extends State<Evaluation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : RefreshIndicator(
@@ -96,7 +97,9 @@ class _EvaluationState extends State<Evaluation> {
                       ),
                       SizedBox(height: 10),
                       CircleAvatar(
-                        backgroundImage: AssetImage('assets/images/kid.jpg'),
+                        backgroundImage: kid.gender == 'Male'
+                            ? AssetImage('assets/images/kid.jpg')
+                            : AssetImage('assets/images/girl.jpg'),
                         radius: 48,
                       ),
                       SizedBox(height: 5),

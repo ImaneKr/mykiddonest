@@ -173,13 +173,23 @@ class _EditProfileState extends State<EditProfile> {
             children: [
               SizedBox(height: 15),
               Center(
-                child: Stack(
-                  children: [
-                    CircleAvatar(
-                      radius: 65,
-                      backgroundImage: AssetImage('assets/images/aymen.jpg'),
+                child: Container(
+                  padding: EdgeInsets.all(3),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: selectedKid.gender == 'Male'
+                          ? Colors.blue.shade100
+                          : Colors.pink.shade100, // Border color
+                      width: 1.0, // Border width
                     ),
-                  ],
+                  ),
+                  child: CircleAvatar(
+                    radius: 70,
+                    backgroundImage: selectedKid.gender == 'Male'
+                        ? AssetImage('assets/images/kid.jpg')
+                        : AssetImage('assets/images/girl.jpg'),
+                  ),
                 ),
               ),
               SizedBox(height: 12),

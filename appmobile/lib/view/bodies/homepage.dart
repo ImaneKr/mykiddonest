@@ -61,10 +61,16 @@ class _MyHomePage extends State<MyHomePage> {
           .map((dynamic item) => item as Map<String, dynamic>)
           .toList();
 
-      List<Activity> fetchedEvents = events.map((event) {
+      List<Activity> fetchedEvents = events.asMap().entries.map((entry) {
+        int index = entry.key;
+        var event = entry.value;
         return Activity(
           id: event["event_id"],
-          imageUrl: Map.from(event["event_image"]),
+          imageUrl: index == 0
+              ? 'assets/images/birthday.jpg'
+              : (index == 1
+                  ? 'assets/images/zoo.jpg'
+                  : 'assets/images/defaultEvent.jpeg'),
           title: event["event_name"],
           isEvent: true,
           date: DateTime.parse(event["event_date"]),
@@ -98,12 +104,21 @@ class _MyHomePage extends State<MyHomePage> {
           .map((dynamic item) => item as Map<String, dynamic>)
           .toList();
 
-      List<Activity> fetchedAnnouncements = announcement.map((event) {
+      List<Activity> fetchedAnnouncements =
+          announcement.asMap().entries.map((entry) {
+        int index = entry.key;
+        var announcement = entry.value;
         return Activity(
-          id: event["announcement_id"],
-          imageUrl: Map.from(event["announcement_image"]),
-          description: event["announcement_desc"],
-          title: event["announcement_title"],
+          id: announcement["announcement_id"],
+          imageUrl: index == 0
+              ? 'assets/images/menu.jpg'
+              : (index == 1
+                  ? 'assets/images/zoo.jpg'
+                  : (index == 2
+                      ? 'assets/images/location.jpg'
+                      : 'assets/images/defaultAnnouncement.jpg')),
+          title: announcement["announcement_title"],
+          description: announcement["announcement_desc"],
           isEvent: false,
         );
       }).toList();
@@ -199,6 +214,7 @@ class _MyHomePage extends State<MyHomePage> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: ListView(
           padding: EdgeInsets.only(left: 15, right: 15),
           children: <Widget>[
@@ -397,9 +413,8 @@ class _MyHomePage extends State<MyHomePage> {
                               topLeft: Radius.circular(10.0),
                               topRight: Radius.circular(10.0),
                             ),
-                            child: Image.memory(
-                              Uint8List.fromList(
-                                  List<int>.from(activity.imageUrl['data'])),
+                            child: Image.asset(
+                              activity.imageUrl,
                               fit: BoxFit.cover,
                             ),
                           ),

@@ -42,6 +42,7 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Colors.white,
       key: _scaffoldKey,
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: Center(
             child: Text(
           "MyKiddoNest",
@@ -79,6 +80,7 @@ class _MainPageState extends State<MainPage> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
         type: BottomNavigationBarType
             .fixed, // so that we can get more than 3 icons in this bottomNavBar ,'c z this one offer the same area for all the items
         items: [
