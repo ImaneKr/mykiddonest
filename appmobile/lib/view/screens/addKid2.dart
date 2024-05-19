@@ -28,6 +28,26 @@ class _AddKid2State extends State<AddKid2> {
   final myBox = Hive.box('guardianData');
   final _kidsBox = Hive.box('kidsData');
   final _selectedKidBox = Hive.box('selectedKid');
+  Future<void> getkidsSubjects(int id) async {
+    final url = 'https://backend-1-dg5f.onrender.com/evaluation/addmark/$id';
+
+    try {
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      );
+
+      if (response.statusCode == 200) {
+        print('Evaluation set correctly');
+      } else if (response.statusCode == 404) {
+        print('Kid not found');
+      } else {
+        print('Failed to set evaluation: ${response.statusCode}');
+      }
+    } catch (error) {
+      print('Error setting evaluation: $error');
+    }
+  }
 
   late Kid kiddo;
   Future<void> createKidProfile(Kid kid) async {
@@ -90,10 +110,13 @@ class _AddKid2State extends State<AddKid2> {
             'authorizedpickups': _kidsBox.get('kiddo0')['authorizedpickups'][0],
             'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth'],
             'relationTochild':
-                _kidsBox.get('kiddo0')['relationTochild'].toString()
+                _kidsBox.get('kiddo0')['relationTochild'].toString(),
+            'category_id': _kidsBox.get('kiddo0')['category_id'],
           });
           await _selectedKidBox.put('index', 0);
         }
+        int kiddoId = data['kid_id'];
+        await getkidsSubjects(kiddoId);
       } else {
         print('Failed to create kid profile: ${response.statusCode}');
         // Handle other status codes or errors
@@ -118,7 +141,6 @@ class _AddKid2State extends State<AddKid2> {
                   SizedBox(
                     height: 100,
                   ),
-                  Text(kiddo.relationshipToChild.toString()),
                   KidInfoField(
                       textHintf: 'Allergies',
                       labelf: 'Allergies',

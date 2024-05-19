@@ -1,11 +1,14 @@
+import 'package:appmobile/models/activity_model.dart';
 import 'package:flutter/material.dart';
 //import 'package:google_fonts/google_fonts.dart';
-import 'package:appmobile/controller/activity_controller.dart';
 import 'package:appmobile/models/menu.dart';
 import 'package:appmobile/view/screens/menu.dart';
 import 'package:appmobile/controller/menu_controller.dart';
 import 'package:intl/intl.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'dart:convert'; // for encoding/decoding JSON
+import 'package:http/http.dart' as http;
+import 'dart:typed_data';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -15,11 +18,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePage extends State<MyHomePage> {
-  String userFirstName = Hive.box('guardianData')
-      .get('firstname'); // late means will be intialized later
+  String userFirstName = Hive.box('guardianData').get('firstname');
   String currentDate = DateFormat('d MMMM').format(DateTime.now());
-  final ActivityController _controller = ActivityController();
-  //---------------------------
+  List<bool> done = [];
   late int currentMonth;
   int selectedDay = DateTime.now().day;
   int selectedMonth = 0;
@@ -27,10 +28,16 @@ class _MyHomePage extends State<MyHomePage> {
   final List<DateTime> days = [];
   late MController ddaySubjects;
 
+  List<Activity> eventsList = [];
+  List<Activity> announcementList = [];
+  List<Activity> activitiesList = [];
+
   @override
   void initState() {
     super.initState();
     currentMonth = DateTime.now().month;
+    getEvents();
+    getAnnouncements();
   }
 
   DateTime selectedDate = DateTime.now();
@@ -38,7 +45,155 @@ class _MyHomePage extends State<MyHomePage> {
     picture: '',
     title: ' ',
   );
-  //------------------
+
+  Future<void> getEvents() async {
+    final eventresponse = await http.get(
+      Uri.parse('https://backend-1-dg5f.onrender.com/event/published'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (eventresponse.statusCode == 200) {
+      final List<dynamic> responseBody = jsonDecode(eventresponse.body);
+      print('the list : $responseBody');
+      final List<Map<String, dynamic>> events = responseBody
+          .map((dynamic item) => item as Map<String, dynamic>)
+          .toList();
+
+      List<Activity> fetchedEvents = events.map((event) {
+        return Activity(
+          id: event["event_id"],
+          imageUrl: Map.from(event["event_image"]),
+          title: event["event_name"],
+          isEvent: true,
+          date: DateTime.parse(event["event_date"]),
+        );
+      }).toList();
+
+      setState(() {
+        eventsList = fetchedEvents;
+        activitiesList = eventsList + announcementList;
+        done =
+            List.filled(activitiesList.length, false); // Initialize done list
+      });
+    } else {
+      throw Exception('Failed to get the events : ${eventresponse.body}');
+    }
+  }
+
+  Future<void> getAnnouncements() async {
+    final announcementresponse = await http.get(
+      Uri.parse('https://backend-1-dg5f.onrender.com/announcement/'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+    );
+
+    if (announcementresponse.statusCode == 200) {
+      final List<dynamic> announcementresponseBody =
+          jsonDecode(announcementresponse.body);
+      print('the list : $announcementresponseBody');
+      final List<Map<String, dynamic>> announcement = announcementresponseBody
+          .map((dynamic item) => item as Map<String, dynamic>)
+          .toList();
+
+      List<Activity> fetchedAnnouncements = announcement.map((event) {
+        return Activity(
+          id: event["announcement_id"],
+          imageUrl: Map.from(event["announcement_image"]),
+          description: event["announcement_desc"],
+          title: event["announcement_title"],
+          isEvent: false,
+        );
+      }).toList();
+
+      setState(() {
+        announcementList = fetchedAnnouncements;
+        activitiesList = eventsList + announcementList;
+        done =
+            List.filled(activitiesList.length, false); // Initialize done list
+      });
+    } else {
+      throw Exception(
+          'Failed to get the announcement: ${announcementresponse.body}');
+    }
+  }
+
+  Future<void> acceptEventAttendance(int eventId, int index) async {
+    try {
+      final kidData = Hive.box('selectedKid').get('selectedKid');
+      final kidId = kidData != null ? kidData['kid_id'] : null;
+
+      if (kidId == null) {
+        print('Kid ID is null');
+        return;
+      }
+
+      final response = await http.post(
+        Uri.parse(
+            'https://backend-1-dg5f.onrender.com/eventlist/$eventId/accept'), // Assuming your backend API endpoint for accepting attendance is '/events/:eventId/accept'
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, int>{
+          'kidId': kidId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Attendance accepted successfully
+        print('Attendance accepted successfully');
+        setState(() {
+          done[index] = true; // Update done list
+        });
+      } else {
+        // Handle error
+        print('Failed to accept attendance: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle network errors
+      print('Network error: $error');
+    }
+  }
+
+  Future<void> declineEventAttendance(int eventId, int index) async {
+    try {
+      final kidData = Hive.box('selectedKid').get('selectedKid');
+      final kidId = kidData != null ? kidData['kid_id'] : null;
+
+      if (kidId == null) {
+        print('Kid ID is null');
+        return;
+      }
+
+      final response = await http.post(
+        Uri.parse(
+            'https://backend-1-dg5f.onrender.com/eventlist/$eventId/decline'), // Assuming your backend API endpoint for accepting attendance is '/events/:eventId/accept'
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, int>{
+          'kidId': kidId,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // Attendance declined successfully
+        print('Attendance declined successfully');
+        setState(() {
+          done[index] = true; // Update done list
+        });
+      } else {
+        // Handle error
+        print('Failed to decline attendance: ${response.statusCode}');
+      }
+    } catch (error) {
+      // Handle network errors
+      print('Network error: $error');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -53,7 +208,6 @@ class _MyHomePage extends State<MyHomePage> {
             Container(
               alignment: Alignment.topLeft,
               padding: EdgeInsets.only(left: 15),
-              // Adjust padding for precise positioning
               child: Text(
                 'Welcome $userFirstName!',
                 style: TextStyle(
@@ -69,7 +223,6 @@ class _MyHomePage extends State<MyHomePage> {
             Container(
               alignment: Alignment.topLeft,
               padding: EdgeInsets.only(left: 15),
-              // Adjust padding for precise positioning
               child: Text(
                 'Today, $currentDate',
                 style: TextStyle(
@@ -77,8 +230,6 @@ class _MyHomePage extends State<MyHomePage> {
                   fontWeight: FontWeight.w500,
                   fontFamily: 'Inter',
                   color: Color.fromARGB(255, 140, 215, 100),
-                  //Color.fromARGB(255, 143, 177, 88),
-                  // Color.fromRGBO(75, 119, 5, 0.612),
                 ),
               ),
             ),
@@ -86,7 +237,6 @@ class _MyHomePage extends State<MyHomePage> {
               height: 10,
             ),
             Container(
-              //Container Home image
               width: 350,
               height: 170,
               decoration: BoxDecoration(
@@ -173,7 +323,6 @@ class _MyHomePage extends State<MyHomePage> {
                     ),
                   ),
                   Container(
-                    //alignment: Alignment.topRight,
                     padding: EdgeInsets.only(top: 5.0),
                     height: 95,
                     width: 95,
@@ -191,7 +340,6 @@ class _MyHomePage extends State<MyHomePage> {
             SizedBox(
               height: 7,
             ),
-
             SizedBox(
               height: 8,
               width: 325,
@@ -213,22 +361,18 @@ class _MyHomePage extends State<MyHomePage> {
               height: 6,
               width: 325,
             ),
-            /*--------- */
             // activity part
-
             Container(
               height: 260,
-              // height: getDynamicHeight(activity.title),
               padding: EdgeInsets.fromLTRB(8.0, 0, 5.0, 0),
               child: ListView.builder(
-                scrollDirection:
-                    Axis.horizontal, // Set the scroll direction to horizontal
-                itemCount: _controller.activities.length,
+                scrollDirection: Axis.horizontal,
+                itemCount: activitiesList.length,
                 itemBuilder: (context, index) {
-                  var activity = _controller.activities[index];
+                  var activity = activitiesList[index];
 
                   return Container(
-                    width: 190,
+                    width: 170,
                     margin: EdgeInsets.fromLTRB(6.0, 2.0, 6.0, 0),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -236,6 +380,8 @@ class _MyHomePage extends State<MyHomePage> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
                           height: 150,
@@ -251,20 +397,23 @@ class _MyHomePage extends State<MyHomePage> {
                               topLeft: Radius.circular(10.0),
                               topRight: Radius.circular(10.0),
                             ),
-                            child: Image.asset(
-                              activity.imageUrl,
+                            child: Image.memory(
+                              Uint8List.fromList(
+                                  List<int>.from(activity.imageUrl['data'])),
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         SizedBox(height: 6.0),
-                        Text(
-                          activity.title,
-                          style: TextStyle(
-                              fontSize: 16.0,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w500),
-                        ),
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(7, 0, 5, 0),
+                            child: Text(
+                              activity.title,
+                              style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500),
+                            )),
                         SizedBox(height: 6.0),
                         activity.isEvent
                             ? Text(activity.date != null
@@ -272,7 +421,6 @@ class _MyHomePage extends State<MyHomePage> {
                                     .format(activity.date!)
                                 : '')
                             : Container(),
-
                         SizedBox(height: 6.0),
                         Expanded(
                             child: activity.isEvent
@@ -283,41 +431,49 @@ class _MyHomePage extends State<MyHomePage> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         ElevatedButton(
-                                          onPressed: () =>
-                                              _controller.acceptEvent(index),
+                                          onPressed: done[index]
+                                              ? null
+                                              : () => acceptEventAttendance(
+                                                  activity.id, index),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all<
-                                                    Color>(Colors.white),
-                                            foregroundColor:
-                                                MaterialStateProperty.all<
                                                         Color>(
-                                                    Colors.black), // Text color
+                                                    Colors.grey.shade200),
+                                            foregroundColor: done[index]
+                                                ? MaterialStateProperty.all<
+                                                    Color>(Colors.grey)
+                                                : MaterialStateProperty.all<
+                                                    Color>(Colors.black),
                                             padding: MaterialStateProperty.all<
                                                 EdgeInsetsGeometry>(
                                               EdgeInsets.symmetric(
                                                   horizontal: 14.0,
-                                                  vertical: 8.0), // Padding
+                                                  vertical: 8.0),
                                             ),
                                           ),
                                           child: Text('Accept'),
                                         ),
                                         ElevatedButton(
-                                          onPressed: () =>
-                                              _controller.declineEvent(index),
+                                          onPressed: done[index]
+                                              ? null
+                                              : () => declineEventAttendance(
+                                                  activity.id, index),
                                           style: ButtonStyle(
                                             backgroundColor:
                                                 MaterialStateProperty.all<
-                                                    Color>(Colors.white),
-                                            foregroundColor:
-                                                MaterialStateProperty.all<
                                                         Color>(
-                                                    Colors.black), // Text color
+                                                    Colors.grey.shade200),
+                                            foregroundColor: done[index]
+                                                ? MaterialStateProperty.all<
+                                                    Color>(Colors.grey)
+                                                : MaterialStateProperty.all<
+                                                    Color>(Colors.black),
                                             padding: MaterialStateProperty.all<
                                                 EdgeInsetsGeometry>(
                                               EdgeInsets.symmetric(
                                                   horizontal: 14.0,
-                                                  vertical: 8.0), // Padding
+                                                  vertical: 8.0),
                                             ),
                                           ),
                                           child: Text('Decline'),
@@ -325,18 +481,17 @@ class _MyHomePage extends State<MyHomePage> {
                                       ],
                                     ),
                                   )
-                                : // : of the condition
-
-                                Padding(
+                                : Padding(
                                     padding: EdgeInsets.only(
-                                        bottom: 5, right: 5, left: 5),
+                                        bottom: 5, right: 7, left: 7),
                                     child: Text(
-                                      activity.description,
-                                      style: TextStyle(fontSize: 10),
+                                      activity.description!,
+                                      style: TextStyle(
+                                          fontSize: 10,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400),
                                     ),
                                   )),
-
-                        // if it is not event, it will display a description
                       ],
                     ),
                   );
@@ -345,7 +500,7 @@ class _MyHomePage extends State<MyHomePage> {
             ),
             SizedBox(
               height: 10,
-            ), // activity part finish
+            ),
           ],
         ),
       ),

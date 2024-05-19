@@ -40,7 +40,7 @@ class SubjectContainer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    subject.label,
+                    subject.label!,
                     style: TextStyle(
                         fontFamily: 'inter',
                         fontSize: 18,

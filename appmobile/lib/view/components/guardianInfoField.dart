@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class GuardianInfoField extends StatefulWidget {
-  final String _initialValue;
+  final dynamic _initialValue;
   final String _label;
   final bool _isPassword;
   final bool _isDate;
@@ -9,7 +10,7 @@ class GuardianInfoField extends StatefulWidget {
 
   GuardianInfoField({
     Key? key,
-    required String initialValue,
+    required dynamic initialValue,
     required String label,
     required this.onChange,
     bool isPassword = false,
@@ -26,11 +27,19 @@ class GuardianInfoField extends StatefulWidget {
 
 class _GuardianInfoFieldState extends State<GuardianInfoField> {
   late TextEditingController _controller;
+  String formatDate(DateTime dateTime) {
+    // Using intl package to format the date
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    return formatter.format(dateTime);
+  }
 
   @override
   void initState() {
     super.initState();
-    _controller = TextEditingController(text: widget._initialValue);
+    _controller = TextEditingController(
+        text: widget._isDate
+            ? formatDate(widget._initialValue)
+            : widget._initialValue.toString());
   }
 
   bool _isObscured = true;
@@ -94,6 +103,8 @@ class _GuardianInfoFieldState extends State<GuardianInfoField> {
                                     if (selectedDate != null) {
                                       // Handle the selected date
                                       widget.onChange(selectedDate.toString());
+                                      _controller.text =
+                                          formatDate(selectedDate);
                                     }
                                   });
                                 },

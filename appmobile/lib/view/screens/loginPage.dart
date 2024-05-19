@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
               'authorizedpickups': guardianKids[i]['authorizedpickups'],
               'guardian_id': guardianKids[i]['guardian_id'],
               'category_id': guardianKids[i]['category_id'],
-              'relationTochild': guardianKids[i]['relationTochild']
+              'relationTochild': guardianKids[i]['relationTochild'],
             });
           }
         connectionBox.put('isConnected', true);
@@ -513,7 +513,8 @@ class _LoginPageState extends State<LoginPage> {
                           'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth'],
                           'relationTochild': _kidsBox
                               .get('kiddo0')['relationTochild']
-                              .toString()
+                              .toString(),
+                          'category_id': _kidsBox.get('kiddo0')['category_id'],
                         });
                         await _selectedKidBox.put('index', 0);
                         await _myBox.put('isConnected', true);

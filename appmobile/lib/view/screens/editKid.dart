@@ -214,7 +214,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               SizedBox(height: 12),
               GuardianInfoField(
-                initialValue: formatDate(selectedKid.dateOfBirth!),
+                initialValue: selectedKid.dateOfBirth!,
                 label: 'Date Of birth',
                 onChange: (value) {
                   setState(() {

@@ -44,19 +44,19 @@ class _SideBarState extends State<SideBar> {
     for (int i = 0; i < _kidsBox.get('nbKids'); i++) {
       String iTostring = i.toString();
       kids.add(Kid(
-        kidId: _kidsBox.get('kiddo$iTostring')['kid_id'],
-        firstName: _kidsBox.get('kiddo$iTostring')['firstname'].toString(),
-        familyName: _kidsBox.get('kiddo$iTostring')['lastname'].toString(),
-        dateOfBirth: _kidsBox.get('kiddo$iTostring')['dateOfbirth'],
-        gender: _kidsBox.get('kiddo$iTostring')['gender'],
-        allergies: _kidsBox.get('kiddo$iTostring')['allergies'][0],
-        syndromes: _kidsBox.get('kiddo$iTostring')['syndroms'][0],
-        hobbies: _kidsBox.get('kiddo$iTostring')['hobbies'][0],
-        authorizedPickupper:
-            _kidsBox.get('kiddo$iTostring')['authorizedpickups'][0],
-        relationshipToChild:
-            _kidsBox.get('kiddo$iTostring')['relationTochild'].toString(),
-      ));
+          kidId: _kidsBox.get('kiddo$iTostring')['kid_id'],
+          firstName: _kidsBox.get('kiddo$iTostring')['firstname'].toString(),
+          familyName: _kidsBox.get('kiddo$iTostring')['lastname'].toString(),
+          dateOfBirth: _kidsBox.get('kiddo$iTostring')['dateOfbirth'],
+          gender: _kidsBox.get('kiddo$iTostring')['gender'],
+          allergies: _kidsBox.get('kiddo$iTostring')['allergies'][0],
+          syndromes: _kidsBox.get('kiddo$iTostring')['syndroms'][0],
+          hobbies: _kidsBox.get('kiddo$iTostring')['hobbies'][0],
+          authorizedPickupper:
+              _kidsBox.get('kiddo$iTostring')['authorizedpickups'][0],
+          relationshipToChild:
+              _kidsBox.get('kiddo$iTostring')['relationTochild'].toString(),
+          category_id: _kidsBox.get('kiddo$iTostring')['category_id']));
     }
     selectedKid = kids[_selectedKidBox.get('index')];
   }
@@ -166,8 +166,11 @@ class _SideBarState extends State<SideBar> {
                                   'authorizedpickups':
                                       kids[i].authorizedPickupper,
                                   'dateOfbirth': kids[i].dateOfBirth,
-                                  'relationTochild': kids[i].relationshipToChild
+                                  'relationTochild':
+                                      kids[i].relationshipToChild,
+                                  'category_id': kids[i].category_id,
                                 });
+                                selectedKid = kids[i];
                                 setState(() {
                                   selectedKid = kids[i];
                                 });

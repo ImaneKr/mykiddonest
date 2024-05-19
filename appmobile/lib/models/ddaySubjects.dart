@@ -14,19 +14,19 @@ class DdaySubjects {
       case 'Saturday':
         return [
           Subject(
-              label: 'Fitness',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'Physics',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Islamic Sciences',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Maths',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 00)),
         ];
@@ -34,106 +34,106 @@ class DdaySubjects {
       case 'Monday':
         return [
           Subject(
-              label: 'Fitness',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'Arabic litterature',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              label: 'Physics',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Writing',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Islamic Sciences',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Sunday':
         return [
           Subject(
-              label: 'Maths',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'Communication',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Reading',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Sciences',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Wednesday':
         return [
           Subject(
-              label: 'Fitness',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'History',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Arabic litterature',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Islamic Sciences',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Thursday':
         return [
           Subject(
-              label: 'Art & creativity',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Maths',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Writing',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Friday':
         return [
           Subject(
-              label: 'Fitness',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              label: 'Maths',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'History',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       default:
         return [
           Subject(
-              label: 'Fitness',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              label: 'Maths',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'History',
+              subjctId: 1,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
