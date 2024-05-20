@@ -18,15 +18,15 @@ class DdaySubjects {
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 2,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 3,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 1,
+              subjctId: 4,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 00)),
         ];
@@ -34,19 +34,19 @@ class DdaySubjects {
       case 'Monday':
         return [
           Subject(
-              subjctId: 1,
+              subjctId: 3,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 4,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 5,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 2,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
@@ -57,11 +57,11 @@ class DdaySubjects {
       case 'Sunday':
         return [
           Subject(
-              subjctId: 1,
+              subjctId: 4,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 3,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
@@ -80,15 +80,15 @@ class DdaySubjects {
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 2,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 4,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 1,
+              subjctId: 3,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
@@ -99,22 +99,22 @@ class DdaySubjects {
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 3,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 1,
+              subjctId: 2,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Friday':
         return [
           Subject(
-              subjctId: 1,
+              subjctId: 5,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjctId: 3,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(

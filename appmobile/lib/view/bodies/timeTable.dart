@@ -4,9 +4,8 @@ import 'package:appmobile/view/components/ddaySubjectContainers.dart';
 import 'package:flutter/material.dart';
 
 class TimeTable extends StatefulWidget {
-  final DdaySubjects subjects;
 
-  const TimeTable({Key? key, required this.subjects}) : super(key: key);
+  const TimeTable({Key? key}) : super(key: key);
 
   @override
   _TimeTableState createState() => _TimeTableState();
@@ -65,7 +64,7 @@ class _TimeTableState extends State<TimeTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(color: Colors.white,
+    return Container(
       height: MediaQuery.of(context).size.height, // Adjust the height as needed
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

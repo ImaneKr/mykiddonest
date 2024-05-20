@@ -52,7 +52,7 @@ class SubjectEvaluation extends StatelessWidget {
                 SizedBox(
                     width: 8), // Add some spacing between the icon and text
                 Text(
-                  '\t' + subject.label,
+                  '\t' + subject.label!,
                   style: TextStyle(
                     fontFamily: 'inter',
                     fontSize: 16,

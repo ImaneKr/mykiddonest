@@ -72,6 +72,7 @@ class _GuardianProfileState extends State<GuardianProfile> {
         await _myBox.put('address', data['address']);
         await _myBox.put('guardianPic', data['acc_pic']);
         print('Guardian updated successfully: $responseData');
+        Navigator.pop(context);
       } else {
         final errorData = json.decode(response.body);
         print('Failed to update guardian: $errorData');

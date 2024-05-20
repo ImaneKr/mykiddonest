@@ -26,7 +26,6 @@ class _MyHomePage extends State<MyHomePage> {
   int selectedMonth = 0;
 
   final List<DateTime> days = [];
-  late MController ddaySubjects;
 
   List<Activity> eventsList = [];
   List<Activity> announcementList = [];

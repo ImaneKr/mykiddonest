@@ -24,9 +24,7 @@ class _MainPageState extends State<MainPage> {
 
   final List<Widget> _body = [
     MyHomePage(),
-    TimeTable(
-      subjects: DdaySubjects(day: 'Saturday'),
-    ),
+    TimeTable(),
     Evaluation(),
     KidProfile(),
   ];

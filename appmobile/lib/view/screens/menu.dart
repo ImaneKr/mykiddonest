@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:appmobile/models/menu.dart';
@@ -54,7 +53,7 @@ void showLunchMenuBottomSheet(
 
 class LunchMenuBottomSheet extends StatefulWidget {
   final DateTime selectedDate;
-  final Menu subject; // Corrected type of subject
+  final Menu subject;
   LunchMenuBottomSheet({
     Key? key,
     required this.selectedDate,
@@ -84,16 +83,15 @@ String _getMonth(int month) {
 
 class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
   late DateTime selectedDate;
-  late MController _controller;
-  late List<Menu> _menus;
+  late Future<List<Menu>> _futureMenus;
   int selectedIndex = 0;
+
   @override
   void initState() {
-    selectedDate = widget.selectedDate;
-    _controller = MController();
-    _menus =
-        MController.getMenuForDay(_getDayOfWeek(selectedDate).substring(0, 3));
     super.initState();
+    selectedDate = widget.selectedDate;
+    _futureMenus =
+        MController.getMenuForDay(_getDayOfWeek(selectedDate).substring(0, 3));
   }
 
   String getWeekRange(DateTime date) {
@@ -108,12 +106,15 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
     return DateFormat('EEEE').format(date);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return _buildMenuWidget(_menus);
+  void _updateMenusForSelectedDay(String day, int index) {
+    setState(() {
+      selectedIndex = index;
+      _futureMenus = MController.getMenuForDay(day);
+    });
   }
 
-  Widget _buildMenuWidget(List<Menu> menus) {
+  @override
+  Widget build(BuildContext context) {
     return Container(
       height: 600,
       width: double.infinity,
@@ -132,9 +133,7 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 20,
-          ),
+          SizedBox(height: 20),
           Center(
             child: Text(
               'Lunch Menu Of The Week',
@@ -147,9 +146,7 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
               ),
             ),
           ),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 15),
           Text(
             getWeekRange(selectedDate),
             style: TextStyle(
@@ -158,12 +155,8 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
               fontSize: 20,
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          SizedBox(
-            height: 15,
-          ),
+          SizedBox(height: 10),
+          SizedBox(height: 15),
           Container(
             padding: EdgeInsets.all(10),
             child: Row(
@@ -175,10 +168,7 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
                   return Expanded(
                     child: GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                          _menus = MController.getMenuForDay(day);
-                        });
+                        _updateMenusForSelectedDay(day, index);
                       },
                       child: Container(
                         padding: EdgeInsets.only(
@@ -206,51 +196,67 @@ class _LunchMenuBottomSheetState extends State<LunchMenuBottomSheet> {
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
+          SizedBox(height: 10),
           Expanded(
             flex: 2,
-            child: GridView.builder(
-              padding: EdgeInsets.only(left: 15, right: 15),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20,
-                mainAxisSpacing: 20,
-              ),
-              itemCount: _menus.length,
-              itemBuilder: (context, index) {
-                var menu = _menus[index];
-                return Card(
-                  elevation: 5,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      //  Padding(padding:EdgeInsets.all(3)),
-                      Text(
-                        menu.title,
-                        style: TextStyle(
-                            fontFamily: 'roboto mono',
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: Color.fromARGB(255, 19, 19, 18)),
-                      ),
-                      SizedBox(height: 15),
-                      Image.asset(
-                        menu.picture,
-                        width: 100,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(height: 6),
-                    ],
-                  ),
-                );
+            child: FutureBuilder<List<Menu>>(
+              future: _futureMenus,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (snapshot.hasData) {
+                  return _buildMenuWidget(snapshot.data!);
+                } else {
+                  return Center(child: Text('No menu available.'));
+                }
               },
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildMenuWidget(List<Menu> menus) {
+    return GridView.builder(
+      padding: EdgeInsets.only(left: 15, right: 15),
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+      ),
+      itemCount: menus.length,
+      itemBuilder: (context, index) {
+        var menu = menus[index];
+        return Card(
+          elevation: 5,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                menu.title,
+                style: TextStyle(
+                  fontFamily: 'Roboto Mono',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
+                  color: Color.fromARGB(255, 19, 19, 18),
+                ),
+              ),
+              SizedBox(height: 10),
+              Image.asset(
+                menu.picture,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 6),
+            ],
+          ),
+        );
+      },
     );
   }
 }

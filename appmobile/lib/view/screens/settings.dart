@@ -1,11 +1,12 @@
+import 'package:appmobile/models/guardian.dart';
 import 'package:appmobile/view/bodies/homepage.dart';
 import 'package:appmobile/view/screens/guardianProfile.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:appmobile/view/screens/notification.dart';
 import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/payment.dart';
-import 'package:appmobile/controller/guardian_controller.dart';
 import 'package:appmobile/controller/user_controller.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -14,8 +15,19 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  final GuardianController _guardianAccountController = GuardianController();
-  final UserController _userController = UserController();
+  late Guardian guardian;
+  final _myBox = Hive.box('guardianData');
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    guardian = Guardian(
+        username: _myBox.get('username'),
+        password: _myBox.get('password'),
+        firstName: _myBox.get('firstname'),
+        lastName: _myBox.get('lastname'));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -78,109 +90,113 @@ class _SettingsState extends State<Settings> {
               height: 20,
             ),
             Container(
-              alignment: Alignment.center,
-              height: 125,
-              width: 340,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    child: CircleAvatar(
-                      radius: 50,
-                      backgroundImage: AssetImage('assets/images/mother.jpg'),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                alignment: Alignment.center,
+                height: 125,
+                width: 340,
+                decoration: BoxDecoration(
+                  color: Colors.grey[200],
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
                     children: [
                       SizedBox(
-                        height: 30,
+                        width: 20,
                       ),
-                      Text(
-                        '${_guardianAccountController.guardian.firstName} ${_guardianAccountController.guardian.lastName}',
-                        style: TextStyle(
-                          fontSize: 17,
-                          fontFamily: 'Inter',
-                          fontWeight: FontWeight.w500,
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        child: CircleAvatar(
+                          radius: 50,
+                          backgroundImage:
+                              AssetImage('assets/images/mother.jpg'),
                         ),
                       ),
                       SizedBox(
-                        height: 7,
+                        width: 20,
                       ),
-                      Align(
-                        alignment: Alignment.centerLeft,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            '${guardian.firstName} ${guardian.lastName}',
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Stack(
+                              children: [
+                                SizedBox(
+                                  width: 10,
+                                  height: 2,
+                                ),
+                                Text(
+                                  '@${guardian.username}',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontFamily: 'Poppins',
+                                    color: Color.fromARGB(255, 158, 155, 155),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 50,
+                                  height: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Container(
                         child: Stack(
                           children: [
-                            SizedBox(
-                              width: 10,
-                              height: 2,
-                            ),
-                            Text(
-                              '@${_userController.user.username}',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: 'Poppins',
-                                color: Color.fromARGB(255, 158, 155, 155),
-                                fontWeight: FontWeight.w400,
+                            TextButton.icon(
+                              style: ButtonStyle(
+                                foregroundColor:
+                                    MaterialStateProperty.resolveWith<Color>(
+                                  (Set<MaterialState> states) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
+                                      return Color.fromARGB(253, 226, 225, 229);
+                                    }
+                                    return Color.fromARGB(255, 63, 60, 60);
+                                  },
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              width: 50,
-                              height: 2,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => GuardianProfile()),
+                                );
+                              },
+                              icon: Icon(
+                                Icons.edit_outlined,
+                                size: 30,
+                                color: Colors.black,
+                              ),
+                              label: Text(''),
                             ),
                           ],
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    child: Stack(
-                      children: [
-                        TextButton.icon(
-                          style: ButtonStyle(
-                            foregroundColor:
-                                MaterialStateProperty.resolveWith<Color>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return Color.fromARGB(253, 226, 225, 229);
-                                }
-                                return Color.fromARGB(255, 63, 60, 60);
-                              },
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GuardianProfile()),
-                            );
-                          },
-                          icon: Icon(
-                            Icons.edit_outlined,
-                            size: 30,
-                            color: Colors.black,
-                          ),
-                          label: Text(''),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                )),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
