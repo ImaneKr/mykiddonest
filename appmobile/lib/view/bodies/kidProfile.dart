@@ -1,4 +1,3 @@
-// ignore_for_file: file_names, prefer_const_constructors
 import 'package:appmobile/models/kid.dart';
 import 'package:appmobile/view/components/profileTextField.dart';
 import 'package:appmobile/view/screens/editKid.dart';
@@ -6,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/payment.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
+import 'dart:convert'; // for encoding/decoding JSON
+import 'package:http/http.dart' as http;
 
 class KidProfile extends StatefulWidget {
   KidProfile({super.key});
@@ -25,25 +26,44 @@ class _KidProfileState extends State<KidProfile> {
     loadKidData();
   }
 
+  Future<Map<String, dynamic>> fetchKidData(int kidId) async {
+    final String baseUrl =
+        'https://backend-1-dg5f.onrender.com'; // Replace with your actual backend URL
+    final response = await http.get(Uri.parse('$baseUrl/kid/$kidId'));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body) as Map<String, dynamic>;
+    } else {
+      throw Exception('Failed to load kid info');
+    }
+  }
+
   Future<void> loadKidData() async {
     setState(() {
       selectedKid = Kid(
-        firstName:
-            _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
-        familyName:
-            _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
-        gender: _selectedKidBox.get('selectedKid')['gender'].toString() ?? '',
-        allergies: _selectedKidBox.get('selectedKid')['allergies'] ?? '',
-        syndromes: _selectedKidBox.get('selectedKid')['syndroms'] ?? '',
-        hobbies: _selectedKidBox.get('selectedKid')['hobbies'] ?? '',
-        dateOfBirth: _selectedKidBox
-            .get('selectedKid')['dateOfbirth'], // year , month , day
-        authorizedPickupper:
-            _selectedKidBox.get('selectedKid')['authorizedpickups'],
-        relationshipToChild:
-            _selectedKidBox.get('selectedKid')['relationTochild'],
+        kidId: _selectedKidBox.get('selectedKid')['kid_id'],
       );
     });
+
+    try {
+      Map<String, dynamic> kidData = await fetchKidData(selectedKid.kidId);
+      setState(() {
+        selectedKid = Kid(
+          kidId: kidData['kid_id'],
+          firstName: kidData['firstname'],
+          familyName: kidData['lastname'],
+          gender: kidData['gender'],
+          dateOfBirth: DateTime.parse(kidData['dateOfbirth'])!,
+          allergies: kidData['allergies'][0],
+          syndromes: kidData['syndroms'][0],
+          hobbies: kidData['hobbies'][0],
+          authorizedPickupper: kidData['authorizedpickups'][0],
+          relationshipToChild: kidData['relationTochild'],
+        );
+      });
+    } catch (e) {
+      print('Failed to load kid data: $e');
+    }
   }
 
   Future<void> _refreshData() async {
@@ -51,7 +71,6 @@ class _KidProfileState extends State<KidProfile> {
   }
 
   String formatDate(DateTime dateTime) {
-    // Using intl package to format the date
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     return formatter.format(dateTime);
   }
