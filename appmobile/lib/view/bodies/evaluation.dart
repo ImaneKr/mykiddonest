@@ -14,7 +14,9 @@ class Evaluation extends StatefulWidget {
 }
 
 class _EvaluationState extends State<Evaluation> {
-  late Kid kid;
+  late Kid selectedKid;
+  final _selectedKidBox = Hive.box('selectedKid');
+
   late List<Subject> subjects;
   late int starsNb;
   bool isLoading = true;
@@ -22,20 +24,15 @@ class _EvaluationState extends State<Evaluation> {
   @override
   void initState() {
     super.initState();
+    loadKidData();
     fetchData();
   }
 
   Future<void> fetchData() async {
     final _selectedKidBox = Hive.box('selectedKid');
-    kid = Kid(
-        kidId: _selectedKidBox.get('selectedKid')['kid_id'] ?? 0,
-        firstName:
-            _selectedKidBox.get('selectedKid')['firstname'].toString() ?? '',
-        familyName:
-            _selectedKidBox.get('selectedKid')['lastname'].toString() ?? '',
-        gender: _selectedKidBox.get('selectedKid')['gender'].toString());
 
-    List<Map<String, dynamic>> evaluations = await fetchEvaluations(kid.kidId);
+    List<Map<String, dynamic>> evaluations =
+        await fetchEvaluations(selectedKid.kidId);
 
     setState(() {
       subjects = evaluations.map((subject) {
@@ -52,6 +49,46 @@ class _EvaluationState extends State<Evaluation> {
       starsNb = ((pourcentagesSum * 5 / 100)).toInt();
       isLoading = false;
     });
+  }
+
+  Future<Map<String, dynamic>> fetchKidData(int kidId) async {
+    final String baseUrl =
+        'https://backend-1-dg5f.onrender.com'; // Replace with your actual backend URL
+    final response = await http.get(Uri.parse('$baseUrl/kid/$kidId'));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body) as Map<String, dynamic>;
+    } else {
+      throw Exception('Failed to load kid info');
+    }
+  }
+
+  Future<void> loadKidData() async {
+    setState(() {
+      selectedKid = Kid(
+        kidId: _selectedKidBox.get('selectedKid')['kid_id'],
+      );
+    });
+
+    try {
+      Map<String, dynamic> kidData = await fetchKidData(selectedKid.kidId);
+      setState(() {
+        selectedKid = Kid(
+          kidId: kidData['kid_id'],
+          firstName: kidData['firstname'],
+          familyName: kidData['lastname'],
+          gender: kidData['gender'],
+          dateOfBirth: DateTime.parse(kidData['dateOfbirth'])!,
+          allergies: kidData['allergies'][0],
+          syndromes: kidData['syndroms'][0],
+          hobbies: kidData['hobbies'][0],
+          authorizedPickupper: kidData['authorizedpickups'][0],
+          relationshipToChild: kidData['relationTochild'],
+        );
+      });
+    } catch (e) {
+      print('Failed to load kid data: $e');
+    }
   }
 
   Future<List<Map<String, dynamic>>> fetchEvaluations(int kidId) async {
@@ -97,14 +134,14 @@ class _EvaluationState extends State<Evaluation> {
                       ),
                       SizedBox(height: 10),
                       CircleAvatar(
-                        backgroundImage: kid.gender == 'Male'
+                        backgroundImage: selectedKid.gender == 'Male'
                             ? AssetImage('assets/images/kid.jpg')
                             : AssetImage('assets/images/girl.jpg'),
                         radius: 48,
                       ),
                       SizedBox(height: 5),
                       Text(
-                        '${kid.firstName}\r${kid.familyName}',
+                        '${selectedKid.firstName}\r${selectedKid.familyName}',
                         style: TextStyle(
                           color: Color.fromARGB(203, 11, 11, 11),
                           fontFamily: 'inter',

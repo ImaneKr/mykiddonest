@@ -60,6 +60,19 @@ class _KidProfileState extends State<KidProfile> {
           authorizedPickupper: kidData['authorizedpickups'][0],
           relationshipToChild: kidData['relationTochild'],
         );
+        _selectedKidBox.put('selectedKid', {
+          'kid_id': selectedKid.kidId,
+          'firstname': selectedKid.firstName,
+          'lastname': selectedKid.familyName,
+          'gender': selectedKid.gender,
+          'allergies': selectedKid.allergies,
+          'syndroms': selectedKid.syndromes,
+          'hobbies': selectedKid.hobbies,
+          'authorizedpickups': selectedKid.authorizedPickupper,
+          'dateOfbirth': selectedKid.dateOfBirth,
+          'relationTochild': selectedKid.relationshipToChild,
+          'category_id': selectedKid.category_id,
+        });
       });
     } catch (e) {
       print('Failed to load kid data: $e');
