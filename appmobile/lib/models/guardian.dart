@@ -5,8 +5,8 @@ class Guardian {
   String? firstName;
   String? lastName;
   String? phoneNumber;
-  String username;
-  String password;
+  String? username;
+  String? password;
   String? adresseMail;
   String? gender;
   String? civilState;
@@ -18,8 +18,8 @@ class Guardian {
     this.firstName,
     this.lastName,
     this.phoneNumber,
-    required this.username,
-    required this.password,
+    this.username,
+    this.password,
     this.adresseMail,
     this.gender,
     this.civilState,

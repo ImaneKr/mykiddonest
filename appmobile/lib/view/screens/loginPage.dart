@@ -179,7 +179,6 @@ class _LoginPageState extends State<LoginPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(retrieved.username),
             Container(
               margin: EdgeInsets.only(top: 126),
               alignment: Alignment.center,
