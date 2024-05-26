@@ -31,16 +31,20 @@ class _SideBarState extends State<SideBar> {
   late Guardian guardian;
   String? selectedMenuItem;
   bool isExpanded = false;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    loadGuardianData();
+  }
 
+  void loadGuardianData() {
     guardian = Guardian(
-        username: _myBox.get('username'),
-        password: _myBox.get('password'),
-        firstName: _myBox.get('firstname'),
-        lastName: _myBox.get('lastname'));
+      username: _myBox.get('username'),
+      password: _myBox.get('password'),
+      firstName: _myBox.get('firstname'),
+      lastName: _myBox.get('lastname'),
+    );
     for (int i = 0; i < _kidsBox.get('nbKids'); i++) {
       String iTostring = i.toString();
       kids.add(Kid(
@@ -59,6 +63,23 @@ class _SideBarState extends State<SideBar> {
           category_id: _kidsBox.get('kiddo$iTostring')['category_id']));
     }
     selectedKid = kids[_selectedKidBox.get('index')];
+    setState(() {});
+  }
+
+  void updateGuardianData({
+    String? firstName,
+    String? lastName,
+  }) {
+    setState(() {
+      if (firstName != null) {
+        guardian.firstName = firstName;
+        _myBox.put('firstname', firstName);
+      }
+      if (lastName != null) {
+        guardian.lastName = lastName;
+        _myBox.put('lastname', lastName);
+      }
+    });
   }
 
   @override
@@ -71,46 +92,38 @@ class _SideBarState extends State<SideBar> {
         color: Colors.white,
         child: Column(
           children: [
-            Column(children: [
-              Container(
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/icon.PNG',
-                      height: 55,
-                      width: 55,
-                    ),
-                    SizedBox(width: 10),
-                    Text(
-                      'MyKiddoNest',
-                      style: TextStyle(
-                        fontFamily: 'inter',
-                        fontSize: 21,
-                        fontWeight: FontWeight.w600,
+            Column(
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/icon.PNG',
+                        height: 55,
+                        width: 55,
                       ),
-                    )
-                  ],
-                ),
-              )
-            ]),
+                      SizedBox(width: 10),
+                      Text(
+                        'MyKiddoNest',
+                        style: TextStyle(
+                          fontFamily: 'inter',
+                          fontSize: 21,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
             SizedBox(
               height: 13,
             ),
             Container(
               height: 1.9,
               width: 220,
-              /* decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade400,
-                    blurRadius: 5,
-                    offset: Offset(0, 6.5), // changes position of shadow
-                  ),
-                ],
-              ),*/
               child: Divider(
                 color: Color.fromARGB(49, 106, 105, 105),
                 thickness: 1.7,
@@ -306,19 +319,13 @@ class _SideBarState extends State<SideBar> {
                   Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      /* border: Border.all(
-                        color: Colors.black,
-                        width: 0.8,
-                      ),*/
                     ),
                     child: CircleAvatar(
                       backgroundImage: AssetImage('assets/images/mother.jpg'),
                       radius: 32,
                     ),
                   ),
-                  SizedBox(
-                    width: 10,
-                  ),
+                  SizedBox(width: 10),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -331,29 +338,30 @@ class _SideBarState extends State<SideBar> {
                           fontSize: 15,
                         ),
                       ),
-                      SizedBox(
-                        height: 8,
-                      ),
+                      SizedBox(height: 8),
                       GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => GuardianProfile()),
-                            );
-                          },
-                          child: Text(
-                            'View account',
-                            style: TextStyle(
-                                fontFamily: 'inter',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12),
-                          ))
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GuardianProfile(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'View account',
+                          style: TextStyle(
+                            fontFamily: 'inter',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),

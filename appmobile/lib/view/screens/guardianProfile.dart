@@ -15,22 +15,61 @@ class GuardianProfile extends StatefulWidget {
 
 class _GuardianProfileState extends State<GuardianProfile> {
   final _myBox = Hive.box('guardianData');
-  late Guardian guardian;
+  Guardian guardian = Guardian(username: '', password: '');
+  late int id;
+  bool isLoading = true;
+
   @override
   void initState() {
     super.initState();
-    guardian = Guardian(
-      id: _myBox.get('guardian_id'),
-      firstName: _myBox.get('firstname'),
-      lastName: _myBox.get('lastname'),
-      phoneNumber: _myBox.get('phonenumber'),
-      username: _myBox.get('username'),
-      password: _myBox.get('password'),
-      adresseMail: _myBox.get('adressMail'),
-      gender: _myBox.get('gender'),
-      civilState: _myBox.get('civilstate'),
-      address: _myBox.get('address'),
-    );
+    loadGuardianData();
+  }
+
+  Future<Map<String, dynamic>> fetchGuardianData(int guardianId) async {
+    final String baseUrl =
+        'https://backend-1-dg5f.onrender.com'; // Replace with your actual backend URL
+    final response = await http.get(Uri.parse('$baseUrl/guardian/$guardianId'));
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body) as Map<String, dynamic>;
+    } else {
+      throw Exception('Failed to load guardian info');
+    }
+  }
+
+  Future<void> loadGuardianData() async {
+    id = _myBox.get('guardian_id');
+    try {
+      Map<String, dynamic> guardianData = await fetchGuardianData(id);
+      setState(() {
+        isLoading = false;
+        guardian = Guardian(
+          id: guardianData['guardian_id'],
+          firstName: guardianData['firstname'],
+          lastName: guardianData['lastname'],
+          phoneNumber: guardianData['phone_number'],
+          username: guardianData['username'],
+          password: guardianData['guardian_pwd'],
+          adresseMail: guardianData['email'],
+          gender: guardianData['gender'],
+          civilState: guardianData['civilState'],
+          address: guardianData['address'],
+        );
+      });
+      await _myBox.put('guardian_id', guardian.id);
+      await _myBox.put('firstname', guardian.firstName);
+      await _myBox.put('lastname', guardian.lastName);
+      await _myBox.put('phonenumber', guardian.phoneNumber);
+      await _myBox.put('username', guardian.username);
+      await _myBox.put('password', guardian.password);
+      await _myBox.put('adressMail', guardian.adresseMail);
+      await _myBox.put('gender', guardian.gender);
+      await _myBox.put('civilstate', guardian.civilState);
+      await _myBox.put('address', guardian.address);
+      await _myBox.put('guardianPic', guardian.guardianPic);
+    } catch (e) {
+      print('Failed to load guardian data: $e');
+    }
   }
 
   Future<void> editGuardian() async {
@@ -59,19 +98,7 @@ class _GuardianProfileState extends State<GuardianProfile> {
 
       if (response.statusCode == 200) {
         final responseData = json.decode(response.body);
-        var data = jsonDecode(response.body);
-        await _myBox.put('guardian_id', data['guardian_id']);
-        await _myBox.put('firstname', data['firstname']);
-        await _myBox.put('lastname', data['lastname']);
-        await _myBox.put('phonenumber', data['phone_number']);
-        await _myBox.put('username', data['username']);
-        await _myBox.put('password', data['guardian_pwd']);
-        await _myBox.put('adressMail', data['email']);
-        await _myBox.put('gender', data['gender']);
-        await _myBox.put('civilstate', data['civilState']);
-        await _myBox.put('address', data['address']);
-        await _myBox.put('guardianPic', data['acc_pic']);
-        print('Guardian updated successfully: $responseData');
+        await updateGuardianData(responseData);
         Navigator.pop(context);
       } else {
         final errorData = json.decode(response.body);
@@ -80,6 +107,21 @@ class _GuardianProfileState extends State<GuardianProfile> {
     } catch (e) {
       print('Error updating guardian: $e');
     }
+  }
+
+  Future<void> updateGuardianData(Map<String, dynamic> data) async {
+    await _myBox.put('guardian_id', data['guardian_id']);
+    await _myBox.put('firstname', data['firstname']);
+    await _myBox.put('lastname', data['lastname']);
+    await _myBox.put('phonenumber', data['phone_number']);
+    await _myBox.put('username', data['username']);
+    await _myBox.put('password', data['guardian_pwd']);
+    await _myBox.put('adressMail', data['email']);
+    await _myBox.put('gender', data['gender']);
+    await _myBox.put('civilstate', data['civilState']);
+    await _myBox.put('address', data['address']);
+    await _myBox.put('guardianPic', data['acc_pic']);
+    print('Guardian updated successfully: $data');
   }
 
   @override
@@ -119,140 +161,143 @@ class _GuardianProfileState extends State<GuardianProfile> {
           ),
         ],
       ),
-      body: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 15),
-              GestureDetector(
-                onTap: () {
-                  // Implement image picker here if needed
-                },
-                child: CircleAvatar(
-                  radius: 70,
-                  backgroundImage: AssetImage('assets/images/mother.jpg'),
-                ),
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.firstName ?? '',
-                label: 'First name',
-                onChange: (value) {
-                  setState(() {
-                    guardian.firstName = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.lastName ?? '',
-                label: 'Last name',
-                onChange: (value) {
-                  setState(() {
-                    guardian.lastName = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.gender ?? '',
-                label: 'Gender',
-                onChange: (value) {
-                  setState(() {
-                    guardian.gender = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.civilState ?? '',
-                label: 'Civil state',
-                onChange: (value) {
-                  setState(() {
-                    guardian.civilState = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.username ?? '',
-                label: 'Username',
-                onChange: (value) {
-                  setState(() {
-                    guardian.username = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.password ?? '',
-                label: 'Password',
-                isPassword: true,
-                onChange: (value) {
-                  setState(() {
-                    guardian.password = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.adresseMail ?? '',
-                label: 'Email address',
-                onChange: (value) {
-                  setState(() {
-                    guardian.adresseMail = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.phoneNumber ?? '',
-                label: 'Phone number',
-                onChange: (value) {
-                  setState(() {
-                    guardian.phoneNumber = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              GuardianInfoField(
-                initialValue: guardian.address ?? '',
-                label: 'Address',
-                onChange: (value) {
-                  setState(() {
-                    guardian.address = value;
-                  });
-                },
-              ),
-              SizedBox(height: 12),
-              ElevatedButton(
-                onPressed: editGuardian,
-                child: Text(
-                  'Save Changes',
-                  style: TextStyle(
-                    fontFamily: 'inter',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
-                ),
-                style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+      body: isLoading
+          ? Center(child: CircularProgressIndicator())
+          : Container(
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 15),
+                    GestureDetector(
+                      onTap: () {
+                        // Implement image picker here if needed
+                      },
+                      child: CircleAvatar(
+                        radius: 70,
+                        backgroundImage: AssetImage('assets/images/mother.jpg'),
+                      ),
                     ),
-                  ),
-                  backgroundColor: MaterialStateColor.resolveWith(
-                    (states) => Colors.lightBlue,
-                  ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.firstName ?? '',
+                      label: 'First name',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.firstName = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.lastName ?? '',
+                      label: 'Last name',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.lastName = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.gender ?? '',
+                      label: 'Gender',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.gender = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.civilState ?? '',
+                      label: 'Civil state',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.civilState = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.username ?? '',
+                      label: 'Username',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.username = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.password ?? '',
+                      label: 'Password',
+                      isPassword: true,
+                      onChange: (value) {
+                        setState(() {
+                          guardian.password = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.adresseMail ?? '',
+                      label: 'Email address',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.adresseMail = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.phoneNumber ?? '',
+                      label: 'Phone number',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.phoneNumber = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    GuardianInfoField(
+                      initialValue: guardian.address ?? '',
+                      label: 'Address',
+                      onChange: (value) {
+                        setState(() {
+                          guardian.address = value;
+                        });
+                      },
+                    ),
+                    SizedBox(height: 12),
+                    ElevatedButton(
+                      onPressed: editGuardian,
+                      child: Text(
+                        'Save Changes',
+                        style: TextStyle(
+                          fontFamily: 'inter',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white,
+                        ),
+                      ),
+                      style: ButtonStyle(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                        backgroundColor: MaterialStateColor.resolveWith(
+                          (states) => Colors.lightBlue,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
+            ),
     );
   }
 }
