@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class PaymentController with ChangeNotifier {
-  final _baseUrl = 'https://upward-native-eft.ngrok-free.app/payment';
+  final _baseUrl = 'https://suited-zebra-duly.ngrok-free.app/payment';
 
   Future<String> createCustomer({
     required String name,
