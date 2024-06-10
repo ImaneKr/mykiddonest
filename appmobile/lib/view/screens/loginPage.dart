@@ -44,7 +44,7 @@ class _LoginPageState extends State<LoginPage> {
     final String username = _username.text;
     final String password = _password.text;
 
-    final url = Uri.parse('https://backend-1-dg5f.onrender.com/login/guardian');
+    final url = Uri.parse('https://backend-1-dg5f.onrender.com/auth/guardian');
 
     try {
       var response = await http.post(

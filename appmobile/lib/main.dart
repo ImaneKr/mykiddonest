@@ -16,7 +16,7 @@ import 'package:appmobile/view/screens/settings.dart';
 import 'package:appmobile/view/screens/addKid1.dart';
 import 'package:appmobile/view/screens/loginPage.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
-
+ 
 void main() async {
   await initializeDateFormatting('fr_FR', null);
   WidgetsFlutterBinding.ensureInitialized();
