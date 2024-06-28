@@ -1,4 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Access to read the phone state -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    
+
+    <!-- Access to read and write to external storage -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+
     <application
         android:label="appmobile"
         android:name="${applicationName}"

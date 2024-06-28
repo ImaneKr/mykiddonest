@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class DdaySubjects {
   final String day;
+  final BuildContext context;
   List<Subject> subjects = [];
 
-  DdaySubjects({required this.day}) {
+  DdaySubjects({required this.day, required this.context}) {
     subjects = _generateSubjects();
   }
 
@@ -14,19 +15,23 @@ class DdaySubjects {
       case 'Saturday':
         return [
           Subject(
-              label: 'Fitness',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'Physics',
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Islamic Sciences',
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Maths',
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 00)),
         ];
@@ -34,106 +39,128 @@ class DdaySubjects {
       case 'Monday':
         return [
           Subject(
-              label: 'Fitness',
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'Arabic litterature',
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              label: 'Physics',
+              subjectId: 5,
+              context: context,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Writing',
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Islamic Sciences',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Sunday':
         return [
           Subject(
-              label: 'Maths',
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'Communication',
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Reading',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Sciences',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Wednesday':
         return [
           Subject(
-              label: 'Fitness',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              label: 'History',
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Arabic litterature',
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Islamic Sciences',
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Thursday':
         return [
           Subject(
-              label: 'Art & creativity',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'Maths',
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              label: 'Writing',
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Friday':
         return [
           Subject(
-              label: 'Fitness',
+              subjectId: 5,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              label: 'Maths',
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'History',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       default:
         return [
           Subject(
-              label: 'Fitness',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              label: 'Maths',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              label: 'History',
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];

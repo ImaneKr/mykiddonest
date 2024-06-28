@@ -8,6 +8,7 @@ import 'package:appmobile/view/bodies/kidProfile.dart';
 import 'package:appmobile/view/bodies/timeTable.dart';
 import 'package:appmobile/view/bodies/sideBar.dart';
 import 'package:appmobile/view/screens/notification.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key});

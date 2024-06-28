@@ -1,0 +1,302 @@
+{
+    "language": "العربية",
+    "@language": {
+        "description": "اللغة الحالية"
+    },
+    "addMyKid": "اضافة طفلي",
+    "@addMyKid": {
+        "description": "عنوان الصفحة"
+    },
+    "firstName": "الاسم",
+    "@firstName": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "familyName": "اللقب",
+    "@familyName": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "dateOfBirth": "تاريخ الميلاد",
+    "@dateOfBirth": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "relationshipToChild": "العلاقة بالطفل",
+    "@relationshipToChild": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "male": "ذكر",
+    "@male": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "female": "أنثى",
+    "@female": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "syndromes": "المتلازمات",
+    "@syndromes": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "allergies": "الحساسيات",
+    "@allergies": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "hobbies": "الهوايات",
+    "@hobbies": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "authorizedPickupPersons": "الأشخاص المسموح لهم باستلام الطفل",
+    "@authorizedPickupPersons": {
+        "description": "معلومات إضافية لإضافة طفل"
+    },
+    "welcome": "مرحبًا",
+    "@welcome": {
+        "description": "رسالة الترحيب"
+    },
+    "today": "اليوم",
+    "@today": {
+        "description": "التاريخ الحالي"
+    },
+    "viewLunchMenu": "عرض قائمة الغداء",
+    "@viewLunchMenu": {
+        "description": "خيار عرض قائمة الغداء لليوم"
+    },
+    "checkWeeksLunchMenu": "تحقق من قائمة غداء الأسبوع",
+    "@checkWeeksLunchMenu": {
+        "description": "خيار التحقق من قائمة الغداء للأسبوع"
+    },
+    "discoverActivities": "اكتشف الأنشطة",
+    "@discoverActivities": {
+        "description": "خيار اكتشاف الأنشطة"
+    },
+    "accept": "قبول",
+    "@accept": {
+        "description": "خيار القبول"
+    },
+    "decline": "رفض",
+    "@decline": {
+        "description": "خيار الرفض"
+    },
+    "username": "اسم المستخدم",
+    "@username": {
+        "description": "تسمية الحقل لاسم المستخدم"
+    },
+    "enterYourUsername": "أدخل اسم المستخدم الخاص بك",
+    "@enterYourUsername": {
+        "description": "نص العنصر النائب لإدخال اسم المستخدم"
+    },
+    "enterYourPassword": "أدخل كلمة المرور الخاصة بك",
+    "@enterYourPassword": {
+        "description": "نص العنصر النائب لإدخال كلمة المرور"
+    },
+    "password": "كلمة المرور",
+    "@password": {
+        "description": "تسمية الحقل لكلمة المرور"
+    },
+    "forgetMyPassword": "نسيت كلمة المرور",
+    "@forgetMyPassword": {
+        "description": "خيار استعادة كلمة المرور"
+    },
+    "logIn": "تسجيل الدخول",
+    "@logIn": {
+        "description": "نص الزر لتسجيل الدخول"
+    },
+    "niceToSeeYou": "سعيد بلقائك",
+    "@niceToSeeYou": {
+        "description": "رسالة الترحيب"
+    },
+    "logInToContinue": "قم بتسجيل الدخول للمتابعة",
+    "@logInToContinue": {
+        "description": "رسالة تطلب من المستخدم تسجيل الدخول للمتابعة"
+    },
+    "view": "انظر",
+    "@view": {
+        "description": "زر"
+    },
+    "editProfile": "تحرير الملف الشخصي",
+    "@editProfile": {
+        "description": "زر لتحرير الملف الشخصي"
+    },
+    "checkout": "الدفع",
+    "@checkout": {
+        "description": "زر للدفع"
+    },
+    "done": "تم",
+    "@done": {
+        "description": "زر للإشارة إلى الانتهاء"
+    },
+    "saveChanges": "حفظ التغييرات",
+    "@saveChanges": {
+        "description": "زر لحفظ التغييرات"
+    },
+    "gender": "الجنس",
+    "@gender": {
+        "description": "تسمية الحقل للجنس"
+    },
+    "profile": "الملف الشخصي",
+    "@profile": {
+        "description": "عنوان صفحة الملف الشخصي"
+    },
+    "evaluation": "التقييم",
+    "@evaluation": {
+        "description": "عنوان قسم التقييم"
+    },
+    "timeTable": "الجدول الزمني",
+    "@timeTable": {
+        "description": "عنوان قسم الجدول الزمني"
+    },
+    "home": "الصفحة الرئيسية",
+    "@home": {
+        "description": "عنوان الصفحة الرئيسية"
+    },
+    "yourChildsEvaluation": "تقييم طفلك",
+    "@yourChildsEvaluation": {
+        "description": "عنوان قسم تقييم الطفل"
+    },
+    "letters": "الحروف",
+    "@letters": {
+        "description": "عنوان قسم الحروف"
+    },
+    "numbers": "الأرقام",
+    "@numbers": {
+        "description": "عنوان قسم الأرقام"
+    },
+    "art": "الفن",
+    "@art": {
+        "description": "عنوان قسم الفن"
+    },
+    "communication": "التواصل",
+    "@communication": {
+        "description": "عنوان قسم التواصل"
+    },
+    "sat": "السبت",
+    "@sat": {
+        "description": "اختصار السبت"
+    },
+    "sun": "الأحد",
+    "@sun": {
+        "description": "اختصار الأحد"
+    },
+    "mon": "الإثنين",
+    "@mon": {
+        "description": "اختصار الإثنين"
+    },
+    "tue": "الثلاثاء",
+    "@tue": {
+        "description": "اختصار الثلاثاء"
+    },
+    "wed": "الأربعاء",
+    "@wed": {
+        "description": "اختصار الأربعاء"
+    },
+    "thu": "الخميس",
+    "@thu": {
+        "description": "اختصار الخميس"
+    },
+    "fri": "الجمعة",
+    "@fri": {
+        "description": "اختصار الجمعة"
+    },
+    "myKidsProfiles": "ملفات أطفالي",
+    "@myKidsProfiles": {
+        "description": "عنوان قسم ملفات الأطفال"
+    },
+    "settings": "الإعدادات",
+    "@settings": {
+        "description": "عنوان قسم الإعدادات"
+    },
+    "aboutUs": "معلومات عنا",
+    "@aboutUs": {
+        "description": "عنوان قسم معلومات عنا"
+    },
+    "logOut": "تسجيل الخروج",
+    "@logOut": {
+        "description": "زر لتسجيل الخروج"
+    },
+    "account": "الحساب",
+    "@account": {
+        "description": "عنوان قسم الحساب"
+    },
+    "personalInformation": "معلومات شخصية",
+    "@personalInformation": {
+        "description": "عنوان قسم المعلومات الشخصية"
+    },
+    "nightMode": "الوضع الليلي",
+    "@nightMode": {
+        "description": "خيار تفعيل الوضع الليلي"
+    },
+    "appearance": "المظهر",
+    "@appearance": {
+        "description": "عنوان قسم إعدادات المظهر"
+    },
+    "otherSettings": "إعدادات أخرى",
+    "@otherSettings": {
+        "description": "عنوان قسم الإعدادات الأخرى"
+    },
+    "notification": "الإشعارات",
+    "@notification": {
+        "description": "عنوان قسم الإشعارات"
+    },
+    "payment": "الدفع",
+    "@payment": {
+        "description": "عنوان قسم الدفع"
+    },
+    "totalPrice": "السعر الإجمالي",
+    "@totalPrice": {
+        "description": "تسمية للسعر الإجمالي"
+    },
+    "email": "البريد الإلكتروني",
+    "@email": {
+        "description": "تسمية حقل البريد الإلكتروني"
+    },
+    "phoneNumber": "رقم الهاتف",
+    "@phoneNumber": {
+        "description": "تسمية حقل رقم الهاتف"
+    },
+    "country": "البلد",
+    "@country": {
+        "description": "تسمية حقل البلد"
+    },
+    "state": "الولاية",
+    "@state": {
+        "description": "تسمية حقل الولاية"
+    },
+    "paymentIncludeLunchMealCost": "الدفع يشمل تكلفة وجبة الغداء",
+    "@paymentIncludeLunchMealCost": {
+        "description": "تسمية تشير إلى أن الدفع يشمل تكلفة وجبة الغداء"
+    },
+    "paymentIncludeDeliveryKidCost": "الدفع يشمل تكلفة توصيل الطفل",
+    "@paymentIncludeDeliveryKidCost": {
+        "description": "تسمية تشير إلى أن الدفع يشمل تكلفة توصيل الطفل"
+    },
+    "proceedPayment": "المتابعة للدفع",
+    "@proceedPayment": {
+        "description": "زر للمتابعة للدفع"
+    },
+    "clearAll": "مسح الكل",
+    "@clearAll": {
+        "description": "زر لمسح جميع المدخلات"
+    },
+    "viewAccount": "عرض الحساب",
+    "@viewAccount": {
+        "description": "زر لعرض الحساب"
+    },
+    "civilState": "الحالة المدنية",
+    "@civilState": {
+        "description": "تسمية حقل الحالة المدنية"
+    },
+    "emailAddress": "عنوان البريد الإلكتروني",
+    "@emailAddress": {
+        "description": "تسمية حقل عنوان البريد الإلكتروني"
+    },
+    "address": "العنوان",
+    "@address": {
+        "description": "تسمية حقل العنوان"
+    },
+    "physicalSkills": " الرياضة",
+    "@physicalSkills": {
+        "description": "Titre de la section de physical skills"
+    },
+    "myAccount": "حسابي",
+    "@myAccount": {
+        "description": "عنوان قسم حسابي"
+    }
+}

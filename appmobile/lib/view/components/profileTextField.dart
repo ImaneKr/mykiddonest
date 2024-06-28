@@ -63,7 +63,8 @@ class ProfileTextField extends StatelessWidget {
                       255, 79, 79, 79), // Change border color here
                 ),
               ),
-              contentPadding: EdgeInsets.only(left: 12, top: 7, bottom: 7),
+              contentPadding:
+                  EdgeInsets.only(left: 12, top: 7, bottom: 7, right: 12),
               hintText: displayText,
               hintStyle: TextStyle(
                 fontFamily: 'Poppins',

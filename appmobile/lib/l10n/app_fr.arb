@@ -1,0 +1,302 @@
+{
+    "language": "Français",
+    "@language": {
+        "description": "La langue actuelle"
+    },
+    "addMyKid": "Ajouter mon enfant",
+    "@addMyKid": {
+        "description": "Titre de la page"
+    },
+    "firstName": "Prénom",
+    "@firstName": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "familyName": "Nom de famille",
+    "@familyName": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "dateOfBirth": "Date de naissance",
+    "@dateOfBirth": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "relationshipToChild": "Relation avec l'enfant",
+    "@relationshipToChild": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "male": "Masculin",
+    "@male": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "female": "Féminin",
+    "@female": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "syndromes": "Syndromes",
+    "@syndromes": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "allergies": "Allergies",
+    "@allergies": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "hobbies": "Loisirs",
+    "@hobbies": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "authorizedPickupPersons": "Personnes autorisées à récupérer mon enfant",
+    "@authorizedPickupPersons": {
+        "description": "Informations pour ajouter un enfant"
+    },
+    "welcome": "Bienvenue",
+    "@welcome": {
+        "description": "Message de bienvenue"
+    },
+    "today": "Aujourd'hui",
+    "@today": {
+        "description": "Date actuelle"
+    },
+    "viewLunchMenu": "Voir le menu du déjeuner",
+    "@viewLunchMenu": {
+        "description": "Option pour voir le menu du déjeuner du jour"
+    },
+    "checkWeeksLunchMenu": "Vérifier le menu du\n déjeuner de la semaine",
+    "@checkWeeksLunchMenu": {
+        "description": "Option pour vérifier le menu du déjeuner de la semaine"
+    },
+    "discoverActivities": "Découvrir les activités",
+    "@discoverActivities": {
+        "description": "Option pour découvrir les activités"
+    },
+    "accept": "Accepter",
+    "@accept": {
+        "description": "Option pour accepter"
+    },
+    "decline": "Refuser",
+    "@decline": {
+        "description": "Option pour refuser"
+    },
+    "username": "Nom d'utilisateur",
+    "@username": {
+        "description": "Libellé du champ pour le nom d'utilisateur"
+    },
+    "enterYourUsername": "Entrez votre nom d'utilisateur",
+    "@enterYourUsername": {
+        "description": "Texte de l'espace réservé pour le champ du nom d'utilisateur"
+    },
+    "enterYourPassword": "Entrez votre mot de passe",
+    "@enterYourPassword": {
+        "description": "Texte de l'espace réservé pour le champ du mot de passe"
+    },
+    "password": "Mot de passe",
+    "@password": {
+        "description": "Libellé du champ pour le mot de passe"
+    },
+    "forgetMyPassword": "Mot de passe oublié",
+    "@forgetMyPassword": {
+        "description": "Option pour récupérer le mot de passe"
+    },
+    "logIn": "Se connecter",
+    "@logIn": {
+        "description": "Texte du bouton pour se connecter"
+    },
+    "niceToSeeYou": "Ravi de vous voir",
+    "@niceToSeeYou": {
+        "description": "Message de salutation"
+    },
+    "logInToContinue": "Connectez-vous pour continuer",
+    "@logInToContinue": {
+        "description": "Message demandant à l'utilisateur de se connecter"
+    },
+    "view": "Voir",
+    "@view": {
+        "description": "Texte du bouton"
+    },
+    "editProfile": "Modifier le profil",
+    "@editProfile": {
+        "description": "Bouton pour modifier le profil"
+    },
+    "checkout": "Paiement",
+    "@checkout": {
+        "description": "Bouton pour procéder au paiement"
+    },
+    "done": "Terminé",
+    "@done": {
+        "description": "Bouton pour indiquer que c'est terminé"
+    },
+    "saveChanges": "Enregistrer les modifications",
+    "@saveChanges": {
+        "description": "Bouton pour enregistrer les modifications"
+    },
+    "gender": "Genre",
+    "@gender": {
+        "description": "Libellé du champ pour le genre"
+    },
+    "profile": "Profil",
+    "@profile": {
+        "description": "Titre de la page de profil"
+    },
+    "evaluation": "Évaluation",
+    "@evaluation": {
+        "description": "Titre de la section d'évaluation"
+    },
+    "timeTable": "Emploi du temps",
+    "@timeTable": {
+        "description": "Titre de la section de l'emploi du temps"
+    },
+    "home": "Accueil",
+    "@home": {
+        "description": "Titre de la page d'accueil"
+    },
+    "yourChildsEvaluation": "Évaluation de votre enfant",
+    "@yourChildsEvaluation": {
+        "description": "Titre de la section d'évaluation de l'enfant"
+    },
+    "letters": "Lettres",
+    "@letters": {
+        "description": "Titre de la section des lettres"
+    },
+    "numbers": "Chiffres",
+    "@numbers": {
+        "description": "Titre de la section des chiffres"
+    },
+    "art": "Art",
+    "@art": {
+        "description": "Titre de la section d'art"
+    },
+    "communication": "Communication",
+    "@communication": {
+        "description": "Titre de la section de communication"
+    },
+    "physicalSkills": "Sport",
+    "@physicalSkills": {
+        "description": "Titre de la section de physical skills"
+    },
+    "sat": "Sam",
+    "@sat": {
+        "description": "Abréviation pour samedi"
+    },
+    "sun": "Dim",
+    "@sun": {
+        "description": "Abréviation pour dimanche"
+    },
+    "mon": "Lun",
+    "@mon": {
+        "description": "Abréviation pour lundi"
+    },
+    "tue": "Mar",
+    "@tue": {
+        "description": "Abréviation pour mardi"
+    },
+    "wed": "Mer",
+    "@wed": {
+        "description": "Abréviation pour mercredi"
+    },
+    "thu": "Jeu",
+    "@thu": {
+        "description": "Abréviation pour jeudi"
+    },
+    "fri": "Ven",
+    "@fri": {
+        "description": "Abréviation pour vendredi"
+    },
+    "myKidsProfiles": "Profils de mes enfants",
+    "@myKidsProfiles": {
+        "description": "Titre de la section des profils des enfants"
+    },
+    "settings": "Paramètres",
+    "@settings": {
+        "description": "Titre de la section des paramètres"
+    },
+    "aboutUs": "À propos de nous",
+    "@aboutUs": {
+        "description": "Titre de la section À propos de nous"
+    },
+    "logOut": "Se déconnecter",
+    "@logOut": {
+        "description": "Bouton pour se déconnecter"
+    },
+    "account": "Compte",
+    "@account": {
+        "description": "Titre de la section du compte"
+    },
+    "personalInformation": "Informations personnelles",
+    "@personalInformation": {
+        "description": "Titre de la section des informations personnelles"
+    },
+    "nightMode": "Mode nuit",
+    "@nightMode": {
+        "description": "Option pour activer le mode nuit"
+    },
+    "appearance": "Apparence",
+    "@appearance": {
+        "description": "Titre de la section des paramètres d'apparence"
+    },
+    "otherSettings": "Autres paramètres",
+    "@otherSettings": {
+        "description": "Titre de la section des autres paramètres"
+    },
+    "notification": "Notification",
+    "@notification": {
+        "description": "Titre de la section des notifications"
+    },
+    "payment": "Paiement",
+    "@payment": {
+        "description": "Titre de la section de paiement"
+    },
+    "totalPrice": "Prix total",
+    "@totalPrice": {
+        "description": "Libellé pour le prix total"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Libellé du champ pour l'email"
+    },
+    "phoneNumber": "Numéro de téléphone",
+    "@phoneNumber": {
+        "description": "Libellé du champ pour le numéro de téléphone"
+    },
+    "country": "Pays",
+    "@country": {
+        "description": "Libellé du champ pour le pays"
+    },
+    "state": "État",
+    "@state": {
+        "description": "Libellé du champ pour l'état"
+    },
+    "paymentIncludeLunchMealCost": "Le paiement inclut le coût du repas de déjeuner",
+    "@paymentIncludeLunchMealCost": {
+        "description": "Indique que le paiement inclut le coût du repas de déjeuner"
+    },
+    "paymentIncludeDeliveryKidCost": "Le paiement inclut le coût de la livraison de l'enfant",
+    "@paymentIncludeDeliveryKidCost": {
+        "description": "Indique que le paiement inclut le coût de la livraison de l'enfant"
+    },
+    "proceedPayment": "Procéder au paiement",
+    "@proceedPayment": {
+        "description": "Bouton pour procéder au paiement"
+    },
+    "clearAll": "Tout effacer",
+    "@clearAll": {
+        "description": "Bouton pour tout effacer"
+    },
+    "viewAccount": "Voir le compte",
+    "@viewAccount": {
+        "description": "Bouton pour voir le compte"
+    },
+    "civilState": "État civil",
+    "@civilState": {
+        "description": "Libellé du champ pour l'état civil"
+    },
+    "emailAddress": "Adresse e-mail",
+    "@emailAddress": {
+        "description": "Libellé du champ pour l'adresse e-mail"
+    },
+    "address": "Adresse",
+    "@address": {
+        "description": "Libellé du champ pour l'adresse"
+    },
+    "myAccount": "Mon compte",
+    "@myAccount": {
+        "description": "Titre de la section Mon compte"
+    }
+}

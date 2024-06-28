@@ -9,7 +9,7 @@ class DdaySbjctsContainers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DdaySubjects sbjcts = DdaySubjects(day: day);
+    DdaySubjects sbjcts = DdaySubjects(day: day, context: context);
 
     return Column(
       children: sbjcts.subjects

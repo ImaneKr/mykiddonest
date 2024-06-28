@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:appmobile/models/kid.dart';
 
 class KidSelection extends StatelessWidget {
-  final Kid kid;
+  final Kid? kid;
   final bool isSelected;
   final VoidCallback onTap;
 

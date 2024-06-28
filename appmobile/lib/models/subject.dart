@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Subject {
+  final int? subjectId;
   final String label;
   final TimeOfDay startingTime;
   final TimeOfDay endingTime;
-  final double pourcentage;
-  String icon;
-  String description;
+  final int percentage;
+  final String icon;
+  final String description;
 
   static Map<String, String> subjectsImage = {
     'Arabic litterature': 'assets/images/arabic.png',
@@ -22,29 +24,30 @@ class Subject {
     'Fitness': 'assets/images/fitness.png',
   };
 
-  static Map<String, String> subjectDescription = {
-    'Arabic litterature':
-        'Where the elegance of language meets the depth of culture',
-    'Physics': 'Fueling curiosity, igniting discovery.',
-    'Maths':
-        'Where numbers dance and equations sing, revealing the harmony of the cosmos',
-    'Communication': 'Connecting minds, sharing stories, building bridges',
-    'Art & creativity':
-        "Spreading the soul's colors with boundless expressions",
-    'Reading': 'Your ticket to endless adventures and diverse worlds',
-    'Writing': 'Crafting thoughts into beautifully shaped words',
-    'Islamic Sciences':
-        'Guiding hearts and enlightening minds through the eternal verses of the Quran',
-    'Sciences': 'Constantly regenerating our understanding of the universe',
-    'History': 'Stories of our past, shaping our present',
-    'Fitness': "Spreading some blood and joy in our kiddo's life "
+  static Map<int, String Function(BuildContext)> subjectLabels = {
+    1: (context) => AppLocalizations.of(context)!.letters,
+    2: (context) => AppLocalizations.of(context)!.numbers,
+    3: (context) => AppLocalizations.of(context)!.art,
+    4: (context) => AppLocalizations.of(context)!.communication,
+    5: (context) => AppLocalizations.of(context)!.physicalSkills,
   };
 
-  Subject(
-      {required this.label,
-      this.startingTime = const TimeOfDay(hour: 0, minute: 0),
-      this.endingTime = const TimeOfDay(hour: 0, minute: 0),
-      this.pourcentage = 0})
-      : icon = subjectsImage[label] ?? '',
-        description = subjectDescription[label] ?? '';
+  static Map<int, String> subjectDescription = {
+    1: 'Where the elegance of language meets the depth of culture',
+    2: 'Where numbers dance and equations sing, revealing the harmony of the cosmos',
+    3: 'Connecting minds, sharing stories, building bridges',
+    4: "Spreading the soul's colors with boundless expressions",
+    5: "Spreading some blood and joy in our kiddo's life ",
+  };
+
+  Subject({
+    this.subjectId,
+    required BuildContext context,
+    this.startingTime = const TimeOfDay(hour: 0, minute: 0),
+    this.endingTime = const TimeOfDay(hour: 0, minute: 0),
+    this.percentage = 0,
+  })  : label = subjectLabels[subjectId]?.call(context) ?? 'Unknown Subject',
+        icon = subjectsImage[subjectId] ?? 'assets/images/default.png',
+        description =
+            subjectDescription[subjectId] ?? 'No description available.';
 }
