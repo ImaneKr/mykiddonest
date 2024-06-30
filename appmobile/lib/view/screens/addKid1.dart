@@ -63,7 +63,6 @@ class _AddKid1State extends State<AddKid1> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(AppLocalizations.of(context)!.addMyKid),
             Container(
               margin: EdgeInsets.only(top: 40),
             ),
@@ -105,7 +104,7 @@ class _AddKid1State extends State<AddKid1> {
             Padding(
               padding: EdgeInsets.only(top: 20),
               child: Text(
-                'Add my kid',
+                AppLocalizations.of(context)!.addMyKid,
                 style: TextStyle(
                   fontFamily: 'roboto mono',
                   fontSize: 28,
@@ -115,8 +114,8 @@ class _AddKid1State extends State<AddKid1> {
             ),
             SizedBox(height: 20),
             KidInfoField(
-                textHintf: 'First name',
-                labelf: 'First name',
+                textHintf: AppLocalizations.of(context)!.firstName,
+                labelf: AppLocalizations.of(context)!.firstName,
                 onChanged: (value) {
                   setState(() {
                     kiddo.firstName =
@@ -125,8 +124,8 @@ class _AddKid1State extends State<AddKid1> {
                 }),
             SizedBox(height: 20),
             KidInfoField(
-                textHintf: 'Last  name',
-                labelf: 'Last name',
+                textHintf: AppLocalizations.of(context)!.familyName,
+                labelf: AppLocalizations.of(context)!.familyName,
                 onChanged: (value) {
                   setState(() {
                     kiddo.familyName =
@@ -143,7 +142,7 @@ class _AddKid1State extends State<AddKid1> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '\t\t' + 'Date of birth',
+                    '\t\t' + AppLocalizations.of(context)!.dateOfBirth,
                     style: TextStyle(
                       fontFamily: 'intel',
                       fontWeight: FontWeight.w500,
@@ -153,8 +152,8 @@ class _AddKid1State extends State<AddKid1> {
                   TextFormField(
                     controller: _dateController,
                     decoration: InputDecoration(
-                      contentPadding:
-                          EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                      contentPadding: EdgeInsets.only(
+                          left: 10, top: 10, bottom: 10, right: 10),
                       hintText: 'DD/MM/YY',
                       hintStyle: TextStyle(
                           fontFamily: 'roboto mono ',
@@ -184,8 +183,8 @@ class _AddKid1State extends State<AddKid1> {
             ),
             SizedBox(height: 20),
             KidInfoField(
-                labelf: 'Relationship to child',
-                textHintf: 'Relationship ..',
+                labelf: AppLocalizations.of(context)!.relationshipToChild,
+                textHintf: AppLocalizations.of(context)!.relationshipToChild,
                 onChanged: (value) {
                   setState(() {
                     kiddo.relationshipToChild =
@@ -207,7 +206,7 @@ class _AddKid1State extends State<AddKid1> {
                     });
                   },
                 ),
-                Text('Male'),
+                Text(AppLocalizations.of(context)!.male),
                 SizedBox(width: 50),
                 Radio(
                   activeColor: Color(0xFF00ADE9),
@@ -220,7 +219,7 @@ class _AddKid1State extends State<AddKid1> {
                     });
                   },
                 ),
-                Text('Female'),
+                Text(AppLocalizations.of(context)!.female),
               ],
             ),
             Container(
@@ -262,7 +261,8 @@ class _AddKid1State extends State<AddKid1> {
                                     Padding(
                                       padding: const EdgeInsets.all(15),
                                       child: Text(
-                                        'Please fill the important fields and try again',
+                                        AppLocalizations.of(context)!
+                                            .pleaseFillFields,
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                           fontFamily: 'poppins',
@@ -286,7 +286,7 @@ class _AddKid1State extends State<AddKid1> {
                                         padding: const EdgeInsets.symmetric(
                                             vertical: 12, horizontal: 17),
                                         child: Text(
-                                          'Close',
+                                          AppLocalizations.of(context)!.close,
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w600,
@@ -308,7 +308,7 @@ class _AddKid1State extends State<AddKid1> {
                             arguments: kiddo);
                     },
                     child: Text(
-                      'Next',
+                      AppLocalizations.of(context)!.next,
                       style: TextStyle(color: Colors.white),
                     ),
                     style: ButtonStyle(

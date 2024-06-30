@@ -8,6 +8,7 @@ import 'package:appmobile/view/components/paymentTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Payment extends StatefulWidget {
   const Payment({Key? key}) : super(key: key);
@@ -117,7 +118,7 @@ class _Payment extends State<Payment> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Checkout',
+            AppLocalizations.of(context)!.checkout,
             style: TextStyle(
               color: Colors.black,
               fontFamily: 'Poppins',
@@ -188,7 +189,7 @@ class _Payment extends State<Payment> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Total price:',
+                      AppLocalizations.of(context)!.totalPrice + ':',
                       style: TextStyle(
                         fontSize: 18,
                         fontFamily: 'Inter',
@@ -236,7 +237,7 @@ class _Payment extends State<Payment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'First name',
+                                AppLocalizations.of(context)!.firstName,
                                 style: TextStyle(
                                   color: Color(0xFF01448B),
                                   fontSize: 16,
@@ -251,7 +252,8 @@ class _Payment extends State<Payment> {
                                 width: 165,
                                 child: PaymentTextField(
                                   controller: firstNameController,
-                                  labelText: 'First Name',
+                                  labelText:
+                                      AppLocalizations.of(context)!.firstName,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Enter your first name';
@@ -269,7 +271,7 @@ class _Payment extends State<Payment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Last name',
+                                AppLocalizations.of(context)!.familyName,
                                 style: TextStyle(
                                   color: Color(0xFF01448B),
                                   fontSize: 16,
@@ -284,7 +286,8 @@ class _Payment extends State<Payment> {
                                 width: 165,
                                 child: PaymentTextField(
                                   controller: lastNameController,
-                                  labelText: 'Last name',
+                                  labelText:
+                                      AppLocalizations.of(context)!.familyName,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Enter your last name';
@@ -302,7 +305,7 @@ class _Payment extends State<Payment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Phone Number',
+                          AppLocalizations.of(context)!.phoneNumber,
                           style: TextStyle(
                             color: Color(0xFF01448B),
                             fontSize: 16,
@@ -329,7 +332,7 @@ class _Payment extends State<Payment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Email',
+                          AppLocalizations.of(context)!.email,
                           style: TextStyle(
                             color: Color(0xFF01448B),
                             fontSize: 16,
@@ -356,7 +359,7 @@ class _Payment extends State<Payment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Address',
+                          AppLocalizations.of(context)!.address,
                           style: TextStyle(
                             color: Color(0xFF01448B),
                             fontSize: 16,
@@ -369,7 +372,8 @@ class _Payment extends State<Payment> {
                         ),
                         PaymentTextField(
                           controller: addressController,
-                          labelText: 'address..',
+                          labelText:
+                              AppLocalizations.of(context)!.address + '..',
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Enter your adress';
@@ -388,7 +392,7 @@ class _Payment extends State<Payment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Country',
+                                AppLocalizations.of(context)!.country,
                                 style: TextStyle(
                                   color: Color(0xFF01448B),
                                   fontSize: 16,
@@ -403,7 +407,8 @@ class _Payment extends State<Payment> {
                                 width: 165,
                                 child: PaymentTextField(
                                   controller: countryController,
-                                  labelText: 'country',
+                                  labelText:
+                                      AppLocalizations.of(context)!.country,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Enter your adress';
@@ -421,7 +426,7 @@ class _Payment extends State<Payment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'State',
+                                AppLocalizations.of(context)!.state,
                                 style: TextStyle(
                                   color: Color(0xFF01448B),
                                   fontSize: 16,
@@ -436,7 +441,8 @@ class _Payment extends State<Payment> {
                                 width: 165,
                                 child: PaymentTextField(
                                   controller: stateController,
-                                  labelText: 'State',
+                                  labelText:
+                                      AppLocalizations.of(context)!.state,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Enter your state';
@@ -460,7 +466,8 @@ class _Payment extends State<Payment> {
                           padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                         ),*/
                         Text(
-                          'Payment includes lunch meal cost',
+                          AppLocalizations.of(context)!
+                              .paymentIncludeLunchMealCost,
                           style: TextStyle(
                             fontSize: 18,
                             fontFamily: 'DMSans-Regular',
@@ -492,7 +499,8 @@ class _Payment extends State<Payment> {
                           padding: EdgeInsets.fromLTRB(16, 0, 0, 0),
                         ),*/
                         Text(
-                          'Payment includes delivery kid cost',
+                          AppLocalizations.of(context)!
+                              .paymentIncludeDeliveryKidCost,
                           style: TextStyle(
                             fontSize: 18,
                             fontFamily: 'DMSans-Regular',
@@ -538,7 +546,7 @@ class _Payment extends State<Payment> {
                     }
                   },
                   child: Text(
-                    'Proceed payment',
+                    AppLocalizations.of(context)!.proceedPayment,
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w400,

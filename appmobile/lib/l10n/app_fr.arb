@@ -298,5 +298,33 @@
     "myAccount": "Mon compte",
     "@myAccount": {
         "description": "Titre de la section Mon compte"
+    },
+    "save": "Sauvegarder",
+    "@save": {
+        "description": "Button text to save changes"
+    },
+    "back": "Retour",
+    "@back": {
+        "description": "Button text to go back"
+    },
+    "mention": "mentionner",
+    "@mention": {
+        "description": "Placeholder for mentioning someone"
+    },
+    "relation": "relation",
+    "@relation": {
+        "description": "Placeholder for defining relationship"
+    },
+    "pleaseFillFields": "Priere de remplir les champs importants et réessayer",
+    "@pleaseFillFields": {
+        "description": "Error message prompting user to fill required fields."
+    }, 
+    "close": "Fermer",
+    "@close": {
+        "description": "Button text to go to the next page"
+    },
+    "next": "Suivant",
+    "@next": {
+        "description": "Button text to go to the next page"
     }
 }

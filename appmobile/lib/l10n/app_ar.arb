@@ -267,7 +267,7 @@
     "@paymentIncludeDeliveryKidCost": {
         "description": "تسمية تشير إلى أن الدفع يشمل تكلفة توصيل الطفل"
     },
-    "proceedPayment": "المتابعة للدفع",
+    "proceedPayment": "متابعة الدفع",
     "@proceedPayment": {
         "description": "زر للمتابعة للدفع"
     },
@@ -291,12 +291,40 @@
     "@address": {
         "description": "تسمية حقل العنوان"
     },
-    "physicalSkills": " الرياضة",
+    "physicalSkills": "الرياضة",
     "@physicalSkills": {
-        "description": "Titre de la section de physical skills"
+        "description": "عنوان قسم الرياضة"
     },
     "myAccount": "حسابي",
     "@myAccount": {
         "description": "عنوان قسم حسابي"
+    },
+    "save": "حفظ",
+    "@save": {
+        "description": "Button text to save changes"
+    },
+    "next": "بعد",
+    "@next": {
+        "description": "Button text to go to the next page"
+    },
+    "close": "اغلاق",
+    "@close": {
+        "description": "Button text to go to the next page"
+    },
+    "back": "رجوع",
+    "@back": {
+        "description": "Button text to go back"
+    },
+    "mention": "اذكر ",
+    "@mention": {
+        "description": "Placeholder for mentioning someone"
+    },
+    "relation": "العلاقة",
+    "@relation": {
+        "description": "Placeholder for defining relationship"
+    },
+    "pleaseFillFields": "الرجاء ملأ الحقول الضرورية و اعادة المحاولة",
+    "@pleaseFillFields": {
+        "description": "Error message prompting user to fill required fields."
     }
 }

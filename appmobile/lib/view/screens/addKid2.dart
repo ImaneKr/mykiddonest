@@ -6,6 +6,7 @@ import 'package:appmobile/view/components/kifInfoField.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddKid2 extends StatefulWidget {
   const AddKid2({Key? key}) : super(key: key);
@@ -142,8 +143,8 @@ class _AddKid2State extends State<AddKid2> {
                     height: 100,
                   ),
                   KidInfoField(
-                      textHintf: 'Allergies',
-                      labelf: 'Allergies',
+                      textHintf: AppLocalizations.of(context)!.allergies,
+                      labelf: AppLocalizations.of(context)!.allergies,
                       onChanged: (value) {
                         setState(() {
                           kiddo.allergies =
@@ -152,8 +153,8 @@ class _AddKid2State extends State<AddKid2> {
                       }),
                   SizedBox(height: 20),
                   KidInfoField(
-                      textHintf: 'Syndromes...',
-                      labelf: 'Syndromes',
+                      textHintf: AppLocalizations.of(context)!.syndromes,
+                      labelf: AppLocalizations.of(context)!.syndromes,
                       onChanged: (value) {
                         setState(() {
                           kiddo.syndromes =
@@ -162,8 +163,8 @@ class _AddKid2State extends State<AddKid2> {
                       }),
                   SizedBox(height: 20),
                   KidInfoField(
-                      textHintf: 'Hobbies...',
-                      labelf: 'Hobbies',
+                      textHintf: AppLocalizations.of(context)!.hobbies,
+                      labelf: AppLocalizations.of(context)!.hobbies,
                       onChanged: (value) {
                         setState(() {
                           kiddo.hobbies =
@@ -173,7 +174,8 @@ class _AddKid2State extends State<AddKid2> {
                   SizedBox(height: 20),
                   KidInfoField(
                       textHintf: 'mention',
-                      labelf: 'Authorized pick-up persons ',
+                      labelf:
+                          AppLocalizations.of(context)!.authorizedPickupPersons,
                       onChanged: (value) {
                         setState(() {
                           kiddo.authorizedPickupper =
@@ -205,7 +207,7 @@ class _AddKid2State extends State<AddKid2> {
                       },
                       icon: Icon(Icons.arrow_back_ios_new_rounded),
                       label: Text(
-                        'Back',
+                        AppLocalizations.of(context)!.back,
                         style: TextStyle(
                           fontFamily: 'roboto mono ',
                           fontWeight: FontWeight.w600,
@@ -223,7 +225,7 @@ class _AddKid2State extends State<AddKid2> {
                         );
                       },
                       child: Text(
-                        'Save',
+                        AppLocalizations.of(context)!.save,
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w500,

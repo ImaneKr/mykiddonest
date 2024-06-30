@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appmobile/controller/notification_controller.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyNotification extends StatefulWidget {
   const MyNotification({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _MyNotificationState extends State<MyNotification> {
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Notifications',
+            AppLocalizations.of(context)!.notification,
             style: TextStyle(
               fontFamily: 'Epilogue-SemiBold',
               fontWeight: FontWeight.w600,
@@ -46,7 +47,7 @@ class _MyNotificationState extends State<MyNotification> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Today',
+                  AppLocalizations.of(context)!.today,
                   style: TextStyle(
                     fontFamily: 'Poppins-SemiBold',
                     fontWeight: FontWeight.w600,
@@ -57,7 +58,7 @@ class _MyNotificationState extends State<MyNotification> {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Clear all',
+                    AppLocalizations.of(context)!.clearAll,
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w500,
