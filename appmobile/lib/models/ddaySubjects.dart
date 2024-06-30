@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 class DdaySubjects {
   final String day;
+  final BuildContext context;
   List<Subject> subjects = [];
 
-  DdaySubjects({required this.day}) {
+  DdaySubjects({required this.day, required this.context}) {
     subjects = _generateSubjects();
   }
 
@@ -14,19 +15,23 @@ class DdaySubjects {
       case 'Saturday':
         return [
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 2,
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 3,
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 4,
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 00)),
         ];
@@ -34,106 +39,128 @@ class DdaySubjects {
       case 'Monday':
         return [
           Subject(
-              subjctId: 3,
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 4,
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              subjctId: 5,
+              subjectId: 5,
+              context: context,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 2,
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Sunday':
         return [
           Subject(
-              subjctId: 4,
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 3,
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Wednesday':
         return [
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 10, minute: 00)),
           Subject(
-              subjctId: 2,
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 10, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 4,
+              subjectId: 4,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 3,
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Thursday':
         return [
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 3,
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 13, minute: 45)),
           Subject(
-              subjctId: 2,
+              subjectId: 2,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 45),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       case 'Friday':
         return [
           Subject(
-              subjctId: 5,
+              subjectId: 5,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              subjctId: 3,
+              subjectId: 3,
+              context: context,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];
       default:
         return [
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 09, minute: 00),
               endingTime: TimeOfDay(hour: 11, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 11, minute: 00),
               endingTime: TimeOfDay(hour: 12, minute: 00)),
           Subject(
-              subjctId: 1,
+              subjectId: 1,
+              context: context,
               startingTime: TimeOfDay(hour: 13, minute: 00),
               endingTime: TimeOfDay(hour: 14, minute: 30)),
         ];

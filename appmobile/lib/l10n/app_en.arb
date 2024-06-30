@@ -1,0 +1,302 @@
+{
+    "language": "English", 
+    "@language": {
+        "description": "The current language"
+    },
+    "addMyKid": "Add my kid",
+    "@addMyKid": {
+        "description": "Page title"
+    },
+    "firstName": "First name",
+    "@firstName": {
+        "description": "Info to add a kid"
+    },
+    "familyName": "Family name",
+    "@familyName": {
+        "description": "Info to add a kid"
+    },
+    "dateOfBirth": "Date of birth",
+    "@dateOfBirth": {
+        "description": "Info to add a kid"
+    },
+    "relationshipToChild": "Relationship to child",
+    "@relationshipToChild": {
+        "description": "Info to add a kid"
+    },
+    "male": "Male",
+    "@male": {
+        "description": "Info to add a kid"
+    },
+    "female": "Female",
+    "@female": {
+        "description": "Info to add a kid"
+    },
+    "syndromes": "Syndromes",
+    "@syndromes": {
+        "description": "Info to add a kid"
+    },
+    "allergies": "Allergies",
+    "@allergies": {
+        "description": "Info to add a kid"
+    },
+    "hobbies": "Hobbies",
+    "@hobbies": {
+        "description": "Info to add a kid"
+    },
+    "authorizedPickupPersons": "Authorized pick-up persons",
+    "@authorizedPickupPersons": {
+        "description": "Info to add a kid"
+    },
+    "welcome": "Welcome",
+    "@welcome": {
+        "description": "Welcome message"
+    },
+    "today": "Today",
+    "@today": {
+        "description": "Current date"
+    },
+    "viewLunchMenu": "View Lunch Menu",
+    "@viewLunchMenu": {
+        "description": "Option to view today's lunch menu"
+    },
+    "checkWeeksLunchMenu": "Check week's lunch menu",
+    "@checkWeeksLunchMenu": {
+        "description": "Option to check the lunch menu for the week"
+    },
+    "discoverActivities": "Discover Activities",
+    "@discoverActivities": {
+        "description": "Option to discover activities"
+    },
+    "accept": "Accept",
+    "@accept": {
+        "description": "Option to accept"
+    },
+    "decline": "Decline",
+    "@decline": {
+        "description": "Option to decline"
+    },
+    "username": "Username",
+    "@username": {
+        "description": "Field label for username"
+    },
+    "enterYourUsername": "Enter your username",
+    "@enterYourUsername": {
+        "description": "Placeholder text for username input"
+    },
+    "enterYourPassword": "Enter your password",
+    "@enterYourPassword": {
+        "description": "Placeholder text for password input"
+    },
+    "password": "Password",
+    "@password": {
+        "description": "Field label for password"
+    },
+    "forgetMyPassword": "Forget my password",
+    "@forgetMyPassword": {
+        "description": "Option to recover password"
+    },
+    "logIn": "Log in",
+    "@logIn": {
+        "description": "Button text to log in"
+    },
+    "niceToSeeYou": "Nice to see you",
+    "@niceToSeeYou": {
+        "description": "Greeting message"
+    },
+    "logInToContinue": "Log in to continue",
+    "@logInToContinue": {
+        "description": "Message prompting user to log in"
+    },
+    "view": "View",
+    "@view": {
+        "description": "Button text"
+    },
+    "editProfile": "Edit profile",
+    "@editProfile": {
+        "description": "Button text to edit profile"
+    },
+    "checkout": "Checkout",
+    "@checkout": {
+        "description": "Button text to checkout"
+    },
+    "done": "Done",
+    "@done": {
+        "description": "Button text to indicate completion"
+    },
+    "saveChanges": "Save changes",
+    "@saveChanges": {
+        "description": "Button text to save changes"
+    },
+    "gender": "Gender",
+    "@gender": {
+        "description": "Field label for gender"
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Profile page title"
+    },
+    "evaluation": "Evaluation",
+    "@evaluation": {
+        "description": "Evaluation section title"
+    },
+    "timeTable": "Time Table",
+    "@timeTable": {
+        "description": "Schedule section title"
+    },
+    "home": "Home",
+    "@home": {
+        "description": "Home page title"
+    },
+    "yourChildsEvaluation": "Your child's evaluation",
+    "@yourChildsEvaluation": {
+        "description": "Title for child's evaluation section"
+    },
+    "letters": "Letters",
+    "@letters": {
+        "description": "Title for letters section"
+    },
+    "numbers": "Numbers",
+    "@numbers": {
+        "description": "Title for numbers section"
+    },
+    "art": "Art",
+    "@art": {
+        "description": "Title for art section"
+    },
+    "communication": "Communication",
+    "@communication": {
+        "description": "Title for communication section"
+    },
+    "sat": "Sat",
+    "@sat": {
+        "description": "Abbreviation for Saturday"
+    },
+    "sun": "Sun",
+    "@sun": {
+        "description": "Abbreviation for Sunday"
+    },
+    "mon": "Mon",
+    "@mon": {
+        "description": "Abbreviation for Monday"
+    },
+    "tue": "Tue",
+    "@tue": {
+        "description": "Abbreviation for Tuesday"
+    },
+    "wed": "Wed",
+    "@wed": {
+        "description": "Abbreviation for Wednesday"
+    },
+    "thu": "Thu",
+    "@thu": {
+        "description": "Abbreviation for Thursday"
+    },
+    "fri": "Fri",
+    "@fri": {
+        "description": "Abbreviation for Friday"
+    },
+    "myKidsProfiles": "My Kids' Profiles",
+    "@myKidsProfiles": {
+        "description": "Title for section with kids' profiles"
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Settings section title"
+    },
+    "aboutUs": "About us",
+    "@aboutUs": {
+        "description": "About us section title"
+    },
+    "logOut": "Log out",
+    "@logOut": {
+        "description": "Button text to log out"
+    },
+    "physicalSkills": "Physical skills",
+    "@physicalSkills": {
+        "description": "Titre de la section de physical skills"
+    },
+    "account": "Account",
+    "@account": {
+        "description": "Account section title"
+    },
+    "personalInformation": "Personal information",
+    "@personalInformation": {
+        "description": "Section title for personal information"
+    },
+    "nightMode": "Night mode",
+    "@nightMode": {
+        "description": "Option to enable night mode"
+    },
+    "appearance": "Appearance",
+    "@appearance": {
+        "description": "Section title for appearance settings"
+    },
+    "otherSettings": "Other settings",
+    "@otherSettings": {
+        "description": "Section title for other settings"
+    },
+    "notification": "Notification",
+    "@notification": {
+        "description": "Notification section title"
+    },
+    "payment": "Payment",
+    "@payment": {
+        "description": "Payment section title"
+    },
+    "totalPrice": "Total price",
+    "@totalPrice": {
+        "description": "Label for total price"
+    },
+    "email": "Email",
+    "@email": {
+        "description": "Field label for email"
+    },
+    "phoneNumber": "Phone number",
+    "@phoneNumber": {
+        "description": "Field label for phone number"
+    },
+    "country": "Country",
+    "@country": {
+        "description": "Field label for country"
+    },
+    "state": "State",
+    "@state": {
+        "description": "Field label for state"
+    },
+    "paymentIncludeLunchMealCost": "Payment includes lunch meal cost",
+    "@paymentIncludeLunchMealCost": {
+        "description": "Label indicating payment includes lunch meal cost"
+    },
+    "paymentIncludeDeliveryKidCost": "Payment includes delivery kid cost",
+    "@paymentIncludeDeliveryKidCost": {
+        "description": "Label indicating payment includes delivery kid cost"
+    },
+    "proceedPayment": "Proceed payment",
+    "@proceedPayment": {
+        "description": "Button text to proceed with payment"
+    },
+    "clearAll": "Clear all",
+    "@clearAll": {
+        "description": "Button text to clear all entries"
+    },
+    "viewAccount": "View account",
+    "@viewAccount": {
+        "description": "Button text to view account"
+    },
+    "civilState": "Civil state",
+    "@civilState": {
+        "description": "Field label for civil state"
+    },
+    "emailAddress": "Email address",
+    "@emailAddress": {
+        "description": "Field label for email address"
+    },
+    "address": "Address",
+    "@address": {
+        "description": "Field label for address"
+    },
+    "myAccount": "My account",
+    "@myAccount": {
+        "description": "Title for my account section"
+    }
+}

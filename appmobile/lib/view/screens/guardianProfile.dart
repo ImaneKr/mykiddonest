@@ -5,6 +5,7 @@ import 'package:appmobile/view/screens/loginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class GuardianProfile extends StatefulWidget {
   const GuardianProfile({Key? key}) : super(key: key);
@@ -131,7 +132,7 @@ class _GuardianProfileState extends State<GuardianProfile> {
           backgroundColor: Colors.white,
           title: Center(
             child: Text(
-              'My account',
+              AppLocalizations.of(context)!.myAccount,
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
             ),
           ),
@@ -150,7 +151,7 @@ class _GuardianProfileState extends State<GuardianProfile> {
                 );
               },
               child: Text(
-                'Log out',
+                AppLocalizations.of(context)!.logOut,
                 style: TextStyle(
                   color: Color.fromARGB(255, 134, 138, 148),
                   fontFamily: 'inter',
@@ -162,150 +163,149 @@ class _GuardianProfileState extends State<GuardianProfile> {
           ],
         ),
         body: RefreshIndicator(
-          onRefresh: () async {
-            setState(() {
-              isLoading = true;
-            });
-            await loadGuardianData();
-          },
-          child: isLoading
-              ? Center(child: CircularProgressIndicator())
-              : Container(
-                  color: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(height: 15),
-                        GestureDetector(
-                          onTap: () {
-                            // Implement image picker here if needed
-                          },
-                          child: CircleAvatar(
-                            radius: 70,
-                            backgroundImage:
-                                AssetImage('assets/images/mother.jpg'),
-                          ),
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.firstName ?? '',
-                          label: 'First name',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.firstName = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.lastName ?? '',
-                          label: 'Last name',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.lastName = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.gender ?? '',
-                          label: 'Gender',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.gender = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.civilState ?? '',
-                          label: 'Civil state',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.civilState = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.username ?? '',
-                          label: 'Username',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.username = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.password ?? '',
-                          label: 'Password',
-                          isPassword: true,
-                          onChange: (value) {
-                            setState(() {
-                              guardian.password = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.adresseMail ?? '',
-                          label: 'Email address',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.adresseMail = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.phoneNumber ?? '',
-                          label: 'Phone number',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.phoneNumber = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        GuardianInfoField(
-                          initialValue: guardian.address ?? '',
-                          label: 'Address',
-                          onChange: (value) {
-                            setState(() {
-                              guardian.address = value;
-                            });
-                          },
-                        ),
-                        SizedBox(height: 12),
-                        ElevatedButton(
-                          onPressed: editGuardian,
-                          child: Text(
-                            'Save Changes',
-                            style: TextStyle(
-                              fontFamily: 'inter',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white,
+            onRefresh: () async {
+              setState(() {
+                isLoading = true;
+              });
+              await loadGuardianData();
+            },
+            child: isLoading
+                ? Center(child: CircularProgressIndicator())
+                : Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(height: 15),
+                          GestureDetector(
+                            onTap: () {
+                              // Implement image picker here if needed
+                            },
+                            child: CircleAvatar(
+                              radius: 70,
+                              backgroundImage:
+                                  AssetImage('assets/images/mother.jpg'),
                             ),
                           ),
-                          style: ButtonStyle(
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.firstName ?? '',
+                            label: AppLocalizations.of(context)!.firstName,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.firstName = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.lastName ?? '',
+                            label: AppLocalizations.of(context)!.familyName,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.lastName = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.gender ?? '',
+                            label: AppLocalizations.of(context)!.gender,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.gender = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.civilState ?? '',
+                            label: AppLocalizations.of(context)!.civilState,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.civilState = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.username ?? '',
+                            label: AppLocalizations.of(context)!.username,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.username = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.password ?? '',
+                            label: AppLocalizations.of(context)!.password,
+                            isPassword: true,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.password = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.adresseMail ?? '',
+                            label: AppLocalizations.of(context)!.emailAddress,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.adresseMail = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.phoneNumber ?? '',
+                            label: AppLocalizations.of(context)!.phoneNumber,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.phoneNumber = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          GuardianInfoField(
+                            initialValue: guardian.address ?? '',
+                            label: AppLocalizations.of(context)!.address,
+                            onChange: (value) {
+                              setState(() {
+                                guardian.address = value;
+                              });
+                            },
+                          ),
+                          SizedBox(height: 12),
+                          ElevatedButton(
+                            onPressed: editGuardian,
+                            child: Text(
+                              AppLocalizations.of(context)!.saveChanges,
+                              style: TextStyle(
+                                fontFamily: 'inter',
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white,
                               ),
                             ),
-                            backgroundColor: MaterialStateColor.resolveWith(
-                              (states) => Colors.lightBlue,
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              backgroundColor: MaterialStateColor.resolveWith(
+                                (states) => Colors.lightBlue,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                ),
-        ));
+                  )));
   }
 }

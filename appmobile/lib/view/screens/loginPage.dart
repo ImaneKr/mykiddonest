@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/addKid1.dart';
 import 'package:appmobile/view/screens/mainPage.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -40,6 +41,9 @@ class _LoginPageState extends State<LoginPage> {
     return (nb == null || nb == 0) ? false : true;
   }
 
+  final langBox = Hive.box('lang');
+  String lang = 'English';
+  String loco = 'en';
   Future<bool> _infoValid() async {
     final String username = _username.text;
     final String password = _password.text;
@@ -126,11 +130,21 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
+  void setLocoAndLang() async {
+    setState() async {
+      lang = await langBox.get('lang');
+      lang == 'English'
+          ? loco == 'en'
+          : (lang == 'Français' ? loco = 'fr' : loco = 'ar');
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     _password.text = '';
     _username.text = '';
+    setLocoAndLang();
   }
 
   void sendEmail() {
@@ -174,461 +188,614 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: EdgeInsets.only(top: 126),
-              alignment: Alignment.center,
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: true,
+        body: Localizations.override(
+          context: context,
+          locale: Locale(loco),
+          child: Builder(builder: (context) {
+            return SingleChildScrollView(
               child: Column(
                 children: [
-                  Image.asset(
-                    'assets/images/icon.PNG',
-                    width: 160,
-                    height: 143,
+                  Container(
+                    margin: EdgeInsets.only(top: 60),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Container(
+                                child: ExpansionTile(
+                                  initiallyExpanded: false,
+                                  childrenPadding:
+                                      EdgeInsets.only(left: 50, right: 50),
+                                  shape: Border(),
+                                  expandedCrossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  trailing: SizedBox.shrink(),
+                                  title: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.language_rounded,
+                                        color: Colors.grey.shade500,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        lang,
+                                        style: TextStyle(
+                                            color: Colors.grey.shade500,
+                                            fontWeight: FontWeight.w400),
+                                      )
+                                    ],
+                                  ),
+                                  backgroundColor:
+                                      Color.fromARGB(0, 255, 255, 255),
+                                  children: [
+                                    loco != 'ar'
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                                GestureDetector(
+                                                    onTap: () async {
+                                                      await Hive.box('lang')
+                                                          .put('lang', 'ar');
+                                                      setState(() {
+                                                        loco = 'ar';
+                                                        lang = 'العربية';
+                                                      });
+                                                    },
+                                                    child: Container(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                top: 2),
+                                                        child: Text(
+                                                          'العربية',
+                                                          style: TextStyle(
+                                                              color: Colors.grey
+                                                                  .shade500,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400),
+                                                        )))
+                                              ])
+                                        : SizedBox(),
+                                    loco != 'en'
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              GestureDetector(
+                                                  onTap: () async {
+                                                    await Hive.box('lang')
+                                                        .put('lang', 'en');
+                                                    setState(() {
+                                                      loco = 'en';
+                                                      lang = 'English';
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          top: 2),
+                                                      child: Text(
+                                                        'English',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .grey.shade500,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      )))
+                                            ],
+                                          )
+                                        : SizedBox(),
+                                    loco != 'fr'
+                                        ? Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              GestureDetector(
+                                                  onTap: () async {
+                                                    await Hive.box('lang')
+                                                        .put('lang', 'fr');
+                                                    setState(() {
+                                                      loco = 'fr';
+                                                      lang = 'Français';
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                      padding: EdgeInsets.only(
+                                                          top: 2),
+                                                      child: Text(
+                                                        'Français',
+                                                        style: TextStyle(
+                                                            color: Colors
+                                                                .grey.shade500,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
+                                                      )))
+                                            ],
+                                          )
+                                        : SizedBox(),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        Image.asset(
+                          'assets/images/icon.PNG',
+                          width: 160,
+                          height: 143,
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 19),
+                          child: Text(
+                            AppLocalizations.of(context)!.niceToSeeYou + '!',
+                            style: TextStyle(
+                              fontFamily: 'open sans',
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          AppLocalizations.of(context)!.logInToContinue,
+                          style: TextStyle(
+                            fontFamily: 'inter',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                            color: Color(0xFF565E6C),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 26,
+                          right: 26,
+                          top: 25,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.username,
+                          style: TextStyle(
+                            fontFamily: 'roboto mono',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            height: 1,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 19),
-                    child: Text(
-                      'Nice to see you!',
-                      style: TextStyle(
-                        fontFamily: 'open sans',
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        color: Colors.black,
+                    padding: EdgeInsets.only(
+                      left: 20,
+                      right: 20,
+                    ),
+                    child: TextField(
+                      controller: _username,
+                      decoration: InputDecoration(
+                        hintText:
+                            AppLocalizations.of(context)!.enterYourUsername,
+                        hintStyle: TextStyle(
+                          fontFamily: 'poppins',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color(0xFFBCC1CA),
+                        ),
+                        prefixIcon: Icon(Icons.person_outlined),
+                        prefixIconColor: MaterialStateColor.resolveWith(
+                          (states) => states.contains(MaterialState.focused)
+                              ? Color(0xFF00ADE9)
+                              : Colors.black,
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            color: Color(0xFF9095A0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF00ADE9)),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                  Text(
-                    'Log in to continue',
-                    style: TextStyle(
-                      fontFamily: 'inter',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                      color: Color(0xFF565E6C),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 26,
+                          right: 26,
+                          top: 25,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.password,
+                          style: TextStyle(
+                            fontFamily: 'roboto mono',
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                            height: 1,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 6,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    child: TextField(
+                      controller: _password,
+                      obscureText: _isObscured,
+                      decoration: InputDecoration(
+                        hintText:
+                            AppLocalizations.of(context)!.enterYourPassword,
+                        hintStyle: TextStyle(
+                          fontFamily: 'poppins',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Color(0xFFBCC1CA),
+                        ),
+                        prefixIcon: Icon(Icons.lock_outlined),
+                        prefixIconColor: MaterialStateColor.resolveWith(
+                          (states) => states.contains(MaterialState.focused)
+                              ? Color(0xFF00ADE9)
+                              : Colors.black,
+                        ),
+                        suffixIcon: IconButton(
+                          icon: _isObscured
+                              ? Icon(Icons.visibility_off)
+                              : Icon(Icons.visibility),
+                          onPressed: _toggleVisibility,
+                        ),
+                        suffixIconColor: MaterialStateColor.resolveWith(
+                          (states) => states.contains(MaterialState.focused)
+                              ? Color(0xFF00ADE9)
+                              : Colors.black,
+                        ),
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 11),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                          borderSide: BorderSide(
+                            color: Color(0xFF9095A0),
+                          ),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Color(0xFF00ADE9)),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                          right: 26,
+                          left: 26,
+                          top: 20,
+                        ),
+                        child: GestureDetector(
+                          child: Text(
+                            AppLocalizations.of(context)!.forgetMyPassword,
+                            style: TextStyle(
+                              fontFamily: 'roboto mono',
+                              fontWeight: FontWeight.w500,
+                              fontSize: 14,
+                              color: Color(0xFF00ADE9),
+                            ),
+                          ),
+                          onTap: () {
+                            if (_username.text == retrieved.username)
+                              sendEmail();
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  contentPadding:
+                                      EdgeInsets.zero, // Remove default padding
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(15.0),
+                                  ),
+                                  content: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0xFF3AD09A),
+                                          offset: Offset(-13,
+                                              0), // Apply shadow to the left
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize
+                                          .min, // Ensure the column takes minimum space
+                                      children: [
+                                        SizedBox(
+                                          height: 18,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(18.0),
+                                          child: Text(
+                                            (_username.text ==
+                                                    retrieved.username
+                                                ? (_password.text !=
+                                                        retrieved.password
+                                                    ? 'Please, check your email, we send you your password!'
+                                                    : 'You have typed the correct log in information!')
+                                                : 'check your username please'),
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Color(0xFF757474),
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            //primary: Color(0xFFEBEBEB),
+                                          ),
+                                          onPressed: () async {
+                                            bool hasKids = await _hasKid();
+                                            _username.text == retrieved.username
+                                                ? (_password.text !=
+                                                        retrieved.password
+                                                    ? launchGmail()
+                                                    : (hasKids
+                                                        ? Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        MainPage()),
+                                                          )
+                                                        : Navigator.replace(
+                                                            context,
+                                                            oldRoute:
+                                                                ModalRoute.of(
+                                                                    context)!,
+                                                            newRoute: MaterialPageRoute(
+                                                                builder:
+                                                                    (newcontext) =>
+                                                                        AddKid1()),
+                                                          )))
+                                                : Navigator.of(context).pop();
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 12, horizontal: 17),
+                                            child: Text(
+                                              (_username.text ==
+                                                      retrieved.username
+                                                  ? (_password.text !=
+                                                          retrieved.password
+                                                      ? 'Open Gmail'
+                                                      : 'Log in')
+                                                  : 'Close'),
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 15,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 40),
+                      child: SizedBox(
+                        width: 200,
+                        height: 44,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Color(0xFF00ADE9)),
+                            shape: MaterialStateProperty.all<OutlinedBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            bool isValid = await _infoValid();
+                            bool hasKids = await _hasKid();
+                            if (isValid && hasKids) {
+                              await _selectedKidBox.put('selectedKid', {
+                                'kid_id': _kidsBox.get('kiddo0')['kid_id'],
+                                'firstname': _kidsBox
+                                    .get('kiddo0')['firstname']
+                                    .toString(),
+                                'lastname': _kidsBox
+                                    .get('kiddo0')['lastname']
+                                    .toString(),
+                                'gender':
+                                    _kidsBox.get('kiddo0')['gender'].toString(),
+                                'allergies': _kidsBox.get('kiddo0')['allergies']
+                                    [0],
+                                'syndroms': _kidsBox.get('kiddo0')['syndroms']
+                                    [0],
+                                'hobbies': _kidsBox.get('kiddo0')['hobbies'][0],
+                                'authorizedpickups': _kidsBox
+                                    .get('kiddo0')['authorizedpickups'][0],
+                                'dateOfbirth':
+                                    _kidsBox.get('kiddo0')['dateOfbirth'],
+                                'relationTochild': _kidsBox
+                                    .get('kiddo0')['relationTochild']
+                                    .toString(),
+                                'category_id':
+                                    _kidsBox.get('kiddo0')['category_id'],
+                              });
+                              await _selectedKidBox.put('index', 0);
+                              await _myBox.put('isConnected', true);
+
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MainPage()));
+                            } else if (isValid && !hasKids) {
+                              await _myBox.put('isConnected', true);
+                              Navigator.replace(
+                                context,
+                                oldRoute: ModalRoute.of(context)!,
+                                newRoute: MaterialPageRoute(
+                                    builder: (context) => AddKid1()),
+                              );
+                            } else if (!isValid)
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    contentPadding: EdgeInsets
+                                        .zero, // Remove default padding
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    content: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(15.0),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0xFFF42B4F),
+                                            offset: Offset(-13,
+                                                0), // Apply shadow to the left
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize
+                                            .min, // Ensure the column takes minimum space
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 16),
+                                            child: Text(
+                                              'Ooops!',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                fontFamily: 'poppins',
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(12.0),
+                                            child: Text(
+                                              'Please, check your login information!',
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(
+                                                color: Color(0xFF757474),
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8.0),
+                                              ),
+                                              //primary: Color(0xFFEBEBEB),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 12,
+                                                      horizontal: 17),
+                                              child: Text(
+                                                'Try again',
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 15,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.logIn,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 26,
-                    top: 25,
-                  ),
-                  child: Text(
-                    'Username',
-                    style: TextStyle(
-                      fontFamily: 'roboto mono',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      height: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
-              child: TextField(
-                controller: _username,
-                decoration: InputDecoration(
-                  hintText: 'Enter your user name',
-                  hintStyle: TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    color: Color(0xFFBCC1CA),
-                  ),
-                  prefixIcon: Icon(Icons.person_outlined),
-                  prefixIconColor: MaterialStateColor.resolveWith(
-                    (states) => states.contains(MaterialState.focused)
-                        ? Color(0xFF00ADE9)
-                        : Colors.black,
-                  ),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(
-                      color: Color(0xFF9095A0),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF00ADE9)),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: 26,
-                    top: 25,
-                  ),
-                  child: Text(
-                    'Password',
-                    style: TextStyle(
-                      fontFamily: 'roboto mono',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                      height: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 6,
-            ),
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
-              child: TextField(
-                controller: _password,
-                obscureText: _isObscured,
-                decoration: InputDecoration(
-                  hintText: 'Enter your password',
-                  hintStyle: TextStyle(
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                    color: Color(0xFFBCC1CA),
-                  ),
-                  prefixIcon: Icon(Icons.lock_outlined),
-                  prefixIconColor: MaterialStateColor.resolveWith(
-                    (states) => states.contains(MaterialState.focused)
-                        ? Color(0xFF00ADE9)
-                        : Colors.black,
-                  ),
-                  suffixIcon: IconButton(
-                    icon: _isObscured
-                        ? Icon(Icons.visibility_off)
-                        : Icon(Icons.visibility),
-                    onPressed: _toggleVisibility,
-                  ),
-                  suffixIconColor: MaterialStateColor.resolveWith(
-                    (states) => states.contains(MaterialState.focused)
-                        ? Color(0xFF00ADE9)
-                        : Colors.black,
-                  ),
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16, vertical: 11),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                    borderSide: BorderSide(
-                      color: Color(0xFF9095A0),
-                    ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF00ADE9)),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(12),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    right: 26,
-                    top: 20,
-                  ),
-                  child: GestureDetector(
-                    child: Text(
-                      'Forget my password!',
-                      style: TextStyle(
-                        fontFamily: 'roboto mono',
-                        fontWeight: FontWeight.w500,
-                        fontSize: 14,
-                        color: Color(0xFF00ADE9),
-                      ),
-                    ),
-                    onTap: () {
-                      if (_username.text == retrieved.username) sendEmail();
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            contentPadding:
-                                EdgeInsets.zero, // Remove default padding
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            content: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(15.0),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Color(0xFF3AD09A),
-                                    offset: Offset(
-                                        -13, 0), // Apply shadow to the left
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize
-                                    .min, // Ensure the column takes minimum space
-                                children: [
-                                  SizedBox(
-                                    height: 18,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(18.0),
-                                    child: Text(
-                                      (_username.text == retrieved.username
-                                          ? (_password.text !=
-                                                  retrieved.password
-                                              ? 'Please, check your email, we send you your password!'
-                                              : 'You have typed the correct log in information!')
-                                          : 'check your username please'),
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        color: Color(0xFF757474),
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w400,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      //primary: Color(0xFFEBEBEB),
-                                    ),
-                                    onPressed: () async {
-                                      bool hasKids = await _hasKid();
-                                      _username.text == retrieved.username
-                                          ? (_password.text !=
-                                                  retrieved.password
-                                              ? launchGmail()
-                                              : (hasKids
-                                                  ? Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              MainPage()),
-                                                    )
-                                                  : Navigator.replace(
-                                                      context,
-                                                      oldRoute: ModalRoute.of(
-                                                          context)!,
-                                                      newRoute: MaterialPageRoute(
-                                                          builder:
-                                                              (newcontext) =>
-                                                                  AddKid1()),
-                                                    )))
-                                          : Navigator.of(context).pop();
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 12, horizontal: 17),
-                                      child: Text(
-                                        (_username.text == retrieved.username
-                                            ? (_password.text !=
-                                                    retrieved.password
-                                                ? 'Open Gmail'
-                                                : 'Log in')
-                                            : 'Close'),
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 15,
-                                  )
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.only(top: 40),
-                child: SizedBox(
-                  width: 200,
-                  height: 44,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Color(0xFF00ADE9)),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                    onPressed: () async {
-                      bool isValid = await _infoValid();
-                      bool hasKids = await _hasKid();
-                      if (isValid && hasKids) {
-                        await _selectedKidBox.put('selectedKid', {
-                          'kid_id': _kidsBox.get('kiddo0')['kid_id'],
-                          'firstname':
-                              _kidsBox.get('kiddo0')['firstname'].toString(),
-                          'lastname':
-                              _kidsBox.get('kiddo0')['lastname'].toString(),
-                          'gender': _kidsBox.get('kiddo0')['gender'].toString(),
-                          'allergies': _kidsBox.get('kiddo0')['allergies'][0],
-                          'syndroms': _kidsBox.get('kiddo0')['syndroms'][0],
-                          'hobbies': _kidsBox.get('kiddo0')['hobbies'][0],
-                          'authorizedpickups':
-                              _kidsBox.get('kiddo0')['authorizedpickups'][0],
-                          'dateOfbirth': _kidsBox.get('kiddo0')['dateOfbirth'],
-                          'relationTochild': _kidsBox
-                              .get('kiddo0')['relationTochild']
-                              .toString(),
-                          'category_id': _kidsBox.get('kiddo0')['category_id'],
-                        });
-                        await _selectedKidBox.put('index', 0);
-                        await _myBox.put('isConnected', true);
-
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MainPage()));
-                      } else if (isValid && !hasKids) {
-                        await _myBox.put('isConnected', true);
-                        Navigator.replace(
-                          context,
-                          oldRoute: ModalRoute.of(context)!,
-                          newRoute: MaterialPageRoute(
-                              builder: (context) => AddKid1()),
-                        );
-                      } else if (!isValid)
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              contentPadding:
-                                  EdgeInsets.zero, // Remove default padding
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              content: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0xFFF42B4F),
-                                      offset: Offset(
-                                          -13, 0), // Apply shadow to the left
-                                    ),
-                                  ],
-                                ),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize
-                                      .min, // Ensure the column takes minimum space
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(top: 16),
-                                      child: Text(
-                                        'Ooops!',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontFamily: 'poppins',
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Text(
-                                        'Please, check your login information!',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color: Color(0xFF757474),
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        //primary: Color(0xFFEBEBEB),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 12, horizontal: 17),
-                                        child: Text(
-                                          'Try again',
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 15,
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                    },
-                    child: Text(
-                      'log in ',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w400,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+            );
+          }),
+        ));
   }
 }

@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/settings.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({Key? key}) : super(key: key);
@@ -140,7 +141,7 @@ class _SideBarState extends State<SideBar> {
                     ExpansionTile(
                       backgroundColor: Colors.transparent,
                       title: Text(
-                        'My Kids Profiles',
+                        AppLocalizations.of(context)!.myKidsProfiles,
                         style: TextStyle(
                           fontFamily: 'inter',
                           fontSize: 14,
@@ -179,20 +180,16 @@ class _SideBarState extends State<SideBar> {
                                   'authorizedpickups':
                                       kids[i].authorizedPickupper,
                                   'dateOfbirth': kids[i].dateOfBirth,
-                                  'relationTochild':
-                                      kids[i].relationshipToChild,
-                                  'category_id': kids[i].category_id,
                                 });
-                                selectedKid = kids[i];
                                 setState(() {
                                   selectedKid = kids[i];
                                 });
                               },
                             )
                         else
-                          Text('nokids'),
+                          Text('No kids'),
                         KidSelection(
-                            label: 'add Kid',
+                            label: AppLocalizations.of(context)!.addMyKid,
                             isSelected: false,
                             onTap: () {
                               Navigator.push(
@@ -209,7 +206,7 @@ class _SideBarState extends State<SideBar> {
                     ),
                     ListTile(
                       title: Text(
-                        'Settings',
+                        AppLocalizations.of(context)!.settings,
                         style: TextStyle(
                           fontFamily: 'inter',
                           fontSize: 14,
@@ -241,7 +238,7 @@ class _SideBarState extends State<SideBar> {
                     ),
                     ListTile(
                       title: Text(
-                        'About us',
+                        AppLocalizations.of(context)!.aboutUs,
                         style: TextStyle(
                           fontFamily: 'inter',
                           fontSize: 14,
@@ -270,7 +267,7 @@ class _SideBarState extends State<SideBar> {
                     ),
                     ListTile(
                       title: Text(
-                        'Log out',
+                        AppLocalizations.of(context)!.logOut,
                         style: TextStyle(
                           fontFamily: 'inter',
                           fontSize: 14,
@@ -302,8 +299,7 @@ class _SideBarState extends State<SideBar> {
                         Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => LoginPage()),
-                          (Route<dynamic> route) =>
-                              false, // This removes all the previous routes
+                          (Route<dynamic> route) => false,
                         );
                       },
                     )
@@ -349,7 +345,7 @@ class _SideBarState extends State<SideBar> {
                           );
                         },
                         child: Text(
-                          'View account',
+                          AppLocalizations.of(context)!.viewAccount,
                           style: TextStyle(
                             fontFamily: 'inter',
                             fontWeight: FontWeight.w500,

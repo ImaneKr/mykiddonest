@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:appmobile/models/kid.dart';
 import 'package:appmobile/view/components/guardianInfoField.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditProfile extends StatefulWidget {
   const EditProfile({Key? key}) : super(key: key);
@@ -134,7 +135,7 @@ class _EditProfileState extends State<EditProfile> {
         backgroundColor: Colors.white,
         title: Center(
           child: Text(
-            'Edit profile',
+            AppLocalizations.of(context)!.editProfile,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
           ),
         ),
@@ -152,7 +153,7 @@ class _EditProfileState extends State<EditProfile> {
                   color: Colors.grey.shade300,
                 ),
                 Text(
-                  'Done',
+                  AppLocalizations.of(context)!.done,
                   style: TextStyle(
                     color: Color.fromARGB(255, 134, 138, 148),
                     fontFamily: 'inter',
@@ -195,7 +196,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.firstName,
-                label: 'First name',
+                label: AppLocalizations.of(context)!.firstName,
                 onChange: (value) {
                   setState(() {
                     selectedKid.firstName = value;
@@ -205,7 +206,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.familyName,
-                label: 'Last name',
+                label: AppLocalizations.of(context)!.familyName,
                 onChange: (value) {
                   setState(() {
                     selectedKid.familyName = value;
@@ -214,8 +215,10 @@ class _EditProfileState extends State<EditProfile> {
               ),
               SizedBox(height: 12),
               GuardianInfoField(
-                initialValue: selectedKid.gender,
-                label: 'Gender',
+                initialValue: selectedKid.gender == 'Male'
+                    ? AppLocalizations.of(context)!.male
+                    : AppLocalizations.of(context)!.female,
+                label: AppLocalizations.of(context)!.gender,
                 onChange: (value) {
                   setState(() {
                     selectedKid.gender = value;
@@ -225,7 +228,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.dateOfBirth!,
-                label: 'Date Of birth',
+                label: AppLocalizations.of(context)!.dateOfBirth,
                 onChange: (value) {
                   setState(() {
                     selectedKid.dateOfBirth = DateTime.parse(value);
@@ -236,7 +239,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.hobbies,
-                label: 'Hobbies',
+                label: AppLocalizations.of(context)!.hobbies,
                 onChange: (value) {
                   setState(() {
                     selectedKid.hobbies = value;
@@ -246,7 +249,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.syndromes,
-                label: 'Syndromes',
+                label: AppLocalizations.of(context)!.syndromes,
                 onChange: (value) {
                   setState(() {
                     selectedKid.syndromes = value;
@@ -256,7 +259,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.allergies,
-                label: 'Allergies',
+                label: AppLocalizations.of(context)!.allergies,
                 onChange: (value) {
                   setState(() {
                     selectedKid.allergies = value;
@@ -266,7 +269,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.authorizedPickupper,
-                label: 'Authorized pick-up persons',
+                label: AppLocalizations.of(context)!.authorizedPickupPersons,
                 onChange: (value) {
                   setState(() {
                     selectedKid.authorizedPickupper = value;
@@ -276,7 +279,7 @@ class _EditProfileState extends State<EditProfile> {
               SizedBox(height: 12),
               GuardianInfoField(
                 initialValue: selectedKid.relationshipToChild,
-                label: 'Relationship to child',
+                label: AppLocalizations.of(context)!.relationshipToChild,
                 onChange: (value) {
                   setState(() {
                     selectedKid.relationshipToChild = value;
@@ -290,7 +293,7 @@ class _EditProfileState extends State<EditProfile> {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  'Save Changes',
+                  AppLocalizations.of(context)!.saveChanges,
                   style: TextStyle(
                     fontFamily: 'inter',
                     fontSize: 16,

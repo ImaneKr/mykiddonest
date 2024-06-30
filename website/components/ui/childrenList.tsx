@@ -6,6 +6,8 @@ import {TbTrash} from 'react-icons/tb'
 import ImagePicker from './imagePicker';
 import Image from 'next/image';
 import ChildrenField from '../childrenField';
+import Axios from 'axios';
+
 
 const ChildrenList = () => {
 
@@ -88,6 +90,34 @@ function DeleteUserActionItem({
   const [open, setOpen] = React.useState(false);
   const [selectedImagePath,setSelectedImagePath] =useState<string>('');
   const [accountInfo, setAccountInfo] = useState({ name: '', date:'', allergies:'', syndromes:'', hobbies:'', authorizedPerson:'' , image:'/person-3.png'});
+  const saveChanges = async () => {
+    try {
+      // Prepare the data to be sent to the backend
+      const data = {
+       // Assuming you have the kid's ID
+        firstname: accountInfo.name.split(' ')[0], // Extract first name from full name
+        lastname: accountInfo.name.split(' ')[1], // Extract last name from full name
+        dateOfbirth: accountInfo.date,
+        allergies: accountInfo.allergies.split(','),
+        hobbies: accountInfo.hobbies,
+        authorizedpickups: accountInfo.authorizedPerson,
+        syndromes: accountInfo.syndromes,
+      };
+
+      // Send a POST request to your backend API endpoint
+      const response = await Axios.post('/api/editKidProfile', data);
+      
+      // Handle success
+      console.log('Edit successful:', response.data);
+      // Optionally, you can close the dialog or perform other actions upon successful edit
+      setOpen(false);
+    } catch (error) {
+      // Handle error
+      console.error('Error editing KidProfile:', error);
+      // Optionally, you can display an error message to the user
+    }
+  };
+  
 
   return (
     <React.Fragment>

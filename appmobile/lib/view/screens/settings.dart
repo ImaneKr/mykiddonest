@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:appmobile/view/screens/payment.dart';
 import 'package:appmobile/controller/user_controller.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Settings extends StatefulWidget {
   const Settings({Key? key}) : super(key: key);
@@ -72,7 +73,7 @@ class _SettingsState extends State<Settings> {
                       SizedBox(width: 10),
                       Center(
                         child: Text(
-                          'Settings',
+                          AppLocalizations.of(context)!.settings,
                           style: TextStyle(
                             fontFamily: 'intel',
                             fontSize: 20,
@@ -207,7 +208,7 @@ class _SettingsState extends State<Settings> {
                     bottom: 2,
                   ),
                   child: Text(
-                    'Account',
+                    AppLocalizations.of(context)!.account,
                     style: TextStyle(
                       fontFamily: 'intel',
                       fontWeight: FontWeight.w400,
@@ -224,7 +225,7 @@ class _SettingsState extends State<Settings> {
                 Icons.person,
                 color: Colors.black,
               ),
-              title: Text('Personal information'),
+              title: Text(AppLocalizations.of(context)!.personalInformation),
               trailing: Icon(
                 Icons.arrow_forward_ios,
               ),
@@ -246,7 +247,7 @@ class _SettingsState extends State<Settings> {
                     bottom: 2,
                   ),
                   child: Text(
-                    'Appearance',
+                    AppLocalizations.of(context)!.appearance,
                     style: TextStyle(
                       fontFamily: 'intel',
                       fontWeight: FontWeight.w400,
@@ -260,12 +261,12 @@ class _SettingsState extends State<Settings> {
             SizedBox(height: 6),
             ListTile(
               leading: Icon(
-                Icons.brightness_2,
+                Icons.dark_mode_rounded,
                 color: Colors.black,
               ),
-              title: Text('Night mode'),
+              title: Text(AppLocalizations.of(context)!.nightMode),
               trailing: Switch(
-                value: true,
+                value: false,
                 onChanged: (bool value) {},
               ),
             ),
@@ -280,7 +281,7 @@ class _SettingsState extends State<Settings> {
                     bottom: 2,
                   ),
                   child: Text(
-                    'Other Settings',
+                    AppLocalizations.of(context)!.otherSettings,
                     style: TextStyle(
                       fontFamily: 'intel',
                       fontWeight: FontWeight.w400,
@@ -296,7 +297,7 @@ class _SettingsState extends State<Settings> {
                 Icons.notifications,
                 color: Colors.black,
               ),
-              title: Text('Notification'),
+              title: Text(AppLocalizations.of(context)!.notification),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.of(context).push(
@@ -309,7 +310,7 @@ class _SettingsState extends State<Settings> {
                 color: Colors.black,
               ),
               //iconColor: Colors.black,
-              title: Text('Payment'),
+              title: Text(AppLocalizations.of(context)!.payment),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.of(context)

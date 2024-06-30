@@ -2,9 +2,9 @@ import 'package:appmobile/models/ddaySubjects.dart';
 import 'package:appmobile/view/components/dayContainer.dart';
 import 'package:appmobile/view/components/ddaySubjectContainers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimeTable extends StatefulWidget {
-
   const TimeTable({Key? key}) : super(key: key);
 
   @override
@@ -74,7 +74,7 @@ class _TimeTableState extends State<TimeTable> {
             height: 10,
           ),
           Text(
-            '\t\t\tTime Table',
+            '\t\t\t' + AppLocalizations.of(context)!.timeTable,
             style: TextStyle(
               fontFamily: 'inter',
               fontSize: 25,

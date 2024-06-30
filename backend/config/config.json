@@ -1,29 +1,23 @@
 {
   "development": {
-    "dialect": "mysql",
-    "host": "${process.env.HOST}",
-    "port": "${process.env.PORT}",
     "username": "${process.env.USER}",
     "password": "${process.env.DB_PASSWORD}",
     "database": "${process.env.NAME}",
-    "logging": false
+    "host": "${process.env.HOST}",
+    "dialect": "mysql"
   },
   "test": {
-    "dialect": "mysql",
-    "host": "${process.env.HOST}",
-    "port": "${process.env.PORT}",
     "username": "${process.env.USER}",
     "password": "${process.env.DB_PASSWORD}",
     "database": "${process.env.NAME}",
-    "logging": false
+    "host": "${process.env.HOST}",
+    "dialect": "mysql"
   },
   "production": {
-    "dialect": "mysql",
-    "host": "${process.env.HOST}",
-    "port": "${process.env.PORT}",
     "username": "${process.env.USER}",
     "password": "${process.env.DB_PASSWORD}",
     "database": "${process.env.NAME}",
-    "logging": false
+    "host": "${process.env.HOST}",
+    "dialect": "mysql"
   }
 }

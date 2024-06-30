@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Subject {
-  final int? subjctId;
+  final int? subjectId;
   final String label;
   final TimeOfDay startingTime;
   final TimeOfDay endingTime;
-  final int pourcentage;
+  final int percentage;
   final String icon;
   final String description;
 
@@ -17,12 +18,12 @@ class Subject {
     5: 'assets/images/fitness.png',
   };
 
-  static Map<int, String> subjectLabels = {
-    1: 'Letters',
-    2: 'Numbers',
-    3: 'Art',
-    4: 'Communication',
-    5: 'Physical skills',
+  static Map<int, String Function(BuildContext)> subjectLabels = {
+    1: (context) => AppLocalizations.of(context)!.letters,
+    2: (context) => AppLocalizations.of(context)!.numbers,
+    3: (context) => AppLocalizations.of(context)!.art,
+    4: (context) => AppLocalizations.of(context)!.communication,
+    5: (context) => AppLocalizations.of(context)!.physicalSkills,
   };
 
   static Map<int, String> subjectDescription = {
@@ -34,12 +35,13 @@ class Subject {
   };
 
   Subject({
-    this.subjctId,
+    this.subjectId,
+    required BuildContext context,
     this.startingTime = const TimeOfDay(hour: 0, minute: 0),
     this.endingTime = const TimeOfDay(hour: 0, minute: 0),
-    this.pourcentage = 0,
-  })  : label = subjectLabels[subjctId] ?? 'Unknown Subject',
-        icon = subjectsImage[subjctId] ?? 'assets/images/default.png',
+    this.percentage = 0,
+  })  : label = subjectLabels[subjectId]?.call(context) ?? 'Unknown Subject',
+        icon = subjectsImage[subjectId] ?? 'assets/images/default.png',
         description =
-            subjectDescription[subjctId] ?? 'No description available.';
+            subjectDescription[subjectId] ?? 'No description available.';
 }

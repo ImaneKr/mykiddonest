@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:appmobile/models/kid.dart';
 import 'package:appmobile/models/subject.dart';
 import 'package:appmobile/view/components/subjectEvaluation.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Evaluation extends StatefulWidget {
   const Evaluation({Key? key}) : super(key: key);
@@ -25,28 +26,26 @@ class _EvaluationState extends State<Evaluation> {
   void initState() {
     super.initState();
     loadKidData();
-    fetchData();
   }
 
   Future<void> fetchData() async {
-    final _selectedKidBox = Hive.box('selectedKid');
-
     List<Map<String, dynamic>> evaluations =
         await fetchEvaluations(selectedKid.kidId);
 
     setState(() {
       subjects = evaluations.map((subject) {
         int subjectId = subject['subject_id'];
-        int pourcentage = subject['mark'];
+        int percentage = subject['mark'];
         return Subject(
-          subjctId: subjectId,
-          pourcentage: pourcentage,
+          subjectId: subjectId,
+          percentage: percentage,
+          context: context,
         );
       }).toList();
 
-      double pourcentagesSum =
-          subjects.fold(0, (sum, subject) => sum + subject.pourcentage);
-      starsNb = ((pourcentagesSum * 5 / 100)).toInt();
+      double percentagesSum =
+          subjects.fold(0, (sum, subject) => sum + subject.percentage);
+      starsNb = ((percentagesSum * 5 / 100)).toInt();
       isLoading = false;
     });
   }
@@ -78,7 +77,7 @@ class _EvaluationState extends State<Evaluation> {
           firstName: kidData['firstname'],
           familyName: kidData['lastname'],
           gender: kidData['gender'],
-          dateOfBirth: DateTime.parse(kidData['dateOfbirth'])!,
+          dateOfBirth: DateTime.parse(kidData['dateOfbirth']),
           allergies: kidData['allergies'][0],
           syndromes: kidData['syndroms'][0],
           hobbies: kidData['hobbies'][0],
@@ -86,6 +85,7 @@ class _EvaluationState extends State<Evaluation> {
           relationshipToChild: kidData['relationTochild'],
         );
       });
+      await fetchData();
     } catch (e) {
       print('Failed to load kid data: $e');
     }
@@ -124,7 +124,7 @@ class _EvaluationState extends State<Evaluation> {
                     children: [
                       SizedBox(height: 15),
                       Text(
-                        'Your child\'s evaluation',
+                        AppLocalizations.of(context)!.yourChildsEvaluation,
                         style: TextStyle(
                           color: Color.fromARGB(203, 11, 11, 11),
                           fontFamily: 'inter',
@@ -173,7 +173,7 @@ class _EvaluationState extends State<Evaluation> {
                             child: SubjectEvaluation(
                               color: color,
                               subject: subject,
-                              pourcentage: subject.pourcentage.toDouble(),
+                              pourcentage: subject.percentage.toDouble(),
                               progressColor: color,
                             ),
                           );

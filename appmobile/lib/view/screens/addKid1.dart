@@ -6,6 +6,7 @@ import 'package:appmobile/view/components/kifInfoField.dart';
 import 'package:hive/hive.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddKid1 extends StatefulWidget {
   @override
@@ -62,6 +63,7 @@ class _AddKid1State extends State<AddKid1> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+            Text(AppLocalizations.of(context)!.addMyKid),
             Container(
               margin: EdgeInsets.only(top: 40),
             ),

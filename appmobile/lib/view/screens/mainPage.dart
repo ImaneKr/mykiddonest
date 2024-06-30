@@ -9,6 +9,7 @@ import 'package:appmobile/view/bodies/timeTable.dart';
 import 'package:appmobile/view/bodies/sideBar.dart';
 import 'package:appmobile/view/screens/notification.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key});
@@ -86,28 +87,28 @@ class _MainPageState extends State<MainPage> {
             icon: Image.asset('assets/icons/home.png', width: 23, height: 23),
             activeIcon: Image.asset('assets/icons/activeHome.png',
                 width: 23, height: 23), // Icon
-            label: 'Home', // Label
+            label: AppLocalizations.of(context)!.home, // Label
           ),
           BottomNavigationBarItem(
             icon: Image.asset('assets/icons/timeTable.png',
                 width: 23, height: 23),
             activeIcon: Image.asset('assets/icons/activeTimetable.png',
                 width: 23, height: 23), // Icon
-            label: 'Time Table', // Label
+            label: AppLocalizations.of(context)!.timeTable, // Label
           ),
           BottomNavigationBarItem(
             icon: Image.asset('assets/icons/evaluation.png',
                 width: 23, height: 23),
             activeIcon: Image.asset('assets/icons/activeEvaluation.png',
                 width: 23, height: 23), // Icon
-            label: 'Evaluation', // Label
+            label: AppLocalizations.of(context)!.evaluation, // Label
           ),
           BottomNavigationBarItem(
             icon:
                 Image.asset('assets/icons/profile.png', width: 23, height: 23),
             activeIcon: Image.asset('assets/icons/activeProfile.png',
                 width: 23, height: 23), // Icon
-            label: 'Profile', // Label
+            label: AppLocalizations.of(context)!.profile, // Label
           ),
         ],
         selectedItemColor: Color(0xFF8BC62A),
